@@ -7,6 +7,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [When to use Feature Garden](#when-to-use-feature-garden)
 - [When not to use Feature Garden](#when-not-to-use-feature-garden)
 - [Core Idea](#core-idea)
+- [API Library](#api-library)
 
 ## Problem
 
@@ -64,6 +65,48 @@ graph LR
     app --> |can import|libs-api
 ```
 **Enforce these rules with ESLint or an equivalent tool.**
+
+## API Library
+
+The goal of the API Library is to provide convenient abstractions for reading and updating data across the application. The idea is that the feature called `useTasks` should not care about:
+- REST or GraphQL
+- axios or fetch
+- get data from cache or fetch from server
+- cache invalidation
+- backend or IndexedDB
+The feature is just using abstraction, which is common and convenient in your framework, and it works.
+
+This architecture does not impose strict rules on the API library's internal structure. The exact structure depends on the needs and complexity of your project.
+
+One possible way to organize it could look like this:
+```
+libs/api/
+├── _internal/
+│   └── db.ts                     # Private implementation details
+├── active-task/
+│   ├── completeActiveTask.ts    
+│   ├── model.ts                  # ActiveTaskState type
+│   ├── pauseActiveTask.ts       
+│   ├── startTask.ts             
+│   └── useActiveTaskState.ts     
+├── tasks/
+│   ├── createTask.ts             
+│   ├── deleteTask.ts             
+│   ├── model.ts                  # Task type
+│   ├── reopenTask.ts             
+│   ├── useTask.ts               
+│   ├── useTasks.ts               
+│   └── updateTaskName.ts        
+└── time-intervals/
+    ├── createTimeInterval.ts    
+    ├── deleteTimeInterval.ts    
+    ├── model.ts                  # TimeInterval type
+    ├── updateTimeInterval.ts   
+    ├── useTaskDuration.ts       
+    └── useTaskTimeIntervals.ts
+```
+
+
 
 
 

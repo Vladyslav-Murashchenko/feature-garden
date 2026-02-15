@@ -1,5 +1,7 @@
 # Feature Garden Front-End Architecture
 
+> This document is not quite ready
+
 Feature Garden is an opinionated feature-based architecture for component-based front-end applications.
 
 - [Problem](#problem)

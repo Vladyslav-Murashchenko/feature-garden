@@ -12,6 +12,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [API Library](#api-library)
 - [UI Library](#ui-library)
 - [Features](#features)
+- [License](#license)
 
 ## Problem
 
@@ -235,7 +236,15 @@ features/
                     └── validateInterval.test.ts
 ```
 
+## License
 
+© 2026-present Vladyslav Murashchenko
+
+Feature Garden is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+You are free to use, modify, and distribute this work, including commercially. Just make sure to give credit to the original author.
+
+See the LICENSE file for full details.
 
 
 

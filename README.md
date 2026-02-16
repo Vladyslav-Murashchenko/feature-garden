@@ -11,6 +11,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [Core Idea](#core-idea)
 - [API Library](#api-library)
 - [UI Library](#ui-library)
+- [Features](#features)
 
 ## Problem
 
@@ -20,7 +21,7 @@ Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) i
 
 ## Solution
 Feature Garden is an opinionated feature-based architecture inspired by components and nature.
-It is designed to scale naturally from a single feature to a complex system, just like a garden grows from a small tree. Feature Garden is conducive to SoC, low coupling, high cohesion, KISS, DRY, YAGNI, and Local Reasoning.
+It is designed to scale naturally from a single feature to a complex system, just like a garden grows from a small tree. Feature Garden is conducive to SoC, low coupling, high cohesion, KISS, DRY, YAGNI, and local reasoning.
 
 ## When to use Feature Garden
 
@@ -122,6 +123,8 @@ The goal of the UI library is to provide a reusable abstraction for the applicat
 
 The feature is just using the component, and it works.
 
+Abstractions inside the UI library must not know anything about your domain. For example, having `TaskModal` inside the UI library would be wrong, because the UI library shouldn't know that the app is about tasks.
+
 You may choose not to have an internal UI library at all and use an external one. However, there are strong reasons to introduce an internal UI layer:
 
 - The external libraries API is usually too generic, so in the internal library, you can make it simpler
@@ -152,6 +155,87 @@ libs/ui/
 ├── TextField.tsx               
 └── Toast.tsx                 
 ```
+
+## Features
+
+The goal of a feature is to compose UI and API into a cohesive unit of user-facing functionality.
+
+In practice, a feature is a folder that contains modules (primarily components).
+
+By default, all modules inside a feature are private. A module becomes public only if it is explicitly exported from the feature’s public entry point (index.ts).
+
+Features may contain nested features.
+
+Each feature is fully independent. Import rules enforce strict boundaries:
+
+- A feature must not import sibling features (restricted via `../**`)
+- A feature must not import from its parent feature (restricted via `../**`)
+- A feature must not import private modules from its child features (restricted via `./*/**`)
+
+**Enforce these rules with ESLint or an equivalent tool.**
+
+Features do not contain technical subfolders such as `components`, `hooks`, or `utils`. Every folder inside a feature represents a nested feature, not a technical grouping.
+
+If you feel the need to introduce folders like `components` or `utils`, it is likely a sign that:
+- Some modules should be grouped into a nested feature, or
+- The logic belongs to the `libs` layer.
+
+**Tip:** Start with small features. They can be easily composed into larger ones later if needed.
+
+Example structure:
+```
+features/
+└── tasks/               # This app has only one root feature, this is fine
+    ├── index.ts         # exports Tasks
+    ├── Filters.tsx
+    ├── TaskList.tsx     # imports Task
+    ├── Tasks.tsx        # imports CreateTask, ActiveTask
+    ├── Tasks.test.tsx
+    ├── useTemporaryHiddenTaskId.ts
+    ├── active-task/
+    │   ├── index.ts     # exports ActiveTask
+    │   ├── ActiveTask.tsx
+    │   ├── ActiveTask.test.tsx
+    │   ├── TaskName.tsx
+    │   └── Timer.tsx
+    ├── create-task/
+    │   ├── index.ts     # exports CreateTask
+    │   ├── CreateTask.tsx
+    │   ├── CreateTask.test.tsx
+    │   └── useAutoFocusOnDesktop.ts
+    └── task/
+        ├── index.ts     # exports Task
+        ├── DeleteTask.tsx
+        ├── Task.tsx
+        ├── Task.test.tsx
+        ├── TaskDuration.tsx           # imports TimeIntervalsModal
+        ├── TaskName.tsx
+        └── time-intervals/
+            ├── index.ts               # exports TimeIntervalsModal
+            ├── AddIntervalButton.tsx  # imports CreateInterval
+            ├── TimeInterval.tsx       # imports EditInterval
+            ├── TimeIntervals.tsx
+            ├── TimeIntervalsModal.tsx
+            ├── TimeIntervalsModal.test.tsx
+            ├── sortIntervals.ts
+            ├── sortIntervals.test.ts
+            └── interval-forms/
+                ├── index.ts           # exports CreateInterval, EditInterval
+                ├── CreateInterval.tsx       # imports IntervalForm
+                ├── CreateInterval.test.tsx
+                ├── CreateInterval.utils.ts
+                ├── CreateInterval.utils.test.ts
+                ├── EditInterval.tsx         # imports IntervalForm
+                ├── EditInterval.test.tsx
+                └── interval-form/
+                    ├── index.ts             # exports IntervalForm
+                    ├── IntervalForm.tsx
+                    ├── IntervalForm.test.tsx
+                    ├── validateInterval.ts
+                    └── validateInterval.test.ts
+```
+
+
 
 
 

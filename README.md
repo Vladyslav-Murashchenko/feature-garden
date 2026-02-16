@@ -6,8 +6,8 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 
 - [Problem](#problem)
 - [Solution](#solution)
-- [When to use Feature Garden](#when-to-use-feature-garden)
-- [When not to use Feature Garden](#when-not-to-use-feature-garden)
+- [When to use](#when-to-use)
+- [When not to use](#when-not-to-use)
 - [Core Idea](#core-idea)
 - [API Library](#api-library)
 - [UI Library](#ui-library)
@@ -24,14 +24,14 @@ Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) i
 Feature Garden is an opinionated feature-based architecture inspired by components and nature.
 It is designed to scale naturally from a single feature to a complex system, just like a garden grows from a small tree. Feature Garden is conducive to SoC, low coupling, high cohesion, KISS, DRY, YAGNI, and local reasoning.
 
-## When to use Feature Garden
+## When to use
 
 - Your product is expected to grow in scope and complexity
 - You want a clear evolution path from MVP to large-scale systems
 - You value feature isolation, low coupling, local reasoning, and strong developer experience
 - You prefer simplicity and pragmatism over architectural purity
 
-## When not to use Feature Garden
+## When not to use
 
 - The project is small and unlikely to grow
 - The team is not ready to enforce architectural boundaries

@@ -13,6 +13,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [UI Library](#ui-library)
 - [Features](#features)
 - [Shared features](#shared-features)
+- [App](#app)
 - [License](#license)
 
 ## Problem
@@ -250,7 +251,7 @@ It still contains features and follows the same rules.
 The only difference is that a feature can only be imported by its parent feature or by the `app` layer.
 Shared features are an exception - they can be imported from any place by other features.
 
-Shared features are not the primary mechanism for structuring an application.
+**Shared features are not the primary mechanism for structuring an application.**
 They represent a deliberate trade-off, used only when avoiding duplication (DRY) is more important than preserving strict architectural isolation.
 
 Example:
@@ -271,6 +272,11 @@ shared-features/
     ├── EditTaskNameModal.tsx
     └── EditTaskNameModal.test.tsx
 ```
+
+## App
+
+The purpose of the App layer is to compose features into the final application.
+Composition should follow the conventions and mechanisms provided by your framework.
 
 ## License
 

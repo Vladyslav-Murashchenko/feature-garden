@@ -15,6 +15,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [Features](#features)
 - [Shared features](#shared-features)
 - [App](#app)
+- [Additional libs](#additional-libs)
 - [License](#license)
 
 ## Problem
@@ -293,6 +294,16 @@ shared-features/
 
 The purpose of the App layer is to compose features into the final application.
 Composition should follow the conventions and mechanisms provided by your framework.
+
+## Additional libs
+
+The `libs` folder may contain more than just `ui` and `api`.
+
+You may introduce additional internal libraries when:
+
+- You rely on an external dependency but do not want the entire application to depend on it directly.  
+  In this case, create an internal library inside `libs` and encapsulate the external dependency there.
+- You have code that is neither UI nor API, but needs to be shared across multiple features. A typical example is global atomic state management.
 
 ## License
 

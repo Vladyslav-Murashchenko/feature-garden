@@ -9,6 +9,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [When to use](#when-to-use)
 - [When not to use](#when-not-to-use)
 - [Core Idea](#core-idea)
+- [Example Project](#example-project)
 - [API Library](#api-library)
 - [UI Library](#ui-library)
 - [Features](#features)
@@ -72,6 +73,21 @@ graph LR
     app --> |can import|libs-api
 ```
 **Enforce these rules with ESLint or an equivalent tool.**
+
+## Example Project
+
+A full working example built using Feature Garden is available here:
+
+https://github.com/Vladyslav-Murashchenko/productivity-up
+
+The project demonstrates:
+- Layer separation (`libs`, `features`, `app`)
+- Strict import boundaries enforced with ESLint
+- Nested feature composition
+- Practical usage of shared feature
+- Additional library `libs/animations`
+
+It represents a small but complete application that can be used as a reference implementation.
 
 ## API Library
 

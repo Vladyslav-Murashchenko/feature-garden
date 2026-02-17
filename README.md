@@ -1,7 +1,5 @@
 # Feature Garden Front-End Architecture
 
-> This document is not quite ready
-
 Feature Garden is an opinionated feature-based architecture for component-based front-end applications.
 
 - [Problem](#problem)
@@ -16,12 +14,13 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [Shared features](#shared-features)
 - [App](#app)
 - [Additional libs](#additional-libs)
+- [The Garden Metaphor](#the-garden-metaphor)
 - [License](#license)
 
 ## Problem
 
 One of the main problems in modern application development is controlling complexity as applications grow.
-Existing approaches often optimize either for early development speed or for large-scale, but struggle to provide a clear growth path from zero to complexity.
+Existing approaches often optimize either for early development speed or for scalability, but struggle to provide a clear growth path from zero to complexity.
 Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) in favor of strict rules and structure. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.
 
 ## Solution
@@ -67,11 +66,11 @@ graph LR
     features["features"]
     app["app"]
 
-    features --> |always import|libs-ui
-    features --> |always import|libs-api
-    app -->|import| features
-    app --> |can import|libs-ui
-    app --> |can import|libs-api
+    features --> |depend on|libs-ui
+    features --> |depend on|libs-api
+    app -->|depend on| features
+    app --> |may depend on|libs-ui
+    app --> |may depend on|libs-api
 ```
 **Enforce these rules with ESLint or an equivalent tool.**
 
@@ -92,7 +91,7 @@ It represents a small but complete application that can be used as a reference i
 
 ## API Library
 
-The goal of the API Library is to provide convenient abstractions for reading and updating data across the application. The idea is that the feature called `useTasks` should not care about:
+The goal of the API Library is to provide convenient abstractions for reading and updating data across the application. The idea is that a feature called `useTasks` should not care about:
 
 - REST or GraphQL
 - axios or fetch
@@ -100,7 +99,7 @@ The goal of the API Library is to provide convenient abstractions for reading an
 - cache invalidation
 - backend or IndexedDB
 
-The feature is just using abstraction, which is common and convenient in your framework, and it works.
+A feature simply consumes the abstraction provided by the API layer.
 
 This architecture does not impose strict rules on the API library's internal structure. The exact structure depends on the needs and complexity of your project.
 
@@ -258,7 +257,7 @@ features/
 ## Shared features
 
 Sometimes a block of functionality - combining both UI and API - needs to be reused across multiple features. 
-In such cases, it does not naturally belong to any single feature. And it cannot be in the library because it is already a composition.
+In such cases, it does not naturally belong to any single feature. It cannot belong to the `libs` layer because it already represents a composition of UI and API.
 
 This is the only valid reason to introduce a shared feature.
 
@@ -304,6 +303,28 @@ You may introduce additional internal libraries when:
 - You rely on an external dependency but do not want the entire application to depend on it directly.  
   In this case, create an internal library inside `libs` and encapsulate the external dependency there.
 - You have code that is neither UI nor API, but needs to be shared across multiple features. A typical example is global atomic state management.
+
+## The Garden Metaphor
+
+Imagine a world with countless plants.  
+They are different, yet share the same chemical compounds.
+
+In the Feature Garden metaphor:
+
+- Chemical compounds are `libs`
+- Plants are `features`
+- The garden is the `app`
+
+Chemical compounds are reusable across plants.  
+Each plant in the garden is unique and self-contained.  
+The garden determines which plants exist and how they are arranged.
+
+Most plants grow independently, like trees.  
+But there are also vines (`shared-features`) — a special kind of plant that wraps around others.
+
+Vines are useful, but if the garden contains too many of them, it can turn into an impenetrable jungle.
+
+Use `shared-features` with caution.
 
 ## License
 

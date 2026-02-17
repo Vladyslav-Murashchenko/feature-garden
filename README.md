@@ -12,6 +12,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [API Library](#api-library)
 - [UI Library](#ui-library)
 - [Features](#features)
+- [Shared features](#shared-features)
 - [License](#license)
 
 ## Problem
@@ -183,7 +184,7 @@ If you feel the need to introduce folders like `components` or `utils`, it is li
 
 **Tip:** Start with small features. They can be easily composed into larger ones later if needed.
 
-Example structure:
+Example:
 ```
 features/
 └── tasks/               # This app has only one root feature, this is fine
@@ -234,6 +235,41 @@ features/
                     ├── IntervalForm.test.tsx
                     ├── validateInterval.ts
                     └── validateInterval.test.ts
+```
+
+## Shared features
+
+Sometimes a block of functionality - combining both UI and API - needs to be reused across multiple features. 
+In such cases, it does not naturally belong to any single feature. And it cannot be in the library because it is already a composition.
+
+This is the only valid reason to introduce a shared feature.
+
+The `shared-features` folder is not a separate architectural layer. 
+It still contains features and follows the same rules.
+
+The only difference is that a feature can only be imported by its parent feature or by the `app` layer.
+Shared features are an exception - they can be imported from any place by other features.
+
+Shared features are not the primary mechanism for structuring an application.
+They represent a deliberate trade-off, used only when avoiding duplication (DRY) is more important than preserving strict architectural isolation.
+
+Example:
+```
+features/
+└── tasks/           
+    ├── ...
+    ├── active-task/
+    │   ├── ...
+    │   └── TaskName.tsx      # imports EditTaskNameModal
+    └── task/
+        ├── ...
+        └── TaskName.tsx      # imports EditTaskNameModal
+shared-features/
+└── edit-task-name/
+    ├── index.ts              # exports EditTaskNameModal
+    ├── EditTaskNameForm.tsx
+    ├── EditTaskNameModal.tsx
+    └── EditTaskNameModal.test.tsx
 ```
 
 ## License

@@ -91,13 +91,17 @@ It represents a small but complete application that can be used as a reference i
 
 ## API Library
 
-The goal of the API Library is to provide convenient abstractions for reading and updating data across the application. The idea is that a feature called `useTasks` should not care about:
+The goal of the API Library is to avoid duplication of data-related code across the application.
+It provides convenient abstractions for reading and updating data.
+The exact form of these abstractions depends on the framework being used, the data fetching and caching strategies, and how much implementation detail you want to hide from features.
 
-- REST or GraphQL
-- axios or fetch
-- get data from cache or fetch from server
-- cache invalidation
-- backend or IndexedDB
+For example, an abstraction can hide details about:
+
+- Whether data is retrieved from the backend or from IndexedDB
+- Whether data comes from cache or requires a server request
+- How cache invalidation is implemented
+- Whether Axios or the native Fetch API is used
+- Whether the API uses REST or GraphQL
 
 A feature simply consumes the abstraction provided by the API layer.
 
@@ -132,7 +136,8 @@ libs/api/
 ```
 
 ## UI Library
-The goal of the UI library is to provide a reusable abstraction for the application's appearance. The idea is that when the feature uses the `Button` component, it should not care about:
+The goal of the UI library is to provide a reusable abstraction for the application's appearance. 
+The idea is that when a feature uses the `Button` component, it should not care about:
 
 - Whether it is built from scratch or uses an external UI library
 - How theming is implemented
@@ -140,7 +145,7 @@ The goal of the UI library is to provide a reusable abstraction for the applicat
 - Animation and interaction details
 - How consistency with the design system is maintained
 
-The feature is just using the component, and it works.
+The feature simply uses the component provided by the UI library.
 
 Abstractions inside the UI library must not know anything about your domain. For example, having `TaskModal` inside the UI library would be wrong, because the UI library shouldn't know that the app is about tasks.
 

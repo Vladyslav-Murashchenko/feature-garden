@@ -103,7 +103,7 @@ For example, an abstraction can hide details about:
 - Whether Axios or the native Fetch API is used
 - Whether the API uses REST or GraphQL
 
-A feature simply consumes the abstraction provided by the API layer.
+A feature simply consumes the abstraction provided by the API library.
 
 This architecture does not impose strict rules on the API library's internal structure. The exact structure depends on the needs and complexity of your project.
 

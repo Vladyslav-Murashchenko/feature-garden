@@ -52,7 +52,7 @@ The app has 3 layers:
   Typically includes:
   - **UI library** (`Button`, `Input`, `ConfirmModal`)
   - **API library** (`useTasks`, `createTask`, `startTask`)
-  - **Domain library** (optional, `calculateDuration`, `validateInterval`)
+  - **Domain library** (`calculateDuration`, `validateInterval`)
 `
 - **features** — user-facing capabilities composed from libs.  
   Features can be nested, forming a tree-like structure  

@@ -8,6 +8,7 @@ Feature Garden is an opinionated feature-based architecture for component-based 
 - [When not to use](#when-not-to-use)
 - [Core Idea](#core-idea)
 - [Example Project](#example-project)
+- [Domain Library](#domain-library)
 - [API Library](#api-library)
 - [UI Library](#ui-library)
 - [Features](#features)
@@ -51,7 +52,8 @@ The app has 3 layers:
   Typically includes:
   - **UI library** (`Button`, `Input`, `ConfirmModal`)
   - **API library** (`useTasks`, `createTask`, `startTask`)
-
+  - **Domain library** (optional, `calculateDuration`, `validateInterval`)
+`
 - **features** — user-facing capabilities composed from libs.  
   Features can be nested, forming a tree-like structure  
   (`tasks`, `active-task`, `time-intervals`).
@@ -63,14 +65,15 @@ These layers follow the import rules shown below:
 graph LR
     libs-ui["libs/ui"]
     libs-api["libs/api"]
+    libs-domain["libs/domain"]
     features["features"]
     app["app"]
 
-    features --> |depend on|libs-ui
-    features --> |depend on|libs-api
-    app -->|depend on| features
-    app --> |may depend on|libs-ui
-    app --> |may depend on|libs-api
+    features --> libs-ui
+    features --> libs-api
+    features --> libs-domain
+    libs-api --> libs-domain
+    app --> features
 ```
 **Enforce these rules with ESLint or an equivalent tool.**
 
@@ -89,9 +92,39 @@ The project demonstrates:
 
 It represents a small but complete application that can be used as a reference implementation.
 
+## Domain Library
+
+The goal of the domain library is to extract domain logic from features, centralize it in one place, and make it reusable across the entire application.
+
+A domain library is not mandatory. Many front-end applications don't need one because most domain logic lives on the backend.
+
+However, some applications — especially offline-first ones — require significant client-side domain logic, and a dedicated domain library can help keep that logic organized and reusable.
+
+This architecture does not impose strict rules on the domain library's internal structure. 
+The exact structure depends on the needs and complexity of your project.
+
+One possible way to organize it could look like this:
+```
+libs/domain/
+    ├── active-task/
+    │   └── model.ts
+    ├── tasks/
+    │   └── model.ts
+    └── time-intervals/
+        ├── calculateDuration.ts
+        ├── calculateDuration.test.ts
+        ├── getInitial.ts
+        ├── getInitial.test.ts
+        ├── model.ts
+        ├── sortIntervals.ts
+        ├── sortIntervals.test.ts
+        ├── validateInterval.ts
+        └── validateInterval.test.ts
+```
+
 ## API Library
 
-The goal of the API Library is to avoid duplication of data-related code across the application.
+The goal of the API Library is to avoid duplication of API related code across the application.
 It provides convenient abstractions for reading and updating data.
 The exact form of these abstractions depends on the framework being used, the data fetching and caching strategies, and how much implementation detail you want to hide from features.
 
@@ -134,6 +167,7 @@ libs/api/
     ├── useTaskDuration.ts       
     └── useTaskTimeIntervals.ts
 ```
+
 
 ## UI Library
 The goal of the UI library is to provide a reusable abstraction for the application's appearance. 
@@ -301,13 +335,13 @@ Composition should follow the conventions and mechanisms provided by your framew
 
 ## Additional libs
 
-The `libs` folder may contain more than just `ui` and `api`.
+The `libs` folder may contain more than just `ui`, `api`, and `domain`.
 
 You may introduce additional internal libraries when:
 
 - You rely on an external dependency but do not want the entire application to depend on it directly.  
   In this case, create an internal library inside `libs` and encapsulate the external dependency there.
-- You have code that is neither UI nor API, but needs to be shared across multiple features. A typical example is global atomic state management.
+- You have code that is neither UI, API, nor domain, but needs to be shared across multiple features. A typical example is global atomic state management.
 
 ## The Garden Metaphor
 

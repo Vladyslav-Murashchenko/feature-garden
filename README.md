@@ -298,7 +298,7 @@ features/
 Sometimes a block of functionality - combining both UI and API - needs to be reused across multiple features. 
 In such cases, it does not naturally belong to any single feature. It cannot belong to the `libs` layer because it already represents a composition of UI and API.
 
-This is the only valid reason to introduce a shared feature.
+This is a valid reason to introduce a shared feature.
 
 The `shared-features` folder is not a separate architectural layer. 
 It still contains features and follows the same rules.

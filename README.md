@@ -281,8 +281,6 @@ features/
                 ├── index.ts           # exports CreateInterval, EditInterval
                 ├── CreateInterval.tsx       # imports IntervalForm
                 ├── CreateInterval.test.tsx
-                ├── CreateInterval.utils.ts
-                ├── CreateInterval.utils.test.ts
                 ├── EditInterval.tsx         # imports IntervalForm
                 ├── EditInterval.test.tsx
                 └── interval-form/

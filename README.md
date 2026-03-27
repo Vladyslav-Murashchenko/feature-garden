@@ -218,7 +218,7 @@ libs/ui/
 
 The goal of a feature is to compose UI and API into a cohesive unit of user-facing functionality.
 
-In practice, a feature is a folder that contains modules (primarily components).
+In practice, a feature is simply a module represented as a folder that contains other modules.
 
 By default, all modules inside a feature are private. A module becomes public only if it is explicitly exported from the feature’s public entry point (index.ts).
 

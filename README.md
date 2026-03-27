@@ -339,7 +339,7 @@ You may introduce additional internal libraries when:
 
 - You rely on an external dependency but do not want the entire application to depend on it directly.  
   In this case, create an internal library inside `libs` and encapsulate the external dependency there.
-- You have code that is neither UI, API, nor domain, but needs to be shared across multiple features. A typical example is global atomic state management.
+- You have code that is neither UI, API, nor domain, but needs to be shared across multiple features. Typical examples are global atomic state management, configurations, and infrastructure.
 
 ## The Garden Metaphor
 

@@ -25,7 +25,7 @@ Existing approaches often optimize either for early development speed or for sca
 Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) in favor of strict rules and structure. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.
 
 ## Solution
-Feature Garden is an opinionated feature-based architecture inspired by components and nature.
+Feature Garden is an opinionated modular architecture inspired by the feature-based approach, components, and nature.
 It is designed to scale naturally from a single feature to a complex system, just like a garden grows from a small tree. Feature Garden is conducive to SoC, low coupling, high cohesion, KISS, DRY, YAGNI, and local reasoning.
 
 ## When to use

@@ -54,8 +54,8 @@ The app has 3 layers:
   - **API library** (`useTasks`, `createTask`, `startTask`)
   - **Domain library** (`calculateDuration`, `validateInterval`)
 
-- **features** — user-facing capabilities composed from libs.  
-  Features can be nested, forming a tree-like structure  
+- **features** — modules represented as folders that contain other modules.
+  Features can be nested, forming a tree-like structure.
   (`tasks`, `active-task`, `time-intervals`).
 
 - **app** — composes features into the final application and implements routing according to the chosen framework.
@@ -216,9 +216,11 @@ libs/ui/
 
 ## Features
 
-The goal of a feature is to compose UI and API into a cohesive unit of user-facing functionality.
+The goal of a feature is to compose UI and API into a cohesive module.
 
 In practice, a feature is simply a module represented as a folder that contains other modules.
+
+Features usually represent user-facing functionality, but their primary responsibility is to be well-structured modules.
 
 By default, all modules inside a feature are private. A module becomes public only if it is explicitly exported from the feature’s public entry point (index.ts).
 

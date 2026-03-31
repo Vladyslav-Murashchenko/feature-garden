@@ -32,7 +32,7 @@ It is designed to scale naturally from a single feature to a complex system, jus
 
 - Your product is expected to grow in scope and complexity
 - You want a clear evolution path from MVP to large-scale systems
-- You value feature isolation, low coupling, local reasoning, and strong developer experience
+- You value module isolation, low coupling, local reasoning, and strong developer experience
 - You prefer simplicity and pragmatism over architectural purity
 
 ## When not to use

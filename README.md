@@ -44,7 +44,7 @@ It is designed to scale naturally from a single feature to a complex system, jus
 - Your framework is not component-based
 
 ## Core Idea
-Treat your framework as a foundation, not something to fight against.
+Module dependencies should form a directed acyclic graph (no circular dependencies).
 
 The app has 3 layers:
 

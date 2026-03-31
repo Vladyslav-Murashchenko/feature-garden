@@ -1,6 +1,6 @@
 # Feature Garden Front-End Architecture
 
-Feature Garden is an opinionated feature-based architecture for component-based front-end applications.
+Feature Garden is an opinionated, tree-based, modular architecture for front-end applications.
 
 - [Problem](#problem)
 - [Solution](#solution)

@@ -1,12 +1,11 @@
 # Feature Garden Core
 
-> This doc is in progress
-
 Feature Garden is an opinionated, tree-based, modular architecture for front-end applications.
 
 - [Goal](#goal)
 - [Terminology](#terminology)
 - [Core Idea](#core-idea)
+- [Rules](#rules)
 
 ## Goal
 
@@ -14,40 +13,56 @@ The goal of Feature Garden is to help manage the application's structural comple
 
 ## Terminology
 
-- **Architectural module** — a structural unit of the system that encapsulates functionality behind a public interface
+- **Architectural module** — an independent structural unit of the system that encapsulates functionality behind a public interface
 - **Module** - an architectural module implemented as a single file
-- **Feature** - an architectural module implemented as a folder that contains other architectural modules and usually represents a user-facing capability
-- **Library** - a collection of modules grouped around a single responsibility. A library may or may not define an architectural module depending on whether it exposes a clear public interface and keeps some modules internal.
+- **Feature** - an architectural module implemented as a folder that contains other architectural modules.
+- **Library** - a collection of modules grouped around a single responsibility. A library may or may not be an architectural module.
+- **External library** - package installed via a package manager like npm.
 
 ## Core Idea
-Module dependencies should form a directed acyclic graph (no circular dependencies).
+The application consists of 3 layers:
 
-The app has 3 layers:
+- Libraries
+- Features
+- App
 
-- **libs** — low-level building blocks of the application.  
-  Typically includes:
-  - **UI library** (`Button`, `Input`, `ConfirmModal`)
-  - **API library** (`useTasks`, `createTask`, `startTask`)
-  - **Domain library** (`calculateDuration`, `validateInterval`)
+### Libraries
+Libraries provide low-level building blocks and serve as the primary mechanism for code reuse.
+They can also encapsulate implementation details, such as external libraries, and hide them from the rest of the application.
 
-- **features** — modules represented as folders that contain other modules.
-  Features can be nested, forming a tree-like structure.
-  (`tasks`, `active-task`, `time-intervals`).
+### Features
+Features are the primary complexity management mechanism.
+They compose library modules into cohesive architectural modules.
+Root-level features typically represent user-facing capabilities.
+Modules inside a feature are private by default and become public only through the feature’s public entry point (index.ts).
+Features can be nested, forming a tree structure that helps manage complexity.
 
-- **app** — composes features into the final application and implements routing according to the chosen framework.
+The features layer is represented by two folders: `features` and `shared-features`.
+Features from `features` can only be imported by their parent feature or by the app layer if they are root features.
+Shared features are an exception — they can be imported by any feature.
 
-These layers follow the import rules shown below:
+Shared features are not the primary mechanism for structuring an application. 
+They represent a deliberate trade-off, used only when avoiding duplication (DRY) is more important than preserving strict architectural isolation.
+
+### App
+The App layer is responsible for composing features into the final application.
+Composition should follow the framework’s conventions and mechanisms.
+Routing is implemented in the App layer according to the chosen framework.
+The App layer may also use libraries when needed.
+
+## Rules
+- Module dependencies must form a directed acyclic graph (no circular dependencies)
+- Layers must follow the dependency rules shown below
 ```mermaid
 graph LR
-    libs-ui["libs/ui"]
-    libs-api["libs/api"]
-    libs-domain["libs/domain"]
+    libs["libs"]
     features["features"]
     app["app"]
 
-    features --> libs-ui
-    features --> libs-api
-    features --> libs-domain
-    libs-api --> libs-domain
+    features --> libs
+    app --> libs
     app --> features
 ```
+- Modules inside a feature cannot import from the parent feature
+- Modules inside a feature cannot import private modules from nested features
+- All rules must be enforced by tooling (ESLint or equivalent)

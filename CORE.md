@@ -37,9 +37,11 @@ Root-level features typically represent user-facing capabilities.
 Modules inside a feature are private by default and become public only through the feature’s public entry point (index.ts).
 Features can be nested, forming a tree structure that helps manage complexity.
 
-The features layer is represented by two folders: `features` and `shared-features`.
-Features from `features` can only be imported by their parent feature or by the app layer if they are root features.
-Shared features are an exception and can be imported by any feature.
+The features layer consists of two folders: `features` and `shared-features`.
+The difference is in how root features are used.
+Root features in `features` are used only by the app layer.
+Root features in `shared-features` can be used by any feature.
+This enables reuse at the feature level.
 
 Shared features are not the primary mechanism for structuring an application. 
 They represent a deliberate trade-off, used only when avoiding duplication (DRY) is more important than preserving strict architectural isolation.

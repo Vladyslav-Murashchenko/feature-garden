@@ -5,7 +5,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 - [Goal](#goal)
 - [Terminology](#terminology)
 - [Core Idea](#core-idea)
-- [Rules](#rules)
+- [Dependency Rules](#Dependency-Rules)
 
 ## Goal
 
@@ -52,7 +52,7 @@ Composition should follow the framework’s conventions and mechanisms.
 Routing is implemented in the App layer according to the chosen framework.
 The App layer may also use libraries when needed.
 
-## Rules
+## Dependency Rules
 - Module dependencies must form a directed acyclic graph (no circular dependencies)
 - Layers must follow the dependency rules shown below
 ```mermaid

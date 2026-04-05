@@ -15,9 +15,9 @@ The goal of Feature Garden is to help manage the application's structural comple
 
 - **Architectural module** — an independent structural unit of the system that encapsulates functionality behind a public interface
 - **Module** - an architectural module implemented as a single file
-- **Feature** - an architectural module implemented as a folder that organizes other architectural modules.
-- **Library** - a collection of modules grouped around a single responsibility. A library may or may not be an architectural module.
-- **External library** - package installed via a package manager like npm.
+- **Feature** - an architectural module implemented as a folder that organizes other architectural modules
+- **Library** - a collection of modules grouped into a folder around a single responsibility. A library may or may not be an architectural module
+- **External library** - package installed via a package manager like npm
 
 ## Core Idea
 The application consists of 3 layers:

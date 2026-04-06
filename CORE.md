@@ -41,10 +41,10 @@ Modules inside a feature are private by default and become public only through t
 Features can be nested, forming a tree structure that helps manage complexity.
 
 The features layer consists of two folders: `features` and `shared-features`.
-The difference lies in how root features are used:
+The difference lies in how root-level features are used:
 
-- Root features in `features` are used only by the app layer
-- Root features in `shared-features` can be used by any feature
+- Root-level features in `features` are used only by the app layer
+- Root-level features in `shared-features` can be used by any feature
 
 This enables reuse at the feature level.
 

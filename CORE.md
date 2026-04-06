@@ -52,7 +52,6 @@ They represent a deliberate trade-off, used only when avoiding duplication (DRY)
 ### App
 The App layer is responsible for composing features into the final application.
 Composition should follow the framework’s conventions and mechanisms.
-Routing is implemented in the App layer according to the chosen framework.
 The App layer may also use libraries when needed.
 
 ## Rules

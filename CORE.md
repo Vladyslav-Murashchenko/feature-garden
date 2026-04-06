@@ -11,7 +11,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 
 - **Architectural module** — an independent structural unit of the system that encapsulates functionality behind a public interface
 - **Module** — an architectural module implemented as a single file
-- **Feature** — an architectural module implemented as a folder that organizes other architectural modules
+- **Feature** — an architectural module implemented as a folder that organizes modules and nested features
 - **Library** — a collection of modules grouped around a single responsibility
 - **External library** — package installed via a package manager like npm
 
@@ -22,16 +22,16 @@ The goal of Feature Garden is to manage the application's structural complexity 
 ## Core Idea
 The application consists of 3 layers:
 
-- Libraries
-- Features
-- App
+- Libraries — provide reuse
+- Features — define structure
+- App — composes the application
 
 ### Libraries
 Libraries provide low-level building blocks and serve as the primary mechanism for code reuse.
 They can also encapsulate implementation details, such as external libraries, and hide them from the rest of the application.
 
 Libraries are typically independent and unaware of each other.
-However, library dependencies are allowed when one library is built on top of another.
+However, dependencies between libraries are allowed.
 
 ### Features
 Features are the main mechanism for managing structural complexity.

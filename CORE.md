@@ -10,10 +10,10 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 ## Terminology
 
 - **Architectural module** — an independent structural unit of the system that encapsulates functionality behind a public interface
-- **Module** - an architectural module implemented as a single file
-- **Feature** - an architectural module implemented as a folder that organizes other architectural modules
-- **Library** - a collection of modules grouped around a single responsibility
-- **External library** - package installed via a package manager like npm
+- **Module** — an architectural module implemented as a single file
+- **Feature** — an architectural module implemented as a folder that organizes other architectural modules
+- **Library** — a collection of modules grouped around a single responsibility
+- **External library** — package installed via a package manager like npm
 
 ## Goal
 

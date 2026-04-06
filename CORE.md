@@ -2,14 +2,10 @@
 
 Feature Garden is an opinionated, tree-based, modular architecture for front-end applications.
 
-- [Goal](#goal)
 - [Terminology](#terminology)
+- [Goal](#goal)
 - [Core Idea](#core-idea)
-- [Dependency Rules](#Dependency-Rules)
-
-## Goal
-
-The goal of Feature Garden is to manage the application's structural complexity by controlling module visibility.
+- [Rules](#Rules)
 
 ## Terminology
 
@@ -18,6 +14,10 @@ The goal of Feature Garden is to manage the application's structural complexity 
 - **Feature** - an architectural module implemented as a folder that organizes other architectural modules
 - **Library** - a collection of modules grouped around a single responsibility
 - **External library** - package installed via a package manager like npm
+
+## Goal
+
+The goal of Feature Garden is to manage the application's structural complexity by controlling module visibility.
 
 ## Core Idea
 The application consists of 3 layers:
@@ -52,7 +52,7 @@ Composition should follow the framework’s conventions and mechanisms.
 Routing is implemented in the App layer according to the chosen framework.
 The App layer may also use libraries when needed.
 
-## Dependency Rules
+## Rules
 - Module dependencies must form a directed acyclic graph (no circular dependencies)
 - Layers must follow the dependency rules shown below
 ```mermaid

@@ -30,6 +30,9 @@ The application consists of 3 layers:
 Libraries provide low-level building blocks and serve as the primary mechanism for code reuse.
 They can also encapsulate implementation details, such as external libraries, and hide them from the rest of the application.
 
+Libraries are typically independent and may not even be aware of each other. 
+However, library dependencies are allowed when one library is built on top of another.
+
 ### Features
 Features are the main mechanism for managing structural complexity.
 They compose library modules into cohesive architectural modules.
@@ -65,6 +68,7 @@ graph LR
     app --> libs
     app --> features
 ```
+- Dependencies between libraries must be explicit
 - Modules inside a feature cannot import from the parent feature
 - Modules inside a feature cannot import private modules from nested features
 - All rules must be enforced by tooling (ESLint or equivalent)

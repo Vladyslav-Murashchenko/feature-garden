@@ -5,7 +5,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 - [Terminology](#terminology)
 - [Goal](#goal)
 - [Core Idea](#core-idea)
-- [Rules](#Rules)
+- [Rules](#rules)
 
 ## Terminology
 
@@ -20,7 +20,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 The goal of Feature Garden is to manage the application's structural complexity by controlling module visibility.
 
 ## Core Idea
-The application consists of 3 layers:
+The application consists of three layers:
 
 - Libraries — provide reuse
 - Features — define structure
@@ -37,7 +37,7 @@ However, dependencies between libraries are allowed.
 Features are the main mechanism for managing structural complexity.
 They compose library modules into cohesive architectural modules.
 Root-level features typically represent user-facing capabilities.
-Modules inside a feature are private by default and become public only through the feature’s public entry point (index.ts).
+Modules inside a feature are private by default and become public only through the feature’s public entry point (`index.ts`).
 Features can be nested, forming a tree structure that helps manage complexity.
 
 The features layer consists of two folders: `features` and `shared-features`.

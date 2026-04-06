@@ -9,7 +9,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 
 ## Goal
 
-The goal of Feature Garden is to help manage the application's structural complexity.
+The goal of Feature Garden is to manage the application's structural complexity by controlling module visibility.
 
 ## Terminology
 

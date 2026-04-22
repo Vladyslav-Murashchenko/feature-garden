@@ -26,7 +26,7 @@ It is designed to scale naturally from a single feature to a complex system, jus
 
 ## Core principles
 
-Module dependencies should form a directed acyclic graph (no circular dependencies).
+Module dependencies must form a directed acyclic graph (no circular dependencies).
 
 The app has three layers:
 

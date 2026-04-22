@@ -52,7 +52,7 @@ Each plant in the garden is unique and self-contained.
 The garden determines which plants exist and how they are arranged.
 
 Most plants grow independently, like trees.  
-But there are also vines (`shared-features`) — a special kind of plant that wraps around others.
+But there are also vines (**shared-features**) — a special kind of plant that wraps around others.
 Vines are useful, but if the garden contains too many of them, it can turn into an impenetrable jungle.
 
 An interesting property of plants is that a branch can be cut off and grown as a separate plant, or grafted onto another one.
@@ -66,13 +66,12 @@ A full working example built using Feature Garden is available here:
 https://github.com/Vladyslav-Murashchenko/productivity-up
 
 The project demonstrates:
-- Layer separation (`libs`, `features`, `app`)
+- Layer separation (**libs**, **features**, **app**)
 - Strict import boundaries enforced with ESLint
 - Nested feature composition
 - Practical usage of shared feature
-- Additional library `libs/animations`
 
-It represents a small but complete application that can be used as a reference implementation.
+It is a small but complete application that can serve as a reference implementation.
 
 ## Read next
 

@@ -1,4 +1,4 @@
-# Feature Garden engineering guide
+# Feature Garden Engineering Guide
 
 > This section is in progress
 

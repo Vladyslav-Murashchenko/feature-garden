@@ -44,7 +44,7 @@ However, in most cases, three libraries are a good starting point: `domain`, `ap
 
 ### Domain Library
 
-The goal of the domain library is to extract shared domain logic from features, centralize it, and make it reusable across the application.
+The goal of the domain library is to extract shared domain models and logic from features, centralize it, and make it reusable across the application.
 
 This does not mean that all domain logic must live in the domain library. It is perfectly fine to keep domain logic inside a feature when it is specific to that feature and is not reused elsewhere.
 

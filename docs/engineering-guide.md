@@ -36,7 +36,7 @@ To start a new project, follow these steps:
 5. *(Optional)* Add a link to Feature Garden in your project’s `README.md`:  
    https://github.com/Vladyslav-Murashchenko/feature-garden
 
-## What libraries to start from?
+## What libraries should you begin with?
 
 There is no universal answer to this question — it depends on your application, the framework you use, and the surrounding ecosystem.
 

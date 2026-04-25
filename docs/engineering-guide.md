@@ -129,6 +129,7 @@ libs/ui/
 
 Imagine the design looks like this
 
+```
 Screen 1: Dashboard
 ┌──────────────────────────────────────────────────────────────┐
 │ Header                                                       │
@@ -159,8 +160,9 @@ Screen 2: Reports
 │               │ └──────────────────────────────────────────┘ │
 │               │                                              │
 └───────────────┴──────────────────────────────────────────────┘
+```
 
-In this case, the features are:
+In this case, the root-level features are:
 
 - AppHeader - shared header
 - AppSidebar - shared sidebar
@@ -169,7 +171,7 @@ In this case, the features are:
 
 Note that you don’t need shared features here, as the App layer is responsible for composing these features into final screens.
 
-Large features are not a problem — they are decomposed into nested features, keeping the top-level structure stable.
+Large features are not a problem — they can be decomposed into nested features on demand, keeping the top-level structure stable.
 
 ## How do you reuse code?
 
@@ -185,6 +187,79 @@ However, overusing shared features can lead to complex and fragile dependency st
 > A module should have one, and only one, reason to change — that is, one actor.
 
 ## How do you keep complexity under control as the system grows?
+
+There are different types of complexity in applications. Feature Garden is primarily a tool for managing structural complexity.
+
+In a Feature Garden architecture, structural complexity grows along several dimensions:
+
+- The number of root-level features
+- The number of modules within a feature
+- The number of modules within libraries
+- The number and direction of dependencies between modules
+
+### The number of root-level features
+In Feature Garden, root-level features cannot import one another, so adding a new root-level feature usually doesn't affect other features.
+This type of complexity is handled naturally by the feature-based approach.
+
+### The number of modules within a feature
+This is where Feature Garden truly shines.
+All modules within a feature are kept directly in the feature folder, without additional segmentation.
+
+Most of these modules are components, and components naturally form hierarchies.
+As the number of modules grows, related components and their supporting modules can be grouped into a nested feature.
+This process can be applied recursively as many times as needed.
+
+Typically, a nested feature exposes one public component, but exceptions are possible.
+
+### The number of modules within libraries
+To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
+Each slice should have a clear responsibility. A common heuristic is to align slices with domain entities or use cases.
+
+Note that slices do not need to be consistent across different libraries — each library should use a slicing strategy that best fits its purpose.
+
+### The number and direction of dependencies between modules
+The number of possible dependencies is constrained by strictly defined dependency directions.
+In Feature Garden, dependencies always flow in a single direction.
+
+Directions between layers:
+```mermaid
+graph LR
+    libs["libs"]
+    features["features"]
+    app["app"]
+
+    features --> libs
+    app --> libs
+    app --> features
+```
+
+Directions between core libraries:
+```mermaid
+graph LR
+    libs-ui["libs/ui"]
+    libs-api["libs/api"]
+    libs-domain["libs/domain"]
+
+    libs-api --> libs-domain
+```
+
+Directions within features:
+```mermaid
+graph LR
+    feature["feature"]
+    nested-1["nested-1"]
+    nested-2["nested-2"]
+    nested-3["nested-3"]
+    shared-feature
+
+    feature --> nested-1
+    feature --> nested-2
+    nested-1 --> nested-3
+    nested-2 --> shared-feature
+    nested-3 --> shared-feature
+```
+
+By constraining dependency directions, Feature Garden limits the growth of structural complexity.
 
 
 

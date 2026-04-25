@@ -8,10 +8,11 @@ It helps you make decisions across the entire lifecycle of a project — from th
 
 - [How do you start a new project?](#how-do-you-start-a-new-project)
 - [What libraries should you begin with?](#what-libraries-should-you-begin-with)
-- [Where should code live?](#where-should-code-live)
-- [When should you create a feature?](#when-should-you-create-a-feature)
-- [When should you extract code into libraries?](#when-should-you-extract-code-into-libraries)
+- [How do you split the UI into features?](#how-do-you-split-the-ui-into-features)
+- [How do you reuse code?](#how-do-you-reuse-code)
 - [How do you keep complexity under control as the system grows?](#how-do-you-keep-complexity-under-control-as-the-system-grows)
+- [Where should this code live?](#where-should-code-live)
+
 
 ## How do you start a new project?
 
@@ -44,7 +45,7 @@ However, in most cases, three libraries are a good starting point: `domain`, `ap
 
 ### Domain Library
 
-The goal of the domain library is to extract shared domain models and logic from features, centralize it, and make it reusable across the application.
+The goal of the domain library is to extract shared domain models and domain logic from features, centralize them, and make them reusable across the application.
 
 This does not mean that all domain logic must live in the domain library. It is perfectly fine to keep domain logic inside a feature when it is specific to that feature and is not reused elsewhere.
 
@@ -52,7 +53,7 @@ The main property of the domain is that it is completely unaware of any infrastr
 The domain should not depend on APIs, databases, or external services.
 To achieve this, I prefer to model the domain as an anemic domain model, with all domain logic expressed as pure functions. This keeps the domain fully functional and easy to reason about.
 
-Example:
+Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
 ```
 libs/domain/
     ├── model.ts
@@ -67,51 +68,22 @@ libs/domain/
         └── validateInterval.test.ts
 ```
 
-However, this is not a strict requirement. You can also use a rich domain model if that better fits your preferences or constraints.
+However, you can also use a rich domain model if that better fits your preferences or constraints.
 
 ### API Library
 
-The goal of the API Library is to avoid duplication of API related code across the application.
-It provides convenient abstractions for reading and updating data.
-The exact form of these abstractions depends on the framework being used, the data fetching and caching strategies, and how much implementation detail you want to hide from features.
+The API library centralizes data access logic to avoid duplication across the application.
+It exposes abstractions for reading and mutating data, shaped by the framework, data fetching and caching strategies, and the desired level of encapsulation.
 
-For example, an abstraction can hide details about:
+For example, an abstraction can encapsulate details about:
 
-- Whether data is retrieved from the backend or from IndexedDB
 - Whether data comes from cache or requires a server request
 - How cache invalidation is implemented
 - Whether Axios or the native Fetch API is used
-- Whether the API uses REST or GraphQL
+- Whether the API uses REST, GraphQL, or tRPC
 
-A feature simply consumes the abstraction provided by the API library.
-
-This architecture does not impose strict rules on the API library's internal structure. The exact structure depends on the needs and complexity of your project.
-
-One possible way to organize it could look like this:
-```
-libs/api/
-├── _internal/
-│   └── db.ts                     # Private implementation details
-├── active-task/
-│   ├── completeActiveTask.ts    
-│   ├── pauseActiveTask.ts       
-│   ├── startTask.ts             
-│   └── useActiveTaskState.ts     
-├── tasks/
-│   ├── createTask.ts             
-│   ├── deleteTask.ts             
-│   ├── reopenTask.ts             
-│   ├── useTask.ts               
-│   ├── useTasks.ts               
-│   └── updateTaskName.ts        
-└── time-intervals/
-    ├── createTimeInterval.ts    
-    ├── deleteTimeInterval.ts    
-    ├── updateTimeInterval.ts   
-    ├── useTaskDuration.ts       
-    └── useTaskTimeIntervals.ts
-```
-
+I recommend using [TanStack Query](https://tanstack.com/query/latest) or a similar solution that handles data fetching, mutations, caching, and request states.
+This removes the need for most manual state management, meaning you may not need a dedicated state management library in your initial setup.
 
 ### UI Library
 The goal of the UI library is to provide a reusable abstraction for the application's appearance. 
@@ -123,18 +95,14 @@ The idea is that when a feature uses the `Button` component, it should not care 
 - Animation and interaction details
 - How consistency with the design system is maintained
 
-The feature simply uses the component provided by the UI library.
-
 Abstractions inside the UI library must not know anything about your domain. For example, having `TaskModal` inside the UI library would be wrong, because the UI library shouldn't know that the app is about tasks.
 
-You may choose not to have an internal UI library at all and use an external one. However, there are strong reasons to introduce an internal UI layer:
+You may choose not to have an internal UI library at all and use an external one. However, there are strong reasons to introduce an internal UI library:
 
 - The external libraries API is usually too generic, so in the internal library, you can make it simpler
 - At some point, you may decide to switch to a different external UI library. Having an internal abstraction significantly reduces the migration cost
 
-This architecture does not impose strict rules on the UI library's internal structure. The exact structure depends on the needs and complexity of your project.
-
-One possible way to organize it could look like this:
+Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
 ```
 libs/ui/
 ├── modal/
@@ -144,8 +112,7 @@ libs/ui/
 ├── utils/
 │   ├── cn.ts                    # ClassName utility
 │   ├── formatDuration.ts        # Format milliseconds to "Xh Ym Zs" string
-│   ├── showToast.ts             # Display toast notifications
-│   └── withErrorToast.ts        # Generic error handling wrapper with toast
+│   └── showToast.ts             # Display toast notifications
 ├── Button.tsx                    
 ├── ButtonGroup.tsx            
 ├── Card.tsx                     
@@ -157,6 +124,69 @@ libs/ui/
 ├── TextField.tsx               
 └── Toast.tsx                 
 ```
+
+## How do you split the UI into features?
+
+Imagine the design looks like this
+
+Screen 1: Dashboard
+┌──────────────────────────────────────────────────────────────┐
+│ Header                                                       │
+├───────────────┬──────────────────────────────────────────────┤
+│ Sidebar       │ Main content                                 │
+│               │                                              │
+│ - Dashboard   │ ┌──────────────────────────────────────────┐ │
+│ - Reports     │ │ Dashboard Summary                        │ │
+│               │ │                                          │ │
+│               │ │ Total users: 1,240                       │ │
+│               │ │ Active projects: 18                      │ │
+│               │ │ Pending tasks: 7                         │ │
+│               │ └──────────────────────────────────────────┘ │
+│               │                                              │
+└───────────────┴──────────────────────────────────────────────┘
+Screen 2: Reports
+┌──────────────────────────────────────────────────────────────┐
+│ Header                                                       │
+├───────────────┬──────────────────────────────────────────────┤
+│ Sidebar       │ Main content                                 │
+│               │                                              │
+│ - Dashboard   │ ┌──────────────────────────────────────────┐ │
+│ - Reports     │ │ Monthly Report                           │ │
+│               │ │                                          │ │
+│               │ │ Revenue: $24,500                         │ │
+│               │ │ Conversion rate: 8.4%                    │ │
+│               │ │ New customers: 312                       │ │
+│               │ └──────────────────────────────────────────┘ │
+│               │                                              │
+└───────────────┴──────────────────────────────────────────────┘
+
+In this case, the features are:
+
+- AppHeader - shared header
+- AppSidebar - shared sidebar
+- Dashboard - the Dashboard screen main content
+- Reports - the Reports screen main content
+
+Note that you don’t need shared features here, as the App layer is responsible for composing these features into final screens.
+
+Large features are not a problem — they are decomposed into nested features, keeping the top-level structure stable.
+
+## How do you reuse code?
+
+If a module needs to be reused across different features, the primary mechanism is libraries.
+
+UI, API, and Domain libraries cover common reuse scenarios. As your application evolves, you may introduce additional libraries to address more specific use cases.
+Each library should be focused on a single concern of the system. Avoid generic libraries like utils, helpers, components, or hooks, as they tend to accumulate unrelated responsibilities over time.
+
+In cases where code cannot be placed in a library because it already depends on multiple libraries (for example, a combination of UI and API), it can be reused through shared features.
+
+However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, make sure this reuse does not violate the Single Responsibility Principle:
+
+> A module should have one, and only one, reason to change — that is, one actor.
+
+## How do you keep complexity under control as the system grows?
+
+
 
 TODO:
 - Migration guide

@@ -221,7 +221,7 @@ Note that slices do not need to be consistent across different libraries — eac
 The number of possible dependencies is constrained by strictly defined dependency directions.
 In Feature Garden, dependencies always flow in a single direction.
 
-Directions between layers:
+**Figure 1. Directions between layers:**
 ```mermaid
 graph LR
     libs["libs"]
@@ -233,7 +233,7 @@ graph LR
     app --> features
 ```
 
-Directions between core libraries:
+**Figure 2. Directions between core libraries:**
 ```mermaid
 graph LR
     libs-ui["libs/ui"]
@@ -243,7 +243,7 @@ graph LR
     libs-api --> libs-domain
 ```
 
-Directions within features:
+**Figure 3. Directions within features:**
 ```mermaid
 graph LR
     feature["feature"]

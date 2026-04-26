@@ -101,6 +101,7 @@ Abstractions inside the UI library must not know anything about your domain. For
 
 You may choose not to have an internal UI library at all and use an external one. However, there are strong reasons to introduce an internal UI library:
 
+- External UI libraries do not eliminate repetition — common UI patterns still emerge. An internal UI library provides a place to reuse them
 - The external libraries API is usually too generic, so in the internal library, you can make it simpler
 - At some point, you may decide to switch to a different external UI library. Having an internal abstraction significantly reduces the migration cost
 

@@ -12,6 +12,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
+- [How to test the codebase?](#how-to-test-the-codebase)
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
 - [How to scale development teams?](#how-to-scale-development-teams)
 - [How to use with microfrontends?](#how-to-use-with-microfrontends)
@@ -332,6 +333,10 @@ graph LR
 ```
 
 By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
+
+## How to test the codebase?
+
+// TODO
 
 ## How to migrate an existing codebase?
 

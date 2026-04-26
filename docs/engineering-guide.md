@@ -9,9 +9,9 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [How to start a new project?](#how-to-start-a-new-project)
 - [What libraries to start with?](#what-libraries-to-start-with)
 - [How to split the UI into features?](#how-to-split-the-ui-into-features)
+- [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
-- [Where should this module live?](#where-should-this-module-live)
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
 - [How to scale development teams?](#how-to-scale-development-teams)
 - [How to use with microfrontends?](#how-to-use-with-microfrontends)
@@ -175,6 +175,25 @@ Note that you don’t need shared features here, as the App layer is responsible
 
 Large features are not a problem — they can be decomposed into nested features on demand, keeping the top-level structure stable.
 
+## Where should this module live?
+
+Use the decision tree below to decide where a module should live.
+
+**Figure 1. Module placement decision flow**
+```mermaid
+graph TD
+    A{Should this module be reusable across features?}
+
+    A -->|No| B[Keep within the feature]
+    A -->|Yes| C{Is it independent enough to live in a library?}
+
+    C -->|No| E{Are you sure this reuse does not violate SRP?}
+    C -->|Yes| D[Put into a dedicated library]
+
+    E -->|No| F[Do not reuse — keep it in the feature]
+    E -->|Yes| G[Reuse via a shared feature]
+```
+
 ## How to reuse code?
 
 If a module needs to be reused across different features, the primary mechanism is libraries.
@@ -274,7 +293,7 @@ Note that slices do not need to be consistent across different libraries — eac
 Strictly defined dependency directions constrain the number of possible dependencies.
 In Feature Garden, dependencies always flow in a single direction.
 
-**Figure 1. Dependency directions between layers:**
+**Figure 2. Dependency directions between layers:**
 ```mermaid
 graph LR
     libs["libs"]
@@ -285,7 +304,7 @@ graph LR
     app --> features
 ```
 
-**Figure 2. Dependency directions between core libraries:**
+**Figure 3. Dependency directions between core libraries:**
 ```mermaid
 graph LR
     libs-ui["libs/ui"]
@@ -295,7 +314,7 @@ graph LR
     libs-api --> libs-domain
 ```
 
-**Figure 3. Example dependency directions within features:**
+**Figure 4. Example dependency directions within features:**
 ```mermaid
 graph LR
     feature["feature"]
@@ -312,25 +331,6 @@ graph LR
 ```
 
 By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
-
-## Where should this module live?
-
-Use the decision tree below to decide where a module should live.
-
-**Figure 4. Module placement decision flow**
-```mermaid
-graph TD
-    A{Should this module be reusable across features?}
-
-    A -->|No| B[Keep within the feature]
-    A -->|Yes| C{Is it independent enough to live in a library?}
-
-    C -->|No| E{Are you sure this reuse does not violate SRP?}
-    C -->|Yes| D[Put into a dedicated library]
-
-    E -->|No| F[Do not reuse — keep it in the feature]
-    E -->|Yes| G[Reuse via a shared feature]
-```
 
 ## How to migrate an existing codebase?
 

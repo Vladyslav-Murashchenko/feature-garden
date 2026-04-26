@@ -54,7 +54,6 @@ They represent a deliberate trade-off, used only when avoiding duplication (DRY)
 ### App
 The App layer is responsible for composing features into the final application.
 Composition should follow the framework’s conventions and mechanisms.
-The App layer may also use libraries when needed.
 
 ## Rules
 - Module dependencies must form a directed acyclic graph (no circular dependencies)
@@ -66,7 +65,6 @@ graph LR
     app["app"]
 
     features --> libs
-    app --> libs
     app --> features
 ```
 - Dependencies between libraries must be explicit

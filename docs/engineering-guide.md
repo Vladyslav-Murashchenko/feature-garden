@@ -6,15 +6,18 @@ This guide focuses on the practical side of Feature Garden.
 
 It helps you make decisions across the entire lifecycle of a project — from the initial setup to long-term evolution:
 
-- [How do you start a new project?](#how-do-you-start-a-new-project)
-- [What libraries should you begin with?](#what-libraries-should-you-begin-with)
-- [How do you split the UI into features?](#how-do-you-split-the-ui-into-features)
-- [How do you reuse code?](#how-do-you-reuse-code)
-- [How do you keep complexity under control as the system grows?](#how-do-you-keep-complexity-under-control-as-the-system-grows)
+- [How to start a new project?](#how-to-start-a-new-project)
+- [What libraries to start with?](#what-libraries-to-start-with)
+- [How to split the UI into features?](#how-to-split-the-ui-into-features)
+- [How to reuse code?](#how-to-reuse-code)
+- [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
 - [Where should this module live?](#where-should-this-module-live)
+- [How to scale development teams?](#how-to-scale-development-teams)
+- [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
+- [How to scale development teams?](#how-to-scale-development-teams)
+- [How to use with microfrontends?](#how-to-use-with-microfrontends)
 
-
-## How do you start a new project?
+## How to start a new project?
 
 To start a new project, follow these steps:
 
@@ -37,7 +40,7 @@ To start a new project, follow these steps:
 5. *(Optional)* Add a link to Feature Garden in your project’s `README.md`:  
    https://github.com/Vladyslav-Murashchenko/feature-garden
 
-## What libraries should you begin with?
+## What libraries to start with?
 
 There is no universal answer to this question — it depends on your application, the framework you use, and the surrounding ecosystem.
 
@@ -125,7 +128,7 @@ libs/ui/
 └── Toast.tsx                 
 ```
 
-## How do you split the UI into features?
+## How to split the UI into features?
 
 Imagine the design looks like this
 
@@ -173,7 +176,7 @@ Note that you don’t need shared features here, as the App layer is responsible
 
 Large features are not a problem — they can be decomposed into nested features on demand, keeping the top-level structure stable.
 
-## How do you reuse code?
+## How to reuse code?
 
 If a module needs to be reused across different features, the primary mechanism is libraries.
 
@@ -186,7 +189,7 @@ However, overusing shared features can lead to complex and fragile dependency st
 
 > A module should have one, and only one, reason to change — that is, one actor.
 
-## How do you keep complexity under control as the system grows?
+## How to keep complexity under control as the system grows?
 
 There are different types of complexity in applications. Feature Garden is primarily a tool for managing structural complexity.
 
@@ -330,16 +333,44 @@ graph TD
     E -->|Yes| G[Reuse via a shared feature]
 ```
 
+## How to migrate an existing codebase?
 
+If you want to adopt Feature Garden in an existing project, avoid rewriting existing features upfront.
 
-TODO:
-- Migration guide
-- Decision guide
-  - When to create a feature
-  - When to create a nested function
-  - When to leave a plain file
-  - When to move to libs
-  - When is shared-feature allowed
-  - When should NOT be shared-feature
-  - How do I know that a function has become too big
-  - How do I know that a library has become a garbage can
+Instead, start by building new features using Feature Garden and gradually pull existing code into it.
+To initialize Feature Garden, follow these steps.
+
+Enforce an additional strict boundary: Feature Garden features and libraries must not import anything from the legacy codebase.
+At the same time, legacy code is allowed to import from Feature Garden.
+
+This constraint naturally forces reusable logic to move into Feature Garden libraries, enabling new features to be built on top of it.
+
+When a legacy feature requires a major update, reimplement it inside the new features folder.
+Do not worry about size — even small legacy features can be reimplemented directly at the root level of the features directory.
+The root-level features can be imported from the legacy codebase.
+
+Over time, smaller top-level features can be reorganized into larger ones as nested features.
+
+## How to scale development teams?
+
+One of the key advantages of Feature Garden is that it scales well from a single developer to multiple teams.
+
+Feature Garden organizes the application into low-coupling features, allowing developers to work on different features in parallel.
+Typically, root-level features are owned by a specific developer or team.
+It is also common to have a dedicated team responsible for the UI library.
+
+To enable fast integration and avoid blocking each other’s releases, I recommend using Trunk-Based Development together with feature flags.
+
+At a certain scale, new challenges begin to emerge:
+
+- Release coordination becomes more complex, as all teams depend on a single deployment
+- Build times increase as the application grows
+- All features share the same runtime, making failures harder to isolate
+- Team autonomy becomes limited due to shared dependencies and release cycles
+- Maintaining clear ownership boundaries becomes more difficult over time
+
+These challenges often lead teams to consider microfrontends as a way to introduce stronger isolation and independent deployments.
+
+## How to use with microfrontends?
+
+// TODO

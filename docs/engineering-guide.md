@@ -11,7 +11,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [How do you split the UI into features?](#how-do-you-split-the-ui-into-features)
 - [How do you reuse code?](#how-do-you-reuse-code)
 - [How do you keep complexity under control as the system grows?](#how-do-you-keep-complexity-under-control-as-the-system-grows)
-- [Where should this code live?](#where-should-code-live)
+- [Where should this module live?](#where-should-this-module-live)
 
 
 ## How do you start a new project?
@@ -211,6 +211,57 @@ This process can be applied recursively as many times as needed.
 
 Typically, a nested feature exposes a single public component, though exceptions are possible.
 
+Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
+```
+features/
+└── tasks/               # This app has only one root feature, this is fine
+    ├── index.ts         # exports Tasks
+    ├── Filters.tsx
+    ├── TaskList.tsx     # imports Task
+    ├── Tasks.tsx        # imports CreateTask, ActiveTask
+    ├── Tasks.test.tsx
+    ├── useTemporaryHiddenTaskId.ts
+    ├── active-task/
+    │   ├── index.ts     # exports ActiveTask
+    │   ├── ActiveTask.tsx
+    │   ├── ActiveTask.test.tsx
+    │   ├── TaskName.tsx
+    │   └── Timer.tsx
+    ├── create-task/
+    │   ├── index.ts     # exports CreateTask
+    │   ├── CreateTask.tsx
+    │   ├── CreateTask.test.tsx
+    │   └── useAutoFocusOnDesktop.ts
+    └── task/
+        ├── index.ts     # exports Task
+        ├── DeleteTask.tsx
+        ├── Task.tsx
+        ├── Task.test.tsx
+        ├── TaskDuration.tsx           # imports TimeIntervalsModal
+        ├── TaskName.tsx
+        └── time-intervals/
+            ├── index.ts               # exports TimeIntervalsModal
+            ├── AddIntervalButton.tsx  # imports CreateInterval
+            ├── TimeInterval.tsx       # imports EditInterval
+            ├── TimeIntervals.tsx
+            ├── TimeIntervalsModal.tsx
+            ├── TimeIntervalsModal.test.tsx
+            ├── sortIntervals.ts
+            ├── sortIntervals.test.ts
+            └── interval-forms/
+                ├── index.ts           # exports CreateInterval, EditInterval
+                ├── CreateInterval.tsx       # imports IntervalForm
+                ├── CreateInterval.test.tsx
+                ├── EditInterval.tsx         # imports IntervalForm
+                ├── EditInterval.test.tsx
+                └── interval-form/
+                    ├── index.ts             # exports IntervalForm
+                    ├── IntervalForm.tsx
+                    ├── IntervalForm.test.tsx
+                    ├── validateInterval.ts
+                    └── validateInterval.test.ts
+```
+
 ### The number of modules within libraries
 To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
 Each slice should have a clear responsibility. A common heuristic is to align slices with domain entities or use cases.
@@ -260,9 +311,24 @@ graph LR
 
 By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
 
-## Where should this code live?
+## Where should this module live?
 
+Use the decision tree below to decide where a module should live.
 
+**Figure 4. Module placement decision flow**
+```mermaid
+graph TD
+    A{Should this module be reusable across features?}
+
+    A -->|No| B[Keep within the feature]
+    A -->|Yes| C{Is it independent enough to live in a library?}
+
+    C -->|No| E{Are you sure this reuse does not violate SRP?}
+    C -->|Yes| D[Put into a dedicated library]
+
+    E -->|No| F[Do not reuse — keep it in the feature]
+    E -->|Yes| G[Reuse via a shared feature]
+```
 
 
 

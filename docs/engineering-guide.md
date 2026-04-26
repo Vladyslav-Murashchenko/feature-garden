@@ -361,7 +361,9 @@ It is also common to have a dedicated team responsible for the UI library.
 
 To enable fast integration and avoid blocking each other’s releases, I recommend using Trunk-Based Development together with feature flags.
 
-At a certain scale, new challenges begin to emerge:
+With this setup, even a single codebase can support a high degree of team autonomy and allow many developers to work effectively in parallel.
+
+As the system grows further, new challenges begin to emerge:
 
 - Release coordination becomes more complex, as all teams depend on a single deployment
 - Build times increase as the application grows

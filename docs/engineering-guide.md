@@ -203,13 +203,13 @@ This type of complexity is handled naturally by the feature-based approach.
 
 ### The number of modules within a feature
 This is where Feature Garden truly shines.
-All modules within a feature are kept directly in the feature folder, without additional segmentation.
 
+All modules within a feature are kept directly in the feature folder, without additional segmentation.
 Most of these modules are components, and components naturally form hierarchies.
 As the number of modules grows, related components and their supporting modules can be grouped into a nested feature.
 This process can be applied recursively as many times as needed.
 
-Typically, a nested feature exposes one public component, but exceptions are possible.
+Typically, a nested feature exposes a single public component, though exceptions are possible.
 
 ### The number of modules within libraries
 To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
@@ -218,7 +218,7 @@ Each slice should have a clear responsibility. A common heuristic is to align sl
 Note that slices do not need to be consistent across different libraries — each library should use a slicing strategy that best fits its purpose.
 
 ### The number and direction of dependencies between modules
-The number of possible dependencies is constrained by strictly defined dependency directions.
+Strictly defined dependency directions constrain the number of possible dependencies.
 In Feature Garden, dependencies always flow in a single direction.
 
 **Figure 1. Dependency directions between layers:**
@@ -229,7 +229,6 @@ graph LR
     app["app"]
 
     features --> libs
-    app --> libs
     app --> features
 ```
 
@@ -243,7 +242,7 @@ graph LR
     libs-api --> libs-domain
 ```
 
-**Figure 3. Dependency directions within features:**
+**Figure 3. Example dependency directions within features:**
 ```mermaid
 graph LR
     feature["feature"]
@@ -259,7 +258,11 @@ graph LR
     nested-3 --> shared-feature
 ```
 
-By constraining dependency directions, Feature Garden limits the growth of structural complexity.
+By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
+
+## Where should this code live?
+
+
 
 
 

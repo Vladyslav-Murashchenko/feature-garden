@@ -1,7 +1,5 @@
 # Feature Garden Engineering Guide
 
-> This section is in progress
-
 This guide focuses on the practical side of Feature Garden.
 
 It helps you make decisions across the entire lifecycle of a project — from the initial setup to long-term evolution:
@@ -16,6 +14,8 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
 - [How to scale development teams?](#how-to-scale-development-teams)
 - [How to use with microfrontends?](#how-to-use-with-microfrontends)
+- [Read next](#read-next)
+   - [AI Assisted Coding Guide](./ai-assisted-coding-guide.md)
 
 ## How to start a new project?
 
@@ -336,14 +336,20 @@ By constraining the direction of dependencies, Feature Garden limits the growth 
 
 ## How to test the codebase?
 
-// TODO
+In general, I recommend colocating test files with the modules they test.
+
+The domain library should be easy to test with unit tests, especially if it is implemented as a functional core (composed of pure functions).
+
+For features, use component testing (e.g., with [Testing Library](https://testing-library.com/)) to verify user behavior.  
+API interactions can be mocked either at the library level or via a mock server (e.g., with [MSW](https://mswjs.io/)).
+Mocking the API library is often simpler, but using a mock server provides more realistic coverage by testing the API library as well.
 
 ## How to migrate an existing codebase?
 
-If you want to adopt Feature Garden in an existing project, avoid rewriting existing features upfront.
+If you want to adopt Feature Garden in an existing project, avoid rewriting features upfront.
 
 Instead, start by building new features using Feature Garden and gradually pull existing code into it.
-To initialize Feature Garden, follow these steps.
+To initialize Feature Garden, follow [these steps](#how-to-start-a-new-project).
 
 Enforce an additional strict boundary: Feature Garden features and libraries must not import anything from the legacy codebase.
 At the same time, legacy code is allowed to import from Feature Garden.
@@ -368,16 +374,28 @@ To enable fast integration and avoid blocking each other’s releases, I recomme
 
 With this setup, even a single codebase can support a high degree of team autonomy and allow many developers to work effectively in parallel.
 
-As the system grows further, new challenges begin to emerge:
+As the system grows further, some teams may start to experience additional constraints:
 
-- Release coordination becomes more complex, as all teams depend on a single deployment
-- Build times increase as the application grows
-- All features share the same runtime, making failures harder to isolate
-- Team autonomy becomes limited due to shared dependencies and release cycles
-- Maintaining clear ownership boundaries becomes more difficult over time
+- Coordinating releases across teams becomes more involved
+- The cost of a single deployment (build time, risk) increases
+- Stronger isolation between teams becomes desirable
 
-These challenges often lead teams to consider microfrontends as a way to introduce stronger isolation and independent deployments.
+Not every team will run into these challenges, and in many cases, they can be managed within a single codebase.
+
+However, when they become significant, teams may introduce additional layers of isolation — such as microfrontends — on top of the existing architecture.
 
 ## How to use with microfrontends?
 
-// TODO
+Feature Garden works naturally with microfrontends.
+
+Microfrontends provide deployment and runtime isolation, while Feature Garden controls complexity within each microfrontend.
+
+Because Feature Garden establishes clear boundaries between root-level features, those features can serve as natural candidates when introducing microfrontends.
+
+In an existing microfrontend architecture, the simplest way to get started is to adopt Feature Garden within individual microfrontends.
+
+## Read next
+
+- [AI Assisted Coding Guide](./ai-assisted-coding-guide.md) — use AI as a force multiplier without losing control over structure.
+
+

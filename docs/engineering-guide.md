@@ -61,12 +61,12 @@ Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/product
 libs/domain/
     ├── model.ts
     └── time-intervals/
-        ├── calculateDuration.ts
-        ├── calculateDuration.test.ts
-        ├── getInitial.ts
-        ├── getInitial.test.ts
-        ├── sortIntervals.ts
-        ├── sortIntervals.test.ts
+        ├── activeTaskInterval.ts
+        ├── activeTaskInterval.test.ts
+        ├── initialInterval.ts
+        ├── initialInterval.test.ts
+        ├── timeIntervals.ts
+        ├── timeIntervals.test.ts
         ├── validateInterval.ts
         └── validateInterval.test.ts
 ```

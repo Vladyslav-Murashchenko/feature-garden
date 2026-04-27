@@ -131,7 +131,7 @@ libs/ui/
 
 ## How to split the UI into features?
 
-Imagine the design looks like this
+Imagine a design looks like this:
 
 ```
 Screen 1: Dashboard

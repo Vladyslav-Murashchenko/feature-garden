@@ -345,7 +345,7 @@ Data that comes from the server.
 
 - Managed in `libs/api`
 - Includes fetching, caching, synchronization, and optimistic updates
-- Typically handled with tools like TanStack Query
+- Typically handled with tools like [TanStack Query](https://tanstack.com/query/latest)
 
 ### URL state
 

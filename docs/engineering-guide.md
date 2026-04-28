@@ -364,7 +364,7 @@ All other states that are related to the user interface.
 - Extracted into a library only when local state and props become too cumbersome
 - Includes things like modals, selections, and form state
 
-Avoid feature-level global state by default. It can make modules within a feature implicitly depend on each other and make future decomposition into nested features harder.
+Avoid feature-level global state abstractions. They introduce implicit dependencies between modules within a feature, making future decomposition into nested features harder. If a shared abstraction is needed, extract it into a dedicated `store` library instead.
 
 If state management logic becomes complex and encodes domain rules, it should be decoupled from infrastructure and implemented as pure functions in the domain library.
 

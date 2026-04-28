@@ -10,6 +10,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
+- [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
 - [How to scale development teams?](#how-to-scale-development-teams)
@@ -333,6 +334,39 @@ graph LR
 ```
 
 By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
+
+## How to manage state?
+
+Client-side state can be roughly divided into three categories:
+
+### Server state
+
+Data that comes from the server.
+
+- Managed in `libs/api`
+- Includes fetching, caching, synchronization, and optimistic updates
+- Typically handled with tools like TanStack Query
+
+### URL state
+
+State that is reflected in the URL.
+
+- Managed by the router
+- Shareable and bookmarkable
+- Represents navigation and filtering
+
+### UI state
+
+All other states that are related to the user interface.
+
+- Kept local to components by default
+- Passed through explicit props when needed
+- Extracted into a library only when local state and props become too cumbersome
+- Includes things like modals, selections, and form state
+
+Avoid feature-level global state by default. It can make modules within a feature implicitly depend on each other and make future decomposition into nested features harder.
+
+If state management logic becomes complex and encodes domain rules, it should be decoupled from infrastructure and implemented as pure functions in the domain library.
 
 ## How to test the codebase?
 

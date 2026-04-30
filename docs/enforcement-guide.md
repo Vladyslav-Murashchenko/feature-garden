@@ -1,4 +1,4 @@
-# Feature Farden Enforcement Guide
+# Feature Garden Enforcement Guide
 
 The architecture should not rely solely on discipline. Without tooling-based enforcement, it is easy to accidentally violate Feature Garden's rules.
 

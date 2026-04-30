@@ -362,7 +362,7 @@ features/
                     └── validateInterval.test.ts
 ```
 
-In the example above, both interval-forms and interval-form contain only 2 modules. This suggests that interval-form may not be necessary yet. Avoid creating nested features too early. As the feature grows, a better extraction point may be discovered.
+In the example above, both `interval-forms` and `interval-form` contain only 2 modules. This suggests that `interval-form` may not be necessary yet. Avoid creating nested features too early. As the feature grows, a better extraction point may be discovered.
 
 ## How to manage state?
 

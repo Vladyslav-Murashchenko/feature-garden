@@ -6,17 +6,17 @@ Feature Garden intentionally does not provide a ready-to-use npm package for enf
 
 Instead, this guide describes an ESLint-based enforcement approach. However, you can apply the same rules using another tool of your choice.
 
-Initial setup:
+**Initial setup:**
 - [Set up an alias to the root folder](#set-up-an-alias-to-the-root-folder)
 - [Set up cycle detection](#set-up-cycle-detection)
 - [Restrict dependencies between layers and libraries](#restrict-dependencies-between-layers-and-libraries)
 - [Restrict dependencies between features](#restrict-dependencies-between-features)
 
-Possible extensions:
+**Optional extensions:**
 - [Hide internal modules inside libraries](#hide-internal-modules-inside-libraries)
 - [Hide external dependencies behind libraries](#hide-external-dependencies-behind-libraries)
 
-Scaling:
+**Scaling:**
 - [Extend with new libraries](#extend-with-new-libraries)
 
 

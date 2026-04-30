@@ -203,7 +203,7 @@ The first option is to move a module into a library. This is useful when the mod
 
 The second option is to decompose the feature into nested features. Nested features are independent from each other. Everything inside a nested feature is private by default, and the parent feature can access only its public entry point.
 
-Read more about when and how to create a nested feature [in this chapter](#when-and-how-to-create-a-nested-feature).
+Read more about when and how to create a nested feature [in this section](#when-and-how-to-create-a-nested-feature).
 
 ### The number of modules within libraries
 To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
@@ -359,7 +359,7 @@ Each library should be focused on a single concern of the system. Avoid generic 
 
 In cases where code cannot be placed in a library because it already depends on multiple libraries (for example, a combination of UI and API), it can be reused through shared features.
 
-However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, read the next chapter.
+However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, read the next section.
 
 ## When to create a shared feature?
 

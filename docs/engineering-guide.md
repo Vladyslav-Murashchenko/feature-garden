@@ -10,6 +10,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
+- [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
 - [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
@@ -226,9 +227,69 @@ In Feature Garden, root-level features cannot import one another, so adding a ne
 This type of complexity is handled naturally by the feature-based approach.
 
 ### The number of modules within a feature
-This is where Feature Garden truly shines.
+
+Feature Garden provides two options for managing the number of modules inside a feature.
+
+The first option is to move a module into a library. This is useful when the module should be reusable or has a clear responsibility that already belongs to one of the libraries. For example, domain logic can be moved to the domain library to simplify the feature.
+
+The second option is to decompose the feature into nested features. Nested features are independent from each other. Everything inside a nested feature is private by default, and the parent feature can access only its public entry point.
+
+Read more about when and how to create a nested feature [in this chapter](#when-and-how-to-create-a-nested-feature).
+
+### The number of modules within libraries
+To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
+Each slice should have a clear responsibility. A common heuristic is to align slices with domain entities or use cases.
+
+Note that slices do not need to be consistent across different libraries — each library should use a slicing strategy that best fits its purpose.
+
+### The number and direction of dependencies between modules
+Strictly defined dependency directions constrain the number of possible dependencies.
+In Feature Garden, dependencies always flow in a single direction.
+
+**Figure 2. Dependency directions between layers:**
+```mermaid
+graph LR
+    libs["libs"]
+    features["features"]
+    app["app"]
+
+    features --> libs
+    app --> features
+```
+
+**Figure 3. Dependency directions between core libraries:**
+```mermaid
+graph LR
+    libs-ui["libs/ui"]
+    libs-api["libs/api"]
+    libs-domain["libs/domain"]
+
+    libs-api --> libs-domain
+```
+
+**Figure 4. Example dependency directions within features:**
+```mermaid
+graph LR
+    feature["feature"]
+    nested-1["nested-1"]
+    nested-2["nested-2"]
+    nested-3["nested-3"]
+    shared-feature
+
+    feature --> nested-1
+    feature --> nested-2
+    nested-1 --> nested-3
+    nested-2 --> shared-feature
+    nested-3 --> shared-feature
+```
+
+By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
+
+## When and how to create a nested feature?
 
 All modules within a feature are kept directly in the feature folder, without additional segmentation.
+When 
+
 Most of these modules are components, and components naturally form hierarchies.
 As the number of modules grows, related components and their supporting modules can be grouped into a nested feature.
 This process can be applied recursively as many times as needed.
@@ -285,55 +346,6 @@ features/
                     ├── validateInterval.ts
                     └── validateInterval.test.ts
 ```
-
-### The number of modules within libraries
-To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
-Each slice should have a clear responsibility. A common heuristic is to align slices with domain entities or use cases.
-
-Note that slices do not need to be consistent across different libraries — each library should use a slicing strategy that best fits its purpose.
-
-### The number and direction of dependencies between modules
-Strictly defined dependency directions constrain the number of possible dependencies.
-In Feature Garden, dependencies always flow in a single direction.
-
-**Figure 2. Dependency directions between layers:**
-```mermaid
-graph LR
-    libs["libs"]
-    features["features"]
-    app["app"]
-
-    features --> libs
-    app --> features
-```
-
-**Figure 3. Dependency directions between core libraries:**
-```mermaid
-graph LR
-    libs-ui["libs/ui"]
-    libs-api["libs/api"]
-    libs-domain["libs/domain"]
-
-    libs-api --> libs-domain
-```
-
-**Figure 4. Example dependency directions within features:**
-```mermaid
-graph LR
-    feature["feature"]
-    nested-1["nested-1"]
-    nested-2["nested-2"]
-    nested-3["nested-3"]
-    shared-feature
-
-    feature --> nested-1
-    feature --> nested-2
-    nested-1 --> nested-3
-    nested-2 --> shared-feature
-    nested-3 --> shared-feature
-```
-
-By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
 
 ## How to manage state?
 

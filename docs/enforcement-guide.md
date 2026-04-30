@@ -6,22 +6,27 @@ Feature Garden intentionally does not provide a ready-to-use npm package for enf
 
 Instead, this guide describes an ESLint-based enforcement approach. However, you can apply the same rules using another tool of your choice.
 
-- [Initial setup](#initial-setup)
-  - [Set up an alias to the root folder](#set-up-an-alias-to-the-root-folder)
-  - [Set up cycle detection](#set-up-cycle-detection)
-  - [Restrict dependencies between layers and libraries](#restrict-dependencies-between-layers-and-libraries)
-  - [Restrict dependencies between features](#restrict-dependencies-between-features)
-- [Hide external dependencies behind libraries](#hide-external-dependencies-behind-libraries)
+Initial setup:
+- [Set up an alias to the root folder](#set-up-an-alias-to-the-root-folder)
+- [Set up cycle detection](#set-up-cycle-detection)
+- [Restrict dependencies between layers and libraries](#restrict-dependencies-between-layers-and-libraries)
+- [Restrict dependencies between features](#restrict-dependencies-between-features)
+
+Possible extensions:
 - [Hide internal modules inside libraries](#hide-internal-modules-inside-libraries)
+- [Hide external dependencies behind libraries](#hide-external-dependencies-behind-libraries)
+
+Scaling:
 - [Extend with new libraries](#extend-with-new-libraries)
 
 
-## Initial setup
+
+
+
+## Set up an alias to the root folder
 
 When importing from another root folder, always use an absolute path.
 To make this possible, first set up a path alias for the root folder.
-
-### Set up an alias to the root folder
 
 The common name for the root folder alias is `@`.
 You can choose another alias, but this guide uses `@` in the examples.
@@ -40,7 +45,7 @@ For TypeScript projects, the alias is usually configured in `tsconfig.json`:
 
 If your framework or bundler does not read tsconfig.json aliases automatically, configure the same alias in the bundler as well.
 
-### Set up cycle detection
+## Set up cycle detection
 
 One of the most important Feature Garden rules is that the dependency graph should not contain cycles.
 
@@ -61,7 +66,7 @@ const eslintConfig = defineConfig([
 
 Make sure the rule works for both relative and absolute imports.
 
-### Restrict dependencies between layers and libraries
+## Restrict dependencies between layers and libraries
 
 Let's define the core dependency directions.
 
@@ -131,7 +136,7 @@ const eslintConfig = defineConfig([
 ]);
 ```
 
-### Restrict dependencies between features
+## Restrict dependencies between features
 
 Now it is time to make nested features independent from each other.
 

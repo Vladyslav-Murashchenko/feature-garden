@@ -1,6 +1,6 @@
 # Feature Farden Enforcement Guide
 
-The architecture should not rely solely on discipline. Without tooling-based enforcement, it is easy to violate Feature Garden's rules accidentally.
+The architecture should not rely solely on discipline. Without tooling-based enforcement, it is easy to accidentally violate Feature Garden's rules.
 
 Feature Garden intentionally does not provide a ready-to-use npm package for enforcing the architecture. Architectural rules should remain under your full control, because every codebase has its own libraries, tooling, and trade-offs.
 
@@ -173,10 +173,100 @@ const eslintConfig = defineConfig([
 
 The initial setup is done.
 
-However, I recommend looking through the following sections as well, because some of them may be useful from the start.
+However, I recommend looking through the following sections as well, as some may be useful from the start.
+
+## Hide internal modules inside libraries
+
+By default, all library modules are globally accessible. However, you might sometimes need to create a private scope within a library.
+You can achieve this by configuring ESLint:
+```js
+import boundaries from "eslint-plugin-boundaries";
+
+const eslintConfig = defineConfig([
+  // Your other rules
+  {
+    plugins: { boundaries },
+    settings: {
+    // Skip settings for this example
+    },
+    rules: {
+      "boundaries/dependencies": [
+        "error",
+        {
+          default: "disallow",
+          checkAllOrigins: true,
+          rules: [
+            // All previous rules
+            {
+              disallow: {
+                to: {
+                  type: ["lib-ui"], // Add all libraries that should have an _internal folder here.
+                  internalPath: "_internal/**",
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
+  },
+]);
+```
 
 ## Hide external dependencies behind libraries
 
+Before adding an external library, decide whether your project should depend on it fully.
+If not, hide the dependency behind an internal library.
+Here is an example of how to do it with ESLint:
+
+```js
+import boundaries from "eslint-plugin-boundaries";
+
+const eslintConfig = defineConfig([
+  // Your other rules
+  {
+    plugins: { boundaries },
+    settings: {
+    // Skip settings for this example
+    },
+    rules: {
+      "boundaries/dependencies": [
+        "error",
+        {
+          default: "disallow",
+          checkAllOrigins: true,
+          rules: [
+            // All previous rules
+            { allow: { to: { origin: "external" } } }, // Allow all external dependencies by default.
+            {
+              disallow: {
+                to: { origin: "external" },
+                dependency: {
+                  source: [
+                    "@heroui/react", // Add dependencies here if they should not be app-wide.
+                    "@heroui/styles",
+                  ],
+                },
+              },
+            },
+            {
+              from: { type: "lib-ui" }, // Allow these dependencies to be used only from a specific library.
+              allow: {
+                to: { origin: "external" },
+                dependency: { source: ["@heroui/react", "@heroui/styles"] }, 
+              },
+            },
+          ],
+        },
+      ],
+    },
+  },
+]);
+```
+
+## Extend with new libraries
+
+TODO
 
 
 

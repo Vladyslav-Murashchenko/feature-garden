@@ -288,9 +288,8 @@ If `time-intervals` were extracted into a shared feature, it would definitely vi
 
 This way, the card component can be changed in one place, while the risk of violating SRP is much smaller than with reusing the whole `time-intervals` feature. If at some point `TimeIntervalCard` becomes too different across views, the shared feature can be replaced with a unique implementation inside each feature.
 
-Important that it is not necessary to create a shared feature if you need to reuse something in the scope of a feature.
+It is important to note that you do not need to create a shared feature when reuse happens only within the scope of a single feature.
 Look at the example:
-
 ```
 features/
 └── tasks/

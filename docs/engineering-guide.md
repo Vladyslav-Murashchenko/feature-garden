@@ -7,11 +7,11 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [How to start a new project?](#how-to-start-a-new-project)
 - [What libraries to start with?](#what-libraries-to-start-with)
 - [How to split the UI into features?](#how-to-split-the-ui-into-features)
+- [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
+- [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
 - [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
 - [When to create a shared feature?](#when-to-create-a-shared-feature)
-- [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
-- [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
 - [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
@@ -180,143 +180,6 @@ Note that you don’t need shared features here, as the App layer is responsible
 
 Large features are not a problem — they can be decomposed into nested features on demand, keeping the top-level structure stable.
 
-## Where should this module live?
-
-Use the decision tree below to decide where a module should live.
-
-**Figure 1. Module placement decision flow**
-```mermaid
-graph TD
-    A{Should this module be reusable across features?}
-
-    A -->|No| B[Keep within the feature]
-    A -->|Yes| C{Is it independent enough to live in a library?}
-
-    C -->|No| E{Are you sure this reuse does not violate SRP?}
-    C -->|Yes| D[Put into a dedicated library]
-
-    E -->|No| F[Do not reuse — keep it in the feature]
-    E -->|Yes| G[Reuse via a shared feature]
-```
-
-## How to reuse code?
-
-If a module needs to be reused across different features, the primary mechanism is libraries.
-
-UI, API, and Domain libraries cover common reuse scenarios. As your application evolves, you may introduce additional libraries to address more specific use cases.
-Each library should be focused on a single concern of the system. Avoid generic libraries like utils, helpers, components, or hooks, as they tend to accumulate unrelated responsibilities over time.
-
-In cases where code cannot be placed in a library because it already depends on multiple libraries (for example, a combination of UI and API), it can be reused through shared features.
-
-However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, read the next chapter.
-
-## When to create a shared feature?
-
-Two software engineering principles are not always easy to use together: DRY and SRP.
-
-DRY:
-> Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
-
-SRP:
-> A module should have one, and only one, reason to change — that is, one actor.
-
-The problem is that it is hard to distinguish a piece of knowledge from a coincidentally repeated code pattern.
-If you accidentally hide a coincidentally repeated code pattern behind a module, that module will likely violate SRP.
-
-In Feature Garden, a good reuse heuristic is to ask whether the module belongs to a dedicated library.
-
-If it does, the module likely represents reusable knowledge and can be extracted into that library.
-
-If it does not, the module probably acts as a composition layer over other libraries. Reusing composition modules is risky because they often have multiple reasons to change.
-
-But if you are sure that this reuse doesn't violate SRP, Feature Garden provides shared features.
-
-Let's look at examples when shared features can be justified.
-
-Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
-```
-features/
-└── tasks/           
-    ├── ...
-    ├── active-task/
-    │   ├── ...
-    │   └── TaskName.tsx      # imports EditTaskNameModal
-    └── task/
-        ├── ...
-        └── TaskName.tsx      # imports EditTaskNameModal
-shared-features/
-└── edit-task-name/
-    ├── index.ts              # exports EditTaskNameModal
-    ├── EditTaskNameForm.tsx
-    ├── EditTaskNameModal.tsx
-    └── EditTaskNameModal.test.tsx
-```
-In this example, `edit-task-name` is the same modal that opens when the user clicks on a task name.
-
-Note that `active-task` and `task` use different `TaskName` components because the name behaves differently in each place. In `active-task`, the name is truncated. In `task`, the full name is always displayed. If the name takes several lines, the task card itself becomes taller.
-
-This means that you stay in control of where to apply DRY and where to keep duplication intentionally.
-
-In this particular case, the shared feature could also be avoided by moving `edit-task-name` higher in the component tree, above both components. However, this would force me to lift the state up or introduce a global state solution.
-
-Another example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
-```
-features/
-└── tasks/
-    ├── ...
-    ├── active-task/
-    │   ├── ...
-    │   └── time-intervals/
-    │       ├── ...
-    │       ├── ActiveTimeInterval.tsx # imports TimeIntervalCard
-    │       └── TimeIntervals.tsx      # imports TimeIntervalCard
-    └── task/
-        ├── ...
-        └── time-intervals/
-            ├── ...
-            └── TimeInterval.tsx       # imports TimeIntervalCard
-shared-features/
-└── time-interval/
-    ├── index.ts                       # exports TimeIntervalCard
-    └── TimeIntervalCard.tsx
-```
-Both `task` and `active-task` have local nested features named `time-intervals`.
-
-At the UI, these `time-intervals` features look very similar. However, they have very different behaviors. Inside `task`, `time-intervals` provides full CRUD functionality. Inside `active-task`, `time-intervals` are read-only, and an additional active time interval is displayed.
-
-If `time-intervals` were extracted into a shared feature, it would definitely violate SRP. Instead, the shared feature is `time-interval`, which is responsible only for displaying the card component.
-
-This way, the card component can be changed in one place, while the risk of violating SRP is much smaller than with reusing the whole `time-intervals` feature. If at some point `TimeIntervalCard` becomes too different across views, the shared feature can be replaced with a unique implementation inside each feature.
-
-It is important to note that you do not need to create a shared feature when reuse happens only within the scope of a single feature.
-Look at the example:
-```
-features/
-└── tasks/
-    ├── ...
-    └── task/
-        ├── ...
-        └── time-intervals/
-            ├── ...
-            └── interval-forms/
-                ├── index.ts           # exports CreateInterval, EditInterval
-                ├── CreateInterval.tsx       # imports IntervalForm
-                ├── CreateInterval.test.tsx
-                ├── EditInterval.tsx         # imports IntervalForm
-                ├── EditInterval.test.tsx
-                └── interval-form/
-                    ├── index.ts             # exports IntervalForm
-                    ├── IntervalForm.tsx
-                    ├── IntervalForm.test.tsx
-                    ├── validateInterval.ts
-                    └── validateInterval.test.ts
-```
-In the example, both `CreateInterval` and `EditInterval` use the `interval-form` feature.
-
-If these two components were extracted into separate nested features, this reuse would require a shared feature. However, this separation is unlikely to be useful, because both components are just variants of `IntervalForm`.
-
-This is another reason why I recommend postponing nested feature extraction until there are at least 5 modules inside a feature.
-
 ## How to keep complexity under control as the system grows?
 
 There are different types of complexity in applications. Feature Garden is primarily a tool for managing structural complexity.
@@ -467,6 +330,143 @@ features/
 ```
 
 In the example above, both `interval-forms` and `interval-form` contain only 2 modules. This suggests that `interval-form` may not be necessary yet. Avoid creating nested features too early. As the feature grows, a better extraction point may be discovered.
+
+## Where should this module live?
+
+Use the decision tree below to decide where a module should live.
+
+**Figure 1. Module placement decision flow**
+```mermaid
+graph TD
+    A{Should this module be reusable across features?}
+
+    A -->|No| B[Keep within the feature]
+    A -->|Yes| C{Is it independent enough to live in a library?}
+
+    C -->|No| E{Are you sure this reuse does not violate SRP?}
+    C -->|Yes| D[Put into a dedicated library]
+
+    E -->|No| F[Do not reuse — keep it in the feature]
+    E -->|Yes| G[Reuse via a shared feature]
+```
+
+## How to reuse code?
+
+If a module needs to be reused across different features, the primary mechanism is libraries.
+
+UI, API, and Domain libraries cover common reuse scenarios. As your application evolves, you may introduce additional libraries to address more specific use cases.
+Each library should be focused on a single concern of the system. Avoid generic libraries like utils, helpers, components, or hooks, as they tend to accumulate unrelated responsibilities over time.
+
+In cases where code cannot be placed in a library because it already depends on multiple libraries (for example, a combination of UI and API), it can be reused through shared features.
+
+However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, read the next chapter.
+
+## When to create a shared feature?
+
+Two software engineering principles are not always easy to use together: DRY and SRP.
+
+DRY:
+> Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
+
+SRP:
+> A module should have one, and only one, reason to change — that is, one actor.
+
+The problem is that it is hard to distinguish a piece of knowledge from a coincidentally repeated code pattern.
+If you accidentally hide a coincidentally repeated code pattern behind a module, that module will likely violate SRP.
+
+In Feature Garden, a good reuse heuristic is to ask whether the module belongs to a dedicated library.
+
+If it does, the module likely represents reusable knowledge and can be extracted into that library.
+
+If it does not, the module probably acts as a composition layer over other libraries. Reusing composition modules is risky because they often have multiple reasons to change.
+
+But if you are sure that this reuse doesn't violate SRP, Feature Garden provides shared features.
+
+Let's look at examples when shared features can be justified.
+
+Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
+```
+features/
+└── tasks/           
+    ├── ...
+    ├── active-task/
+    │   ├── ...
+    │   └── TaskName.tsx      # imports EditTaskNameModal
+    └── task/
+        ├── ...
+        └── TaskName.tsx      # imports EditTaskNameModal
+shared-features/
+└── edit-task-name/
+    ├── index.ts              # exports EditTaskNameModal
+    ├── EditTaskNameForm.tsx
+    ├── EditTaskNameModal.tsx
+    └── EditTaskNameModal.test.tsx
+```
+In this example, `edit-task-name` is the same modal that opens when the user clicks on a task name.
+
+Note that `active-task` and `task` use different `TaskName` components because the name behaves differently in each place. In `active-task`, the name is truncated. In `task`, the full name is always displayed. If the name takes several lines, the task card itself becomes taller.
+
+This means that you stay in control of where to apply DRY and where to keep duplication intentionally.
+
+In this particular case, the shared feature could also be avoided by moving `edit-task-name` higher in the component tree, above both components. However, this would force me to lift the state up or introduce a global state solution.
+
+Another example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
+```
+features/
+└── tasks/
+    ├── ...
+    ├── active-task/
+    │   ├── ...
+    │   └── time-intervals/
+    │       ├── ...
+    │       ├── ActiveTimeInterval.tsx # imports TimeIntervalCard
+    │       └── TimeIntervals.tsx      # imports TimeIntervalCard
+    └── task/
+        ├── ...
+        └── time-intervals/
+            ├── ...
+            └── TimeInterval.tsx       # imports TimeIntervalCard
+shared-features/
+└── time-interval/
+    ├── index.ts                       # exports TimeIntervalCard
+    └── TimeIntervalCard.tsx
+```
+Both `task` and `active-task` have local nested features named `time-intervals`.
+
+At the UI, these `time-intervals` features look very similar. However, they have very different behaviors. Inside `task`, `time-intervals` provides full CRUD functionality. Inside `active-task`, `time-intervals` are read-only, and an additional active time interval is displayed.
+
+If `time-intervals` were extracted into a shared feature, it would definitely violate SRP. Instead, the shared feature is `time-interval`, which is responsible only for displaying the card component.
+
+This way, the card component can be changed in one place, while the risk of violating SRP is much smaller than with reusing the whole `time-intervals` feature. If at some point `TimeIntervalCard` becomes too different across views, the shared feature can be replaced with a unique implementation inside each feature.
+
+It is important to note that you do not need to create a shared feature when reuse happens only within the scope of a single feature.
+Look at the example:
+```
+features/
+└── tasks/
+    ├── ...
+    └── task/
+        ├── ...
+        └── time-intervals/
+            ├── ...
+            └── interval-forms/
+                ├── index.ts           # exports CreateInterval, EditInterval
+                ├── CreateInterval.tsx       # imports IntervalForm
+                ├── CreateInterval.test.tsx
+                ├── EditInterval.tsx         # imports IntervalForm
+                ├── EditInterval.test.tsx
+                └── interval-form/
+                    ├── index.ts             # exports IntervalForm
+                    ├── IntervalForm.tsx
+                    ├── IntervalForm.test.tsx
+                    ├── validateInterval.ts
+                    └── validateInterval.test.ts
+```
+In the example, both `CreateInterval` and `EditInterval` use the `interval-form` feature.
+
+If these two components were extracted into separate nested features, this reuse would require a shared feature. However, this separation is unlikely to be useful, because both components are just variants of `IntervalForm`.
+
+This is another reason why I recommend postponing nested feature extraction until there are at least 5 modules inside a feature.
 
 ## How to manage state?
 

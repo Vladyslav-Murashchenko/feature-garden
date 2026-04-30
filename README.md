@@ -8,7 +8,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 - [Why “Garden”?](#why-garden)
 - [Reference implementation](#reference-implementation)
 - [Read next](#read-next)
-  - [Core](./docs/core.md)
+  - [Feature Garden Core](./docs/core.md)
   - [Engineering Guide](./docs/engineering-guide.md)
   - [Enforcement Guide](./docs/enforcement-guide.md)
   - [AI Assisted Coding Guide](./docs/ai-assisted-coding-guide.md)

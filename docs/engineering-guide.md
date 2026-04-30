@@ -284,6 +284,7 @@ graph LR
 ```
 
 By constraining the direction of dependencies, Feature Garden limits the growth of structural complexity.
+For this to work, dependency directions must be strictly enforced. See the [Enforcement Guide](./enforcement-guide.md).
 
 ## When and how to create a nested feature?
 

@@ -19,10 +19,6 @@ Instead, this guide describes an ESLint-based enforcement approach. However, you
 **Scaling:**
 - [Extend with new libraries](#extend-with-new-libraries)
 
-
-
-
-
 ## Set up an alias to the root folder
 
 When importing from another root folder, always use an absolute path.
@@ -83,7 +79,7 @@ const eslintConfig = defineConfig([
     plugins: { boundaries },
     settings: {
       "boundaries/elements": [
-        { type: "app", pattern: "src/app" },
+        { type: "app", pattern: "src/app" }, // replace "src/app" with your framework app folder
         { type: "feature", pattern: "src/features/*" },
         { type: "shared-feature", pattern: "src/shared-features/*" },
         { type: "lib-ui", pattern: "src/libs/ui" },

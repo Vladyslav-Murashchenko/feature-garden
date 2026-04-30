@@ -266,7 +266,16 @@ const eslintConfig = defineConfig([
 
 ## Extend with new libraries
 
-TODO
+When adding a new library to the `libs` folder, don't forget to add it to your enforcement config.
+For ESLint with the configuration above, follow this checklist:
+
+- Add library to `boundaries/elements.`
+- Allow it for `feature` and `shared-feature.`
+- Allow other libraries to access it if needed
+- Add it to the list of libraries with an internal path if needed
+- Hide external dependency behind the library if needed
+
+
 
 
 

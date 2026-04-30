@@ -389,13 +389,15 @@ The app layer can also include things such as:
 
 - Routing configuration
 - Page layouts
-- Application providers, such as theme, query client, or internationalization providers
+- Application-level provider composition, such as wiring theme, query client, or internationalization providers
 - Global error boundaries
 - Global loading states
 - Global styles
 - Metadata configuration
 - Application-level redirects
 - Framework-specific configuration files
+
+Note that if something is needed both in features and in the app layer, it should live in a dedicated library. For example, provider implementations should live in libraries, while the app layer should only compose them. If the app layer needs access to these libraries, explicitly allow this in your enforcement rules.
 
 The app layer should stay thin. It should compose features and configure the application, but it should not contain feature-specific details.
 

@@ -151,17 +151,17 @@ const eslintConfig = defineConfig([
             {
               group: ["../**"],
               message:
-                "Features cannot import from the parent directory. To access libs, shared-features use absolute path.",
+                "Features cannot import from parent directories. Use absolute imports to access libraries and shared features.",
             },
             {
               group: ["./*/**"],
               message:
-                "Features can import only from barrel (index.ts) for nested features, everything except barrel is private.",
+                "Nested features can only be imported through their public entry point. Import from index.ts instead.",
             },
             {
               group: ["@/features/**"],
               message:
-                "Features cannot import from the features folder. If u want to import a child feature, use a relative path instead.",
+                "Features cannot import from the root features folder. Use a relative import to access a child feature.",
             },
           ],
         },

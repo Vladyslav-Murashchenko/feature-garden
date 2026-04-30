@@ -233,6 +233,63 @@ But if you are sure that this reuse doesn't violate SRP, Feature Garden provides
 
 Let's look at examples when shared features can be justified.
 
+Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
+```
+features/
+└── tasks/           
+    ├── ...
+    ├── active-task/
+    │   ├── ...
+    │   └── TaskName.tsx      # imports EditTaskNameModal
+    └── task/
+        ├── ...
+        └── TaskName.tsx      # imports EditTaskNameModal
+shared-features/
+└── edit-task-name/
+    ├── index.ts              # exports EditTaskNameModal
+    ├── EditTaskNameForm.tsx
+    ├── EditTaskNameModal.tsx
+    └── EditTaskNameModal.test.tsx
+```
+In this example, `edit-task-name` is the same modal that opens when the user clicks on a task name.
+
+Note that `active-task` and `task` use different `TaskName` components because the name behaves differently in each place. In `active-task`, the name is truncated. In `task`, the full name is always displayed. If the name takes several lines, the task card itself becomes taller.
+
+This means that you stay in control of where to apply DRY and where to keep duplication intentionally.
+
+In this particular case, the shared feature could also be avoided by moving `edit-task-name` higher in the component tree, above both components. However, this would force me to lift the state up or introduce a global state solution.
+
+Another example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
+```
+features/
+└── tasks/
+    ├── ...
+    ├── active-task/
+    │   ├── ...
+    │   └── time-intervals/
+    │       ├── ...
+    │       ├── ActiveTimeInterval.tsx # imports TimeIntervalCard
+    │       └── TimeIntervals.tsx      # imports TimeIntervalCard
+    └── task/
+        ├── ...
+        └── time-intervals/
+            ├── ...
+            └── TimeInterval.tsx       # imports TimeIntervalCard
+shared-features/
+└── time-interval/
+    ├── index.ts                       # exports TimeIntervalCard
+    └── TimeIntervalCard.tsx
+```
+Both `task` and `active-task` have local nested features named `time-intervals`.
+
+At the UI, these `time-intervals` features look very similar. However, they have very different behaviors. Inside `task`, `time-intervals` provides full CRUD functionality. Inside `active-task`, `time-intervals` are read-only, and an additional active time interval is displayed.
+
+If `time-intervals` were extracted into a shared feature, it would definitely violate SRP. Instead, the shared feature is `time-interval`, which is responsible only for displaying the card component.
+
+This way, the card component can be changed in one place, while the risk of violating SRP is much smaller than with reusing the whole `time-intervals` feature. If at some point `TimeIntervalCard` becomes too different across views, the shared feature can be replaced with a unique implementation inside each feature.
+
+
+
 ## How to keep complexity under control as the system grows?
 
 There are different types of complexity in applications. Feature Garden is primarily a tool for managing structural complexity.

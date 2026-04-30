@@ -4,6 +4,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 
 - [What problem does this solve?](#what-problem-does-this-solve)
 - [What is Feature Garden?](#what-is-feature-garden)
+- [What is the difference with FSD?](#what-is-the-difference-with-fsd)
 - [Core principles](#core-principles)
 - [Why “Garden”?](#why-garden)
 - [Reference implementation](#reference-implementation)

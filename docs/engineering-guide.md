@@ -9,7 +9,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [How to split the UI into features?](#how-to-split-the-ui-into-features)
 - [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
-- [When to create a shared feature?](#when-and-how-to-create-a-nested-feature)
+- [When to create a shared feature?](#when-to-create-a-shared-feature)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
 - [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
 - [How to manage state?](#how-to-manage-state)

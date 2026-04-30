@@ -288,7 +288,35 @@ If `time-intervals` were extracted into a shared feature, it would definitely vi
 
 This way, the card component can be changed in one place, while the risk of violating SRP is much smaller than with reusing the whole `time-intervals` feature. If at some point `TimeIntervalCard` becomes too different across views, the shared feature can be replaced with a unique implementation inside each feature.
 
+Important that it is not necessary to create a shared feature if you need to reuse something in the scope of a feature.
+Look at the example:
 
+```
+features/
+└── tasks/
+    ├── ...
+    └── task/
+        ├── ...
+        └── time-intervals/
+            ├── ...
+            └── interval-forms/
+                ├── index.ts           # exports CreateInterval, EditInterval
+                ├── CreateInterval.tsx       # imports IntervalForm
+                ├── CreateInterval.test.tsx
+                ├── EditInterval.tsx         # imports IntervalForm
+                ├── EditInterval.test.tsx
+                └── interval-form/
+                    ├── index.ts             # exports IntervalForm
+                    ├── IntervalForm.tsx
+                    ├── IntervalForm.test.tsx
+                    ├── validateInterval.ts
+                    └── validateInterval.test.ts
+```
+In the example, both `CreateInterval` and `EditInterval` use the `interval-form` feature.
+
+If these two components were extracted into separate nested features, this reuse would require a shared feature. However, this separation is unlikely to be useful, because both components are just variants of `IntervalForm`.
+
+This is another reason why I recommend postponing nested feature extraction until there are at least 5 modules inside a feature.
 
 ## How to keep complexity under control as the system grows?
 

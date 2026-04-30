@@ -554,7 +554,7 @@ If state management logic becomes complex and encodes domain rules, it should be
 
 In general, I recommend colocating test files with the modules they test.
 
-The domain library should be easy to test with unit tests, especially if it is implemented as a functional core (composed of pure functions).
+The domain library should be easy to test with unit tests, especially if it is implemented as a functional core (consisting of pure functions).
 
 For features, use component testing (e.g., with [Testing Library](https://testing-library.com/)) to verify user behavior.  
 API interactions can be mocked either at the library level or via a mock server (e.g., with [MSW](https://mswjs.io/)).

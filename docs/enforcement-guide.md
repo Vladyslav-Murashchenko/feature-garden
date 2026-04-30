@@ -96,7 +96,7 @@ const eslintConfig = defineConfig([
           rules: [
             {
               from: { type: "app" },
-              allow: { to: { type: ["feature"] } },
+              allow: { to: { type: ["feature"] } }, // add here libraries if needed to use some provider inside app
             },
             {
               from: { type: ["feature", "shared-feature"] },

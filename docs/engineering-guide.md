@@ -33,7 +33,7 @@ To start a new project, follow these steps:
    Add `.gitkeep` files so Git tracks them.
 
 3. Decide which libraries you want to include from the start.  
-   See: [What libraries should you begin with?](#what-libraries-should-you-begin-with)  
+   See: [What libraries to start with?](#what-libraries-to-start-with)  
    Then create corresponding folders inside `libs`.
 
 4. Set up boundary enforcement early.  
@@ -288,14 +288,28 @@ For this to work, dependency directions must be strictly enforced. See the [Enfo
 
 ## When and how to create a nested feature?
 
-All modules within a feature are kept directly in the feature folder, without additional segmentation.
-When 
+To keep features easy to decompose, keep all modules within a feature directly in the feature folder, without additional segmentation.
 
-Most of these modules are components, and components naturally form hierarchies.
-As the number of modules grows, related components and their supporting modules can be grouped into a nested feature.
-This process can be applied recursively as many times as needed.
+I do not recommend mixing new functionality with nested feature extraction. Commit your new functionality first.
 
-Typically, a nested feature exposes a single public component, though exceptions are possible.
+Then look at the number of modules inside the feature folder. If it becomes hard to predict module dependencies, consider creating a nested feature.
+
+This usually happens when a feature has around 7 or more modules. Choose the number that works best for your team.
+
+When counting modules, treat all technical files that belong to the same module as one module. For example, treat all the files below as one module:
+```
+Tasks.tsx
+Tasks.test.tsx
+Tasks.module.css
+```
+
+Try to find a group of modules that can be hidden inside a folder and exposed through a small public API. Ideally, a nested feature should expose only one module.
+
+A nested feature should include at least 2 modules. However, avoid extracting too many modules as well. A good nested feature usually contains about half of the modules from the original feature.
+
+For example, if the original feature has 7 modules, extracting 3–4 modules into a nested feature is a good starting point.
+
+However, clear intent is more important than the exact number of extracted modules. A good heuristic is naming: if the nested feature can have an obvious, concise, and clear name, it probably has a clear responsibility.
 
 Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
 ```
@@ -347,6 +361,8 @@ features/
                     ├── validateInterval.ts
                     └── validateInterval.test.ts
 ```
+
+In the example above, both interval-forms and interval-form contain only 2 modules. This suggests that interval-form may not be necessary yet. Avoid creating nested features too early. As the feature grows, a better extraction point may be discovered.
 
 ## How to manage state?
 

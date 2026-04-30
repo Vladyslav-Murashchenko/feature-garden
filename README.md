@@ -24,6 +24,14 @@ Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) i
 Feature Garden is an opinionated modular architecture inspired by the feature-based approach, components, and nature.
 It is designed to scale naturally from a single feature to a complex system, just like a garden grows from a small tree. Feature Garden is conducive to SoC, low coupling, high cohesion, KISS, DRY, YAGNI, and local reasoning.
 
+## What is the difference with FSD?
+
+[Feature-Sliced Design (FSD)](https://fsd.how/) is a popular architectural methodology for structuring front-end applications.
+
+Feature Garden addresses a similar challenge, but emphasizes different trade-offs and places greater importance on managing structural complexity.
+
+The main distinction is that FSD breaks applications down into layers, slices, and segments. Feature Garden also uses layers, but it primarily relies on tree-based feature decomposition. This approach enables more localized and granular management of complexity.
+
 ## Core principles
 
 Module dependencies must form a directed acyclic graph (no circular dependencies).

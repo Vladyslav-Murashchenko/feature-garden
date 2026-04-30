@@ -9,6 +9,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [How to split the UI into features?](#how-to-split-the-ui-into-features)
 - [Where should this module live?](#where-should-this-module-live)
 - [How to reuse code?](#how-to-reuse-code)
+- [When to create a shared feature?](#when-and-how-to-create-a-nested-feature)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
 - [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
 - [How to manage state?](#how-to-manage-state)
@@ -207,9 +208,30 @@ Each library should be focused on a single concern of the system. Avoid generic 
 
 In cases where code cannot be placed in a library because it already depends on multiple libraries (for example, a combination of UI and API), it can be reused through shared features.
 
-However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, make sure this reuse does not violate the Single Responsibility Principle:
+However, overusing shared features can lead to complex and fragile dependency structures. Before extracting code into a shared feature, read the next chapter.
 
+## When to create a shared feature?
+
+Two software engineering principles are not always easy to use together: DRY and SRP.
+
+DRY:
+> Every piece of knowledge must have a single, unambiguous, authoritative representation within a system.
+
+SRP:
 > A module should have one, and only one, reason to change — that is, one actor.
+
+The problem is that it is hard to distinguish a piece of knowledge from a coincidentally repeated code pattern.
+If you accidentally hide a coincidentally repeated code pattern behind a module, that module will likely violate SRP.
+
+In Feature Garden, a good reuse heuristic is to ask whether the module belongs to a dedicated library.
+
+If it does, the module likely represents reusable knowledge and can be extracted into that library.
+
+If it does not, the module probably acts as a composition layer over other libraries. Reusing composition modules is risky because they often have multiple reasons to change.
+
+But if you are sure that this reuse doesn't violate SRP, Feature Garden provides shared features.
+
+Let's look at examples when shared features can be justified.
 
 ## How to keep complexity under control as the system grows?
 
@@ -294,7 +316,7 @@ I do not recommend mixing new functionality with nested feature extraction. Comm
 
 Then look at the number of modules inside the feature folder. If it becomes hard to predict module dependencies, consider creating a nested feature.
 
-This usually happens when a feature has around 7 or more modules. Choose the number that works best for your team.
+This usually happens when a feature has more than 5 modules. Choose the number that works best for your team.
 
 When counting modules, treat all technical files that belong to the same module as one module. For example, treat all the files below as one module:
 ```
@@ -305,9 +327,7 @@ Tasks.module.css
 
 Try to find a group of modules that can be hidden inside a folder and exposed through a small public API. Ideally, a nested feature should expose only one module.
 
-A nested feature should include at least 2 modules. However, avoid extracting too many modules as well. A good nested feature usually contains about half of the modules from the original feature.
-
-For example, if the original feature has 7 modules, extracting 3–4 modules into a nested feature is a good starting point.
+A nested feature should include at least 2 modules. Avoid extracting too many modules as well. Try to extract modules in a way that leaves the parent feature with 2–5 modules.
 
 However, clear intent is more important than the exact number of extracted modules. A good heuristic is naming: if the nested feature can have an obvious, concise, and clear name, it probably has a clear responsibility.
 

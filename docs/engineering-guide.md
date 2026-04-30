@@ -4,21 +4,28 @@ This guide focuses on the practical side of Feature Garden.
 
 It helps you make decisions across the entire lifecycle of a project — from the initial setup to long-term evolution:
 
+Initial setup:
 - [How to start a new project?](#how-to-start-a-new-project)
 - [What libraries to start with?](#what-libraries-to-start-with)
+- [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
+
+Daily decisions:
 - [How to split the UI into features?](#how-to-split-the-ui-into-features)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
 - [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
 - [Where should this module live?](#where-should-this-module-live)
+- [What belongs in the app layer?](#what-belongs-in-the-app-layer)
 - [How to reuse code?](#how-to-reuse-code)
 - [When to create a shared feature?](#when-to-create-a-shared-feature)
 - [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
-- [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
+
+Long-term evolution:
 - [How to scale development teams?](#how-to-scale-development-teams)
 - [How to use with microfrontends?](#how-to-use-with-microfrontends)
-- [Read next](#read-next)
-   - [AI Assisted Coding Guide](./ai-assisted-coding-guide.md)
+
+Read next:
+- [AI Assisted Coding Guide](./ai-assisted-coding-guide.md)
 
 ## How to start a new project?
 
@@ -131,6 +138,24 @@ libs/ui/
 ├── TextField.tsx               
 └── Toast.tsx                 
 ```
+
+## How to migrate an existing codebase?
+
+If you want to adopt Feature Garden in an existing project, avoid rewriting features upfront.
+
+Instead, start by building new features using Feature Garden and gradually pull existing code into it.
+To initialize Feature Garden, follow [these steps](#how-to-start-a-new-project).
+
+Enforce an additional strict boundary: Feature Garden features and libraries must not import anything from the legacy codebase.
+At the same time, legacy code is allowed to import from Feature Garden.
+
+This constraint naturally forces reusable logic to move into Feature Garden libraries, enabling new features to be built on top of it.
+
+When a legacy feature requires a major update, reimplement it inside the new features folder.
+Do not worry about size — even small legacy features can be reimplemented directly at the root level of the features directory.
+The root-level features can be imported from the legacy codebase.
+
+Over time, smaller top-level features can be reorganized into larger ones as nested features.
 
 ## How to split the UI into features?
 
@@ -350,6 +375,30 @@ graph TD
     E -->|Yes| G[Reuse via a shared feature]
 ```
 
+## What belongs in the app layer?
+
+The app layer is responsible for composing features into pages, and pages into the application, following your framework conventions.
+
+Unlike other layers, the app layer does not have to use a dedicated folder named `app`. Instead, use the folder structure required by your framework.
+
+To compose features into pages, use the nested layout mechanism provided by your framework. If your framework does not have nested layouts, follow the recommended approach for that framework.
+
+You can create as many additional folders as needed. All of them are treated as part of the app layer.
+
+The app layer can also include things such as:
+
+- Routing configuration
+- Page layouts
+- Application providers, such as theme, query client, or internationalization providers
+- Global error boundaries
+- Global loading states
+- Global styles
+- Metadata configuration
+- Application-level redirects
+- Framework-specific configuration files
+
+The app layer should stay thin. It should compose features and configure the application, but it should not contain feature-specific details.
+
 ## How to reuse code?
 
 If a module needs to be reused across different features, the primary mechanism is libraries.
@@ -510,24 +559,6 @@ The domain library should be easy to test with unit tests, especially if it is i
 For features, use component testing (e.g., with [Testing Library](https://testing-library.com/)) to verify user behavior.  
 API interactions can be mocked either at the library level or via a mock server (e.g., with [MSW](https://mswjs.io/)).
 Mocking the API library is often simpler, but using a mock server provides more realistic coverage by testing the API library as well.
-
-## How to migrate an existing codebase?
-
-If you want to adopt Feature Garden in an existing project, avoid rewriting features upfront.
-
-Instead, start by building new features using Feature Garden and gradually pull existing code into it.
-To initialize Feature Garden, follow [these steps](#how-to-start-a-new-project).
-
-Enforce an additional strict boundary: Feature Garden features and libraries must not import anything from the legacy codebase.
-At the same time, legacy code is allowed to import from Feature Garden.
-
-This constraint naturally forces reusable logic to move into Feature Garden libraries, enabling new features to be built on top of it.
-
-When a legacy feature requires a major update, reimplement it inside the new features folder.
-Do not worry about size — even small legacy features can be reimplemented directly at the root level of the features directory.
-The root-level features can be imported from the legacy codebase.
-
-Over time, smaller top-level features can be reorganized into larger ones as nested features.
 
 ## How to scale development teams?
 

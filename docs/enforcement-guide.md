@@ -8,7 +8,7 @@ Instead, this guide describes an ESLint-based enforcement approach. However, you
 
 **Initial setup:**
 - [Set up an alias to the root folder](#set-up-an-alias-to-the-root-folder)
-- [Set up cycle detection](#set-up-cycle-detection)
+- [Restrict cycles](#restrict-cycles)
 - [Restrict dependencies between layers and libraries](#restrict-dependencies-between-layers-and-libraries)
 - [Restrict dependencies between features](#restrict-dependencies-between-features)
 
@@ -41,7 +41,7 @@ For TypeScript projects, the alias is usually configured in `tsconfig.json`:
 
 If your framework or bundler does not read tsconfig.json aliases automatically, configure the same alias in the bundler as well.
 
-## Set up cycle detection
+## Restrict cycles
 
 One of the most important Feature Garden rules is that the dependency graph should not contain cycles.
 

@@ -4,12 +4,12 @@ This guide focuses on the practical side of Feature Garden.
 
 It helps you make decisions across the entire lifecycle of a project — from the initial setup to long-term evolution:
 
-Initial setup:
+**Initial setup:**
 - [How to start a new project?](#how-to-start-a-new-project)
 - [What libraries to start with?](#what-libraries-to-start-with)
 - [How to migrate an existing codebase?](#how-to-migrate-an-existing-codebase)
 
-Daily decisions:
+**Daily decisions:**
 - [How to split the UI into features?](#how-to-split-the-ui-into-features)
 - [How to keep complexity under control as the system grows?](#how-to-keep-complexity-under-control-as-the-system-grows)
 - [When and how to create a nested feature?](#when-and-how-to-create-a-nested-feature)
@@ -20,11 +20,11 @@ Daily decisions:
 - [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
 
-Long-term evolution:
+**Long-term evolution:**
 - [How to scale development teams?](#how-to-scale-development-teams)
 - [How to use with microfrontends?](#how-to-use-with-microfrontends)
 
-Read next:
+**Read next:**
 - [AI Assisted Coding Guide](./ai-assisted-coding-guide.md)
 
 ## How to start a new project?

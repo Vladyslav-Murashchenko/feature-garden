@@ -123,7 +123,7 @@ const eslintConfig = defineConfig([
                 },
               },
             },
-            { allow: { to: { origin: "external" } } }, // allow all external dependencies by default
+            { allow: { to: { origin: "external" } } }, // Allow all external dependencies by default.
           ],
         },
       ],

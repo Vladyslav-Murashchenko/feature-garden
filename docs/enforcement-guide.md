@@ -79,7 +79,7 @@ const eslintConfig = defineConfig([
     plugins: { boundaries },
     settings: {
       "boundaries/elements": [
-        { type: "app", pattern: "src/app" }, // replace "src/app" with your framework app folder
+        { type: "app", pattern: "src/app" }, // Replace "src/app" with your framework's routing folder.
         { type: "feature", pattern: "src/features/*" },
         { type: "shared-feature", pattern: "src/shared-features/*" },
         { type: "lib-ui", pattern: "src/libs/ui" },
@@ -96,7 +96,7 @@ const eslintConfig = defineConfig([
           rules: [
             {
               from: { type: "app" },
-              allow: { to: { type: ["feature"] } }, // add here libraries if needed to use some provider inside app
+              allow: { to: { type: ["feature"] } }, // Add libraries here if the app layer needs to use some provider implementations.
             },
             {
               from: { type: ["feature", "shared-feature"] },

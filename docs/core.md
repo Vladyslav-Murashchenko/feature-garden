@@ -90,8 +90,8 @@ This combination of symmetric encapsulation and an explicit tree structure gives
 Unlike layer-based approaches such as FSD, where isolation applies primarily between
 slices of the same layer, these properties hold recursively at every nesting level.
 
-These advantages are powerful, but trees are not universal enough to represent the full dependency graph of a real application.
-Feature Garden’s trade-off is to use trees whenever possible, but to fall back on libraries and shared features when reuse requires a more general DAG.
+These advantages are powerful, but trees are not universal enough to represent the full dependency graph of a real application. 
+Feature Garden’s trade-off is to use trees by default, and fall back to libraries and shared features when reuse requires a more general DAG.
 
 ## Rules
 - Module dependencies must form a directed acyclic graph (no circular dependencies)

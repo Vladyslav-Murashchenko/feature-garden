@@ -356,7 +356,12 @@ features/
 
 In the example above, both `interval-forms` and `interval-form` contain only 2 modules. This suggests that `interval-form` may not be necessary yet. Avoid creating nested features too early. As the feature grows, a better extraction point may be discovered.
 
-You may notice that the example above already has 5 levels of nesting. This is intentional. One important property of Feature Garden is that, because of its import rules, a nested feature does not know where it is located in the tree. As a result, tree depth does not directly increase the complexity of individual features.
+You may notice that the example above already has 5 levels of nesting. This is intentional. One important property of Feature Garden is that, because of its import rules:
+
+- A nested feature does not know where it is located in the tree
+- A parent feature does not know how deeply that feature is nested
+
+As a result, tree depth does not directly increase the internal complexity of individual features.
 
 ## Where should this module live?
 

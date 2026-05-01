@@ -5,6 +5,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 - [Terminology](#terminology)
 - [Goal](#goal)
 - [Core Idea](#core-idea)
+- [Why do features form trees?](#why-do-features-form-trees)
 - [Rules](#rules)
 
 ## Terminology
@@ -55,6 +56,38 @@ They represent a deliberate trade-off, used only when avoiding duplication (DRY)
 The App layer is responsible for composing features into the final application.
 Composition should follow the framework’s conventions and mechanisms.
 
+## Why do features form trees?
+
+Dependencies form a directed graph. In a healthy codebase, this graph should not have cycles. Such a graph is called a directed acyclic graph, or DAG.
+
+A tree is a DAG with an additional constraint: each node can have only one parent.
+
+Can we make a DAG visible in the project folder structure? Not really. A folder structure is naturally a tree, while a DAG can contain arbitrary acyclic relationships.
+
+Conveniently, UI composition is often tree-shaped: the DOM is a tree, and component-based UI is usually described as a tree of components.
+
+What if we could simplify the dependency DAG into a tree and express it explicitly through the folder structure? This is the core idea of Feature Garden.
+
+To make this work, Feature Garden enforces strict import rules inside a feature:
+
+- Modules inside a feature cannot import from the parent feature: `../**` is restricted.
+- Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.
+
+This enables symmetric encapsulation:
+
+- A nested feature does not know where it is located in the tree.
+- A parent feature does not know the internal nesting depth of its child features.
+
+This combination of symmetric encapsulation and an explicit tree structure gives Feature Garden several unique properties:
+
+- Local decomposition — a growing feature can be split inward into nested features without exposing internal complexity to the rest of the application.
+- Scoped names — nested feature names describe local responsibility instead of carrying their parent context as a prefix.
+- Simple promotion — moving a nested feature to `shared-features`, or somewhere else, requires changing imports in only one place: its immediate parent.
+- Nesting is cheap — depth does not add structural coupling, so nested features avoid the common problems of deep nesting.
+
+These advantages are useful, but a tree is not universal enough to represent the full dependency graph of a real application.
+Feature Garden’s trade-off is to use trees whenever possible, but to fall back on libraries and shared features when reuse requires a more general DAG.
+
 ## Rules
 - Module dependencies must form a directed acyclic graph (no circular dependencies)
 - Layers must follow the dependency rules shown below
@@ -68,6 +101,5 @@ graph LR
     app --> features
 ```
 - Dependencies between libraries must be explicit
-- Modules inside a feature cannot import from the parent feature
-- Modules inside a feature cannot import private modules from nested features
+
 - All rules must be enforced by tooling (ESLint or equivalent)

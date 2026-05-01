@@ -101,5 +101,6 @@ graph LR
     app --> features
 ```
 - Dependencies between libraries must be explicit
-
+- Modules inside a feature cannot import from the parent feature: `../**` is restricted.
+- Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.
 - All rules must be enforced by tooling (ESLint or equivalent)

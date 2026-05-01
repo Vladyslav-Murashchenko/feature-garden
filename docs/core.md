@@ -62,6 +62,8 @@ Dependencies form a directed graph. In a healthy codebase, this graph should not
 
 A tree is a DAG with an additional constraint: each node can have only one parent.
 
+This constraint also limits complexity. A general DAG with `n` modules can have up to `O(n²)` dependency edges, while a tree has only `O(n)`. This means there are fewer relationships to understand.
+
 Can we make a DAG visible in the project folder structure? Not really. A folder structure is naturally a tree, while a DAG can contain arbitrary acyclic relationships.
 
 Conveniently, UI composition is often tree-shaped: the DOM is a tree, and component-based UI is usually described as a tree of components.

@@ -85,7 +85,7 @@ This combination of symmetric encapsulation and an explicit tree structure gives
 - Simple promotion — moving a nested feature to `shared-features`, or somewhere else, requires changing imports in only one place: its immediate parent.
 - Nesting is cheap — depth does not add structural coupling, so nested features avoid the common problems of deep nesting.
 
-These advantages are useful, but a tree is not universal enough to represent the full dependency graph of a real application.
+These advantages are useful, but trees are not universal enough to represent the full dependency graph of a real application.
 Feature Garden’s trade-off is to use trees whenever possible, but to fall back on libraries and shared features when reuse requires a more general DAG.
 
 ## Rules

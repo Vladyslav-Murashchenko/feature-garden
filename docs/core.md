@@ -94,7 +94,7 @@ These advantages are powerful, but trees are not universal enough to represent t
 Feature Garden’s trade-off is to use trees by default, and fall back to libraries and shared features when reuse requires a more general DAG.
 
 ## Rules
-- Module dependencies must form a directed acyclic graph (no circular dependencies)
+- Module dependencies must form a directed acyclic graph
 - Layers must follow the dependency rules shown below
 ```mermaid
 graph LR

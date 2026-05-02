@@ -5,7 +5,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 - [Terminology](#terminology)
 - [Goal](#goal)
 - [Core Idea](#core-idea)
-- [Why do features form trees?](#why-do-features-form-trees)
+- [Feature Tree](#feature-tree)
 - [Rules](#rules)
 
 ## Terminology
@@ -56,7 +56,7 @@ They represent a deliberate trade-off, used only when avoiding duplication (DRY)
 The App layer is responsible for composing features into the final application.
 Composition should follow the framework’s conventions and mechanisms.
 
-## Why do features form trees?
+## Feature Tree
 
 Dependencies form a directed graph. In a healthy codebase, this graph should not have cycles. Such a graph is called a directed acyclic graph, or DAG.
 

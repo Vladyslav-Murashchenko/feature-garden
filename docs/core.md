@@ -93,7 +93,7 @@ Unlike layer-based approaches like FSD, where isolation applies primarily betwee
 These advantages are powerful, but trees are not universal enough to represent the full dependency graph of a real application. Feature Garden’s trade-off is to use trees by default, and fall back to libraries and shared features when reuse requires a more general DAG.
 
 ## Rules
-- Module dependencies must form a DAG
+- Module dependencies must form a directed acyclic graph
 - Layers must follow the dependency rules shown below
 ```mermaid
 graph LR

@@ -517,7 +517,7 @@ In the example, both `CreateInterval` and `EditInterval` use the `interval-form`
 
 If these two components were extracted into separate nested features, this reuse would require a shared feature. However, this separation is unlikely to be useful, because both components are just variants of `IntervalForm`.
 
-This is another reason why I recommend postponing nested feature extraction until there are at least 5 modules inside a feature.
+This is another reason why I recommend postponing nested feature extraction until there are more than 5 modules inside a feature.
 
 ## How to manage state?
 

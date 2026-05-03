@@ -15,6 +15,7 @@ Feature Garden is an opinionated, tree-based, modular architectural methodology 
 - **Feature** — an architectural module implemented as a folder that organizes modules and nested features
 - **Library** — a collection of modules grouped around a single responsibility
 - **External library** — package installed via a package manager like npm
+- **Directed acyclic graph (DAG)** — a graph where modules are connected by directional dependencies, and following those dependencies can never lead back to the same module
 
 ## Goal
 
@@ -92,7 +93,7 @@ Unlike layer-based approaches like FSD, where isolation applies primarily betwee
 These advantages are powerful, but trees are not universal enough to represent the full dependency graph of a real application. Feature Garden’s trade-off is to use trees by default, and fall back to libraries and shared features when reuse requires a more general DAG.
 
 ## Rules
-- Module dependencies must form a directed acyclic graph
+- Module dependencies must form a DAG
 - Layers must follow the dependency rules shown below
 ```mermaid
 graph LR

@@ -62,7 +62,7 @@ Dependencies form a directed graph. In a healthy codebase, this graph must not h
 
 A tree is a DAG with an additional constraint: each node can have only one parent.
 
-This constraint also limits complexity. A general DAG with `n` modules can have up to `O(n²)` dependency edges. A tree has only `O(n)`. This means there are fewer relationships to track.
+This constraint also dramatically limits complexity. A connected module dependency DAG with `n` modules can have from `n - 1` up to `O(n²)` dependency edges. A tree always has exactly `n - 1` edges, keeping the number of relationships linear and predictable.
 
 Can we make a DAG visible in the project folder structure? Not really. A folder structure is naturally a tree, while a DAG can contain arbitrary acyclic relationships.
 

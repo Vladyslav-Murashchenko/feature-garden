@@ -68,7 +68,7 @@ But there are also vines (**shared-features**) — a special kind of plant that 
 Vines are useful, but if the garden contains too many of them, it can turn into an impenetrable jungle.
 
 An interesting property of plants is that a branch can be cut off and grown as a separate plant, or grafted onto another one.
-Feature Garden follows the same principle: nested features are independent of their parents and can be extracted or reused elsewhere.
+Feature Garden follows the same principle: nested features are independent of their parents and can be extracted to reuse elsewhere.
 This is only possible when dependency rules are strictly enforced.
 
 ## Reference implementation

@@ -58,11 +58,11 @@ Composition should follow the framework’s conventions and mechanisms.
 
 ## Feature Tree
 
-Dependencies form a directed graph. In a healthy codebase, this graph should not have cycles. Such a graph is called a directed acyclic graph, or DAG.
+Dependencies form a directed graph. In a healthy codebase, this graph must not have cycles. Such a graph is a directed acyclic graph, or DAG.
 
 A tree is a DAG with an additional constraint: each node can have only one parent.
 
-This constraint also limits complexity. A general DAG with `n` modules can have up to `O(n²)` dependency edges, while a tree has only `O(n)`. This means there are fewer relationships to understand.
+This constraint also limits complexity. A general DAG with `n` modules can have up to `O(n²)` dependency edges. A tree has only `O(n)`. This means there are fewer relationships to track.
 
 Can we make a DAG visible in the project folder structure? Not really. A folder structure is naturally a tree, while a DAG can contain arbitrary acyclic relationships.
 
@@ -72,26 +72,24 @@ What if we could simplify the dependency DAG into a tree and express it explicit
 
 To make this work, Feature Garden enforces strict import rules inside a feature:
 
-- Modules inside a feature cannot import from the parent feature: `../**` is restricted.
-- Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.
+- Modules inside a feature must not import from the parent feature. Restrict `../**`.
+- Modules inside a feature must not import private modules from nested features. Restrict `./*/**`.
 
 This enables symmetric encapsulation:
 
-- A nested feature does not know where it is located in the tree.
-- A parent feature does not know the internal nesting depth of its child features.
+- A nested feature does not know its location in the tree.
+- A parent feature does not know its child features' nesting depth.
 
-This combination of symmetric encapsulation and an explicit tree structure gives Feature Garden several unique properties:
+This combination of symmetric encapsulation and explicit tree structure gives Feature Garden unique properties:
 
-- Local decomposition — a growing feature can be split inward into nested features without exposing internal complexity to the rest of the application.
+- Local decomposition — a growing feature can be split inward into nested features without exposing internal complexity to the rest of the app.
 - Scoped names — nested feature names describe local responsibility instead of carrying their parent context as a prefix.
-- Simple promotion — moving a nested feature to `shared-features`, or somewhere else, requires changing imports in only one place: its immediate parent.
-- Nesting is cheap — depth does not add structural coupling, so nested features avoid the common problems of deep nesting.
+- Simple promotion — moving a nested feature to shared-features, or somewhere else, requires changing imports in only one place: its immediate parent.
+- Nesting is cheap — depth adds no structural coupling, so nested features avoid common deep nesting issues.
 
-Unlike layer-based approaches such as FSD, where isolation applies primarily between
-slices of the same layer, these properties hold recursively at every nesting level.
+Unlike layer-based approaches like FSD, where isolation applies primarily between slices of the same layer, these properties hold recursively at every nesting level.
 
-These advantages are powerful, but trees are not universal enough to represent the full dependency graph of a real application. 
-Feature Garden’s trade-off is to use trees by default, and fall back to libraries and shared features when reuse requires a more general DAG.
+These advantages are powerful, but trees are not universal enough to represent the full dependency graph of a real application. Feature Garden’s trade-off is to use trees by default, and fall back to libraries and shared features when reuse requires a more general DAG.
 
 ## Rules
 - Module dependencies must form a directed acyclic graph

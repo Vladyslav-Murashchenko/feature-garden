@@ -34,7 +34,7 @@ It is designed to scale naturally from a single feature to a complex system, jus
 
 Feature Garden addresses a similar challenge, but emphasizes different trade-offs to prioritize managing structural complexity.
 
-The main distinction is that FSD breaks applications down into layers, slices, and segments. Feature Garden primarily relies on tree-based feature decomposition. This approach enables more localized and granular management of complexity.
+The main distinction is that FSD breaks applications down into layers, slices, and segments. Feature Garden primarily relies on tree-based modular decomposition. This approach enables more localized and granular management of complexity.
 
 ## Core principles
 

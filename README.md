@@ -18,6 +18,9 @@ Feature Garden is an opinionated, tree-based, modular architecture for front-end
 ## What problem does this solve?
 
 One of the main problems in modern application development is controlling structural complexity as applications grow.
+
+Structural complexity is the number and direction of relationships between modules, and the predictability of those relationships from the project structure.
+
 Existing approaches often optimize either for early development speed or for scalability, but struggle to provide a clear growth path from zero to complexity.
 Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) in favor of strict rules and structure. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.
 

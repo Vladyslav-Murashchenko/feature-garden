@@ -1,6 +1,6 @@
 # Feature Garden Core
 
-Feature Garden is an opinionated, tree-based, modular architecture for front-end applications.
+Feature Garden is an opinionated, tree-based, modular architectural methodology for structuring front-end applications.
 
 - [Terminology](#terminology)
 - [Goal](#goal)

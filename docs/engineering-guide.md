@@ -366,7 +366,7 @@ graph TD
     A{Should this module be reusable across features?}
 
     A -->|No| B[Keep within the feature]
-    A -->|Yes| C{Is it independent enough to live in a library?}
+    A -->|Yes| C{Does it represent a single, well-defined concern?}
 
     C -->|No| E{Are you sure this reuse does not violate SRP?}
     C -->|Yes| D[Put into a dedicated library]

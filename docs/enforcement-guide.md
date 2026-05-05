@@ -10,7 +10,7 @@ The architecture should not rely solely on discipline. Enforcement with tooling 
 
 Feature Garden intentionally does not provide a ready-to-use npm package for enforcing the architecture. Architectural rules should remain under your full control, because every codebase has its own libraries, tooling, and trade-offs.
 
-Instead, this guide describes an ESLint-based enforcement approach. You can apply the same rules using another tool of your choice.
+This guide describes an ESLint-based enforcement approach. You can apply the same rules using another tool of your choice.
 
 **Initial setup:**
 - [Set up an alias to the root folder](#set-up-an-alias-to-the-root-folder)

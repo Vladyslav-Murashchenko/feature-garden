@@ -3,7 +3,7 @@
 The architecture should not rely solely on discipline. Enforcement with tooling provides many benefits. In my opinion, the most important ones are:
 
 - Preventing accidental architecture violations
-- Reducing the need to remember all rules manually
+- Reducing the need to remember all the rules
 - Making code review easier by catching structural issues automatically
 - Helping both new team members and AI coding agents follow the architecture from the start
 - Turning architectural decisions into executable rules instead of only documented guidelines

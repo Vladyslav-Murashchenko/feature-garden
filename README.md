@@ -94,10 +94,10 @@ It is a small but complete application that can serve as a reference implementat
 
 ## License
 
-© 2026-present Vladyslav Murashchenko
+© 2026-present [Vladyslav Murashchenko](https://www.linkedin.com/in/vladyslav-murashchenko-3346b917a/)
 
 Feature Garden is licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0).
 
 You are free to use, modify, and distribute this work, including commercially. Just make sure to give credit to the original author.
 
-See the LICENSE file for full details.
+See the [LICENSE](./LICENSE) file for full details.

@@ -1,16 +1,13 @@
 # Feature Garden Enforcement Guide
 
-The architecture should not rely solely on discipline. Enforcement with tooling will give the following benefits:
+The architecture should not rely solely on discipline. Enforcement with tooling provides many benefits. In my opinion, the most important ones are:
 
-- Prevents accidental architecture violations
-- Makes architecture rules visible directly in the code editor
-- Provides fast feedback during development
-- Reduces the need to remember all rules manually
-- Makes code review easier by catching structural issues automatically
-- Helps new team members follow the architecture from the start
-- Helps AI coding agents detect and fix architecture violations
-- Keeps dependency directions consistent as the codebase grows
-- Makes architectural decisions executable instead of only documented
+- Preventing accidental architecture violations
+- Providing fast feedback directly in the editor
+- Reducing the need to remember all rules manually
+- Making code review easier by catching structural issues automatically
+- Helping both new team members and AI coding agents follow the architecture from the start
+- Turning architectural decisions into executable rules instead of only documented guidelines
 
 Feature Garden intentionally does not provide a ready-to-use npm package for enforcing the architecture. Architectural rules should remain under your full control, because every codebase has its own libraries, tooling, and trade-offs.
 

@@ -1,9 +1,11 @@
 ---
 name: feature-garden
 description: >
-  Official Feature Garden architecture skill for applying to frontend projects.
-  Use when the task involves organizing project structure, creating features,
-  placing modules, setting up libraries, or enforcing architectural boundaries.
+  Feature Garden architecture for frontend projects. Use when: organizing folder structure,
+  deciding where a module should live, creating or nesting features, extracting shared features,
+  creating or structuring libraries, setting up ESLint boundary enforcement (no-cycle, boundaries plugin,
+  no-restricted-imports), initializing a new project with Feature Garden, or migrating legacy modules.
+  Covers: layers (libs/features/app), import rules, code reuse strategy.
 ---
 
 # Feature Garden Architecture Skill
@@ -44,7 +46,7 @@ Read the relevant reference when the task matches:
 
 - [Module Placement](./references/module-placement.md) — deciding where a new module should live: 3-step decision flow (reusable? single concern? SRP-safe?), libraries vs shared features, no segmentation by type inside a feature, key heuristics for quick decisions.
 - [Nested Features](./references/nested-features.md) — when to extract (>5 modules), how to extract, how to count modules (nested features don't count), naming heuristic, avoiding premature extraction, full example.
-- [Libraries](./references/libraries.md) — purpose of libraries, when to create a new one (check existing first, avoid generic `utils`/`helpers`), vertical slicing, inter-library dependencies, link to project-specific library list.
+- [Libraries](./references/libraries.md) — code reuse is a purpose of libraries, when to create a new one (check existing first, avoid generic `utils`/`helpers`), vertical slicing, inter-library dependencies, link to project-specific library list.
 - [Enforcement (ESLint)](./references/enforcement-eslint.md) — `@` path alias, `import/no-cycle`, `eslint-plugin-boundaries` config for layers, `no-restricted-imports` for feature isolation, optional `_internal/` scopes, hiding external dependencies behind libraries, checklist for adding a new library.
 - [Project Setup](./references/project-setup.md) — 5-step setup: create folders, choose initial libraries, set up enforcement, document libraries in `libraries-project.md`, link Feature Garden in README.
 - [Migration](./references/migration.md) — per-module migration strategy for legacy codebases: one-way boundary rule, when to migrate (only on real need), strategy by module type (logic/API/UI/whole feature), step-by-step migration flow.

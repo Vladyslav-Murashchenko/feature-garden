@@ -259,7 +259,7 @@ const eslintConfig = defineConfig([
               from: { type: "lib-ui" }, // Allow these dependencies to be used only from a specific library.
               allow: {
                 to: { origin: "external" },
-                dependency: { source: ["@heroui/react", "@heroui/styles"] }, 
+                dependency: { source: ["@heroui/react", "@heroui/styles"] },
               },
             },
           ],

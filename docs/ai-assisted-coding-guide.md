@@ -1,5 +1,7 @@
 ## AI-Assisted Coding Guide
 
+> Skills are under active development. The approach might change
+
 Start with installing skills:
 ```
 npx skills add Vladyslav-Murashchenko/feature-garden --skill feature-garden

@@ -42,10 +42,10 @@ These two rules create symmetric encapsulation and enable the tree structure.
 
 Read the relevant reference when the task matches:
 
-- [Module Placement](./references/module-placement.md) — deciding where a new module should live (feature vs library vs shared-feature).
+- [Module Placement](./references/module-placement.md) — deciding where a new module should live (feature vs library vs shared-feature). Decision flow, heuristics, when to accept duplication.
 - [Nested Features](./references/nested-features.md) — when and how to decompose a feature into nested features.
 - [Shared Features](./references/shared-features.md) — when cross-feature reuse is justified.
-- [Libraries](./references/libraries.md) — creating and structuring libs.
-- [Enforcement (ESLint)](./references/enforcement-eslint.md) — setting up boundary rules, alias, no-cycle, boundaries plugin.
+- [Libraries](./references/libraries.md) — when to create a library, structuring with vertical slices, inter-library dependencies, adding a new library to the project.
+- [Enforcement (ESLint)](./references/enforcement-eslint.md) — setting up boundary rules, alias, no-cycle, boundaries plugin. Also: adding a new library to enforcement config, hiding private internals inside a library, hiding external dependencies behind a library.
 - [Project Setup](./references/project-setup.md) — setup a Feature Garden on the project.
 - [Migration](./references/migration.md) — adopting Feature Garden in an existing/legacy codebase.

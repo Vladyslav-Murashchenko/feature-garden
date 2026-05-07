@@ -60,6 +60,8 @@ However, in most cases, three libraries are a good starting point: `domain`, `ap
 
 The goal of the domain library is to extract shared domain models and domain logic from features, centralize them, and make them reusable across the application.
 
+You can think of the domain as the part of the application that would survive a migration to another platform, such as from web to native mobile.
+
 This does not mean that all domain logic must live in the domain library. It is perfectly fine to keep domain logic inside a feature when it is specific to that feature and is not reused elsewhere.
 
 The main property of the domain is that it is completely unaware of any infrastructure.
@@ -100,6 +102,8 @@ This removes the need for most manual state management, meaning you may not need
 
 ### UI Library
 The goal of the UI library is to provide a reusable abstraction for the application's appearance. 
+UI library components should be generic enough to be reused in another application with a completely different domain.
+
 The idea is that when a feature uses the `Button` component, it should not care about:
 
 - Whether it is built from scratch or uses an external UI library

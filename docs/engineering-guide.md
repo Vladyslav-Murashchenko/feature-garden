@@ -31,23 +31,23 @@ It helps you make decisions across the entire lifecycle of a project — from th
 
 To start a new project, follow these steps:
 
-1. Scaffold the project using a framework of your choice.  
+1. Scaffold the project using a framework of your choice.
    Most frameworks define how routing works and provide a dedicated folder for it — this becomes your **app layer**.
 
 2. Create the following top-level folders:
    - `features`
    - `shared-features`
-   - `libs`  
+   - `libs`
    Add `.gitkeep` files so Git tracks them.
 
-3. Decide which libraries you want to include from the start.  
-   See: [What libraries to start with?](#what-libraries-to-start-with)  
+3. Decide which libraries you want to include from the start.
+   See: [What libraries to start with?](#what-libraries-to-start-with)
    Then create corresponding folders inside `libs`.
 
-4. Set up boundary enforcement early.  
+4. Set up boundary enforcement early.
    See: [Enforcement Guide](./enforcement-guide.md)
 
-5. *(Optional)* Add a link to Feature Garden in your project’s `README.md`:  
+5. *(Optional)* Add a link to Feature Garden in your project’s `README.md`:
    https://github.com/Vladyslav-Murashchenko/feature-garden
 
 ## What libraries to start with?
@@ -101,7 +101,7 @@ I recommend using [TanStack Query](https://tanstack.com/query/latest) or a simil
 This removes the need for most manual state management, meaning you may not need a dedicated state management library in your initial setup.
 
 ### UI Library
-The goal of the UI library is to provide a reusable abstraction for the application's appearance. 
+The goal of the UI library is to provide a reusable abstraction for the application's appearance.
 UI library components should be generic enough to be reused in another application with a completely different domain.
 
 The idea is that when a feature uses the `Button` component, it should not care about:
@@ -126,21 +126,21 @@ libs/ui/
 ├── modal/
 │   ├── ConfirmModal.tsx         # Confirmation dialog with cancel/confirm actions
 │   ├── FormModal.tsx            # Modal with form submit functionality
-│   └── Modal.tsx                
+│   └── Modal.tsx
 ├── utils/
 │   ├── cn.ts                    # ClassName utility
 │   ├── formatDuration.ts        # Format milliseconds to "Xh Ym Zs" string
 │   └── showToast.ts             # Display toast notifications
-├── Button.tsx                    
-├── ButtonGroup.tsx            
-├── Card.tsx                     
-├── DateTimePicker.tsx          
-├── FieldError.tsx             
-├── Input.tsx               
-├── Label.tsx                   
-├── Spinner.tsx                
-├── TextField.tsx               
-└── Toast.tsx                 
+├── Button.tsx
+├── ButtonGroup.tsx
+├── Card.tsx
+├── DateTimePicker.tsx
+├── FieldError.tsx
+├── Input.tsx
+├── Label.tsx
+├── Spinner.tsx
+├── TextField.tsx
+└── Toast.tsx
 ```
 
 ## How to migrate an existing codebase?
@@ -151,15 +151,17 @@ Instead, start by building new features using Feature Garden and gradually pull 
 To initialize Feature Garden, follow [these steps](#how-to-start-a-new-project).
 
 Enforce an additional strict boundary: Feature Garden features and libraries must not import anything from the legacy codebase.
-At the same time, legacy code is allowed to import from Feature Garden.
+At the same time, legacy code is allowed to import from Feature Garden. You can treat all legacy code as part of the app layer.
 
 This constraint naturally forces reusable logic to move into Feature Garden libraries, enabling new features to be built on top of it.
 
-When a legacy feature requires a major update, reimplement it inside the new features folder.
-Do not worry about size — even small legacy features can be reimplemented directly at the root level of the features directory.
-The root-level features can be imported from the legacy codebase.
+When a legacy feature requires a major update, consider migrating it to the new `features` folder instead of continuing to extend it in the legacy structure.
 
-Over time, smaller top-level features can be reorganized into larger ones as nested features.
+For a large feature, create a dedicated folder inside `features`, but migrate it incrementally. Start with one module. Identify its dependencies and move the required dependencies first. Then decide [where this module should live](#where-should-this-module-live) and move it to the appropriate place.
+
+During the initial migration, it is acceptable for the feature to expose a wider public API so migrated modules can still be used by legacy code.
+
+Over time, as more code is moved into Feature Garden, the feature can be reorganized into nested features and its public API should become smaller.
 
 ## How to split the UI into features?
 
@@ -442,7 +444,7 @@ Let's look at examples when shared features can be justified.
 Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
 ```
 features/
-└── tasks/           
+└── tasks/
     ├── ...
     ├── active-task/
     │   ├── ...
@@ -562,7 +564,7 @@ In general, I recommend colocating test files with the modules they test.
 
 The domain library should be easy to test with unit tests, especially if it is implemented as a functional core (consisting of pure functions).
 
-For features, use component testing (e.g., with [Testing Library](https://testing-library.com/)) to verify user behavior.  
+For features, use component testing (e.g., with [Testing Library](https://testing-library.com/)) to verify user behavior.
 API interactions can be mocked either at the library level or via a mock server (e.g., with [MSW](https://mswjs.io/)).
 Mocking the API library is often simpler, but using a mock server provides more realistic coverage by testing the API library as well.
 

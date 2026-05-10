@@ -50,7 +50,7 @@ The difference lies in how root-level features are used:
 
 This enables reuse at the feature level.
 
-Shared features are not the primary mechanism for structuring an application. 
+Shared features are not the primary mechanism for structuring an application.
 They represent a deliberate trade-off, used only when avoiding duplication (DRY) is more important than preserving strict architectural isolation.
 
 ### App
@@ -76,12 +76,12 @@ To make this work, Feature Garden enforces strict import rules inside a feature:
 - Modules inside a feature must not import from the parent feature. Restrict `../**`.
 - Modules inside a feature must not import private modules from nested features. Restrict `./*/**`.
 
-This enables symmetric encapsulation:
+This enables symmetric isolation:
 
 - A nested feature does not know its location in the tree.
-- A parent feature does not know its child features' nesting depth.
+- A parent feature does not know its child features' internal structure.
 
-This combination of symmetric encapsulation and explicit tree structure gives Feature Garden unique properties:
+This combination of symmetric isolation and explicit tree structure gives Feature Garden unique properties:
 
 - Local decomposition — a growing feature can be split inward into nested features without exposing internal complexity to the rest of the app.
 - Scoped names — nested feature names describe local responsibility instead of carrying their parent context as a prefix.

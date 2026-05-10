@@ -30,7 +30,7 @@ Dependency direction:
 1. **No parent imports** — modules inside a feature must not import from `../**`.
 2. **No deep nested imports** — modules must not import from `./*/**`; only through nested feature's `index.ts`.
 
-These two rules create symmetric encapsulation and enable the tree structure.
+These two rules create symmetric isolation and enable the tree structure.
 
 ## Folder Layout
 

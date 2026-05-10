@@ -48,9 +48,30 @@ Create `references/libraries-project.md` listing each library.
 Example if recommended are accepted.
 ```markdown
 # Project Libraries
-- `libs/domain` — pure domain models & logic. No infrastructure dependencies.
-- `libs/api` — data access (TanStack Query). Depends on: domain.
-- `libs/ui` — UI primitives. No domain knowledge.
+
+## libs/domain
+
+**Intent:** Pure domain models and logic. Platform independent. No infrastructure dependencies.
+
+**Depends on:** nothing
+
+**Example modules:** model types, validation functions, domain calculations, business rules
+
+## libs/api
+
+**Intent:** Data access layer. Encapsulates fetching, caching, mutations, and server state management.
+
+**Depends on:** domain
+
+**Example modules:** query options, mutation options, API client configuration
+
+## libs/ui
+
+**Intent:** Reusable UI primitives. No domain knowledge.
+
+**Depends on:** nothing
+
+**Example modules:** Button, Modal, Input, TextField, Card, Spinner, layout utilities
 ```
 
 This file is the source of truth for the AI agent and new team members about what each library is for.

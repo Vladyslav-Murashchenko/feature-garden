@@ -1,5 +1,9 @@
 # Enforcement with ESLint
 
+## Basic rules
+
+- Do not add ESLint rules or configuration unless they are explicitly defined in this skill.
+
 ## Path Alias
 
 Set up a path alias (`@`) for the root folder so absolute imports work:
@@ -15,7 +19,9 @@ Set up a path alias (`@`) for the root folder so absolute imports work:
 }
 ```
 
-Configure the same alias in the bundler if it doesn't read tsconfig.json automatically.
+When configuring path aliases, follow modern TypeScript conventions for the project’s current TypeScript version.
+
+Only if the bundler does not read `tsconfig.json` automatically, configure the same alias in the bundler as well.
 
 ## Restrict Cycles
 

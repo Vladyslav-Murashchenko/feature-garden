@@ -2,7 +2,7 @@
 
 ## When to Create
 
-Consider extracting a nested feature when a feature has more than ~5 modules and it becomes hard to predict module dependencies.
+Consider extracting a nested feature when a feature has more than `nestedFeatureThreshold` (from `feature-garden.config.yaml`) modules.
 
 Do not mix new functionality with nested feature extraction. Suggest refactoring as next step after adding new functionality.
 
@@ -11,7 +11,7 @@ Do not mix new functionality with nested feature extraction. Suggest refactoring
 1. Look for a group of modules that can be hidden inside a folder and exposed through a small public API.
 2. Ideally, a nested feature exposes only one module via `index.ts`.
 3. A nested feature should contain at least 2 modules.
-4. After extraction, the parent feature should have 2–5 modules remaining.
+4. After extraction, the parent feature should have 2–`nestedFeatureThreshold` modules remaining.
 
 ## Counting Modules
 

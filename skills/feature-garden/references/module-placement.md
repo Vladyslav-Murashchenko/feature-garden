@@ -9,7 +9,7 @@ When deciding where a module should live, follow this sequence:
    - Yes → continue to step 2.
 
 2. **Does it represent a single, well-defined concern?**
-   - Yes → put it into a dedicated library. Check existing libraries first — it may already fit one.
+   - Yes → put it into a dedicated library. Check existing libraries in `feature-garden.config.yaml` first. Suggest creating a new library only when none of the existing libraries fit.
    - No → continue to step 3.
 
 3. **Are you sure this reuse does not violate SRP?**
@@ -27,8 +27,6 @@ Overusing shared features leads to complex and fragile dependency structures.
 ## Within a Feature
 
 Keep all modules directly in the feature folder — no additional segmentation by type (no `hooks/`, `components/`, `utils/` subfolders).
-
-When the feature grows beyond ~5 modules and dependencies become hard to predict, extract a nested feature. See [Nested Features](./nested-features.md).
 
 ## Reuse Within a Single Feature
 

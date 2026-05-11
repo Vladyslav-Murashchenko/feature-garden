@@ -38,7 +38,7 @@ For a large feature, migrate incrementally:
 3. Move the module into the target location, following Feature Garden rules.
 4. Update legacy callers to import from the new location.
 5. Delete the legacy module.
-6. If the migration introduces a new library, document it in `libraries-project.md`.
+6. If the migration introduces a new library, document it in `feature-garden.config.yaml`.
 
 ## Avoid
 

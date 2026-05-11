@@ -45,8 +45,8 @@ These two rules create symmetric isolation and enable the tree structure.
 Read the relevant reference when the task matches:
 
 - [Module Placement](./references/module-placement.md) — deciding where a new module should live: 3-step decision flow (reusable? single concern? SRP-safe?), libraries vs shared features, no segmentation by type inside a feature, key heuristics for quick decisions.
-- [Nested Features](./references/nested-features.md) — when to extract (>5 modules), how to extract, how to count modules (nested features don't count), naming heuristic, avoiding premature extraction, full example.
+- [Nested Features](./references/nested-features.md) — when to extract (>`nestedFeatureThreshold` modules), how to extract, how to count modules (nested features don't count), naming heuristic, avoiding premature extraction, full example.
 - [Libraries](./references/libraries.md) — code reuse is a purpose of libraries, when to create a new one (check existing first, avoid generic `utils`/`helpers`), vertical slicing, inter-library dependencies, link to project-specific library list.
 - [Enforcement (ESLint)](./references/enforcement-eslint.md) — `@` path alias, `import/no-cycle`, `eslint-plugin-boundaries` config for layers, `no-restricted-imports` for feature isolation, optional `_internal/` scopes, hiding external dependencies behind libraries, checklist for adding a new library.
-- [Project Setup](./references/project-setup.md) — 5-step setup: create folders, choose initial libraries, set up enforcement, document libraries in `libraries-project.md`, link Feature Garden in README.
+- [Project Setup](./references/project-setup.md) — 5-step setup: create folders, choose initial libraries, create `feature-garden.config.yaml`, set up enforcement, link Feature Garden in README.
 - [Migration](./references/migration.md) — per-module migration strategy for legacy codebases: one-way boundary rule, when to migrate (only on real need), strategy by module type (logic/API/UI/whole feature), step-by-step migration flow.

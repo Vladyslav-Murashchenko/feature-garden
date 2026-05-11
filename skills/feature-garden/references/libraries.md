@@ -36,10 +36,10 @@ See [Enforcement (ESLint)](./enforcement-eslint.md).
 
 1. Create a folder under `libs/` with a clear, responsibility-based name
 2. Add it to your enforcement config (see [Enforcement checklist](./enforcement-eslint.md#checklist-adding-a-new-library))
-3. Document it in `libraries-project.md` alongside this file
+3. Document it in `feature-garden.config.yaml`
 
 ## Project-Specific Libraries
 
-See [libraries-project.md](./libraries-project.md) for this project's concrete libraries.
+See `feature-garden.config.yaml` in the project root for this project's concrete libraries.
 If the file doesn't exist yet, generate it during project setup (see [Project Setup](./project-setup.md)).
 

@@ -23,13 +23,39 @@ Add `.gitkeep` files so Git tracks empty folders.
 
 ### 2. Decide initial libraries
 
-Ask the user about initial libraries they want to use, and dependencies between them.
+Ask the user about initial libraries, their responsibilities, and dependencies between them.
 
 Most projects start with three libraries: `domain`, `api`, `ui`. List them as recommended.
 
-For each chosen library, create a folder under `libs/`.
+For each chosen library, create a folder under `libs/`. Also `.gitkeep`.
 
-### 3. Set up boundary enforcement
+### 3. Create feature-garden.config.yaml
+
+Create `feature-garden.config.yaml` in the project root with the chosen libraries and settings.
+
+Example if recommended libraries are accepted:
+
+```yaml
+nestedFeatureThreshold: 5
+
+libraries:
+  domain:
+    intent: Pure domain models and logic. Platform independent. No infrastructure dependencies.
+    depends-on: []
+    examples: [model types, validation functions, domain calculations, business rules]
+
+  api:
+    intent: Data access layer. Encapsulates fetching, caching, mutations, and server state management.
+    depends-on: [domain]
+    examples: [query options, mutation options, API client configuration]
+
+  ui:
+    intent: Reusable UI primitives. No domain knowledge.
+    depends-on: []
+    examples: [Button, Modal, Input, TextField, Card, Spinner, layout utilities]
+```
+
+### 4. Set up boundary enforcement
 
 Configure ESLint rules. See [Enforcement (ESLint)](./enforcement-eslint.md).
 
@@ -40,43 +66,6 @@ Enforcement covers:
 - Import restrictions inside features
 
 Note that for recommended libraries, the only dependency is that api can use domain.
-
-### 4. Document project-specific libraries
-
-Create `references/libraries-project.md` listing each library.
-
-Example if recommended are accepted.
-```markdown
-# Project Libraries
-
-## libs/domain
-
-**Intent:** Pure domain models and logic. Platform independent. No infrastructure dependencies.
-
-**Depends on:** nothing
-
-**Example modules:** model types, validation functions, domain calculations, business rules
-
-## libs/api
-
-**Intent:** Data access layer. Encapsulates fetching, caching, mutations, and server state management.
-
-**Depends on:** domain
-
-**Example modules:** query options, mutation options, API client configuration
-
-## libs/ui
-
-**Intent:** Reusable UI primitives. No domain knowledge.
-
-**Depends on:** nothing
-
-**Example modules:** Button, Modal, Input, TextField, Card, Spinner, layout utilities
-```
-
-This file is the source of truth for the AI agent and new team members about what each library is for.
-
-Update it whenever a library is added or its responsibility changes.
 
 ### 5. Reference Feature Garden in README
 

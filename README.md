@@ -30,11 +30,11 @@ It is designed to scale naturally from a single feature to a complex system, jus
 
 ## Why use Feature Garden?
 
-- Modularity — isolated features, low coupling, and local reasoning
-- Predictability — module relationships follow the project structure
-- Natural scalability — features can grow without becoming large flat folders
-- Encapsulation — feature internals stay private behind explicit public APIs
-- Tooling support — architecture rules can be enforced with linters and followed by AI coding agents
+- **Modularity** — isolated features, low coupling, and local reasoning
+- **Predictability** — module relationships follow the project structure
+- **Natural scalability** — features can grow without becoming large flat folders
+- **Encapsulation** — feature internals stay private behind explicit public APIs
+- **Executable architecture** — rules are encoded as tooling constraints that guide developers and AI coding agents alike
 
 ## What is the difference with FSD?
 

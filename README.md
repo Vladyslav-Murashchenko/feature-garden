@@ -31,6 +31,12 @@ It is designed to scale naturally from a single feature to a complex system, jus
 
 ## Why use Feature Garden?
 
+Feature Garden helps control structural complexity while keeping the architecture simple and pragmatic.
+
+It does not require a large codebase to be useful. It starts paying off as soon as a feature grows beyond a few modules, and module relationships become harder to keep in your head.
+
+The main benefits are:
+
 - **Modularity** — isolated features, low coupling, and local reasoning
 - **Predictability** — module relationships follow the project structure
 - **Natural scalability** — features can grow without becoming large flat folders

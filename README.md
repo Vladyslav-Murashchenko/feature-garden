@@ -4,6 +4,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for structuri
 
 - [What problem does this solve?](#what-problem-does-this-solve)
 - [What is Feature Garden?](#what-is-feature-garden)
+- [Why use Feature Garden?](#why-use-feature-garden)
 - [What is the difference with FSD?](#what-is-the-difference-with-fsd)
 - [Core principles](#core-principles)
 - [Why “Garden”?](#why-garden)
@@ -34,7 +35,7 @@ It is designed to scale naturally from a single feature to a complex system, jus
 - **Predictability** — module relationships follow the project structure
 - **Natural scalability** — features can grow without becoming large flat folders
 - **Encapsulation** — feature internals stay private behind explicit public APIs
-- **Executable architecture** — rules are encoded as tooling constraints that guide developers and AI coding agents alike
+- **Executable architecture** — rules are encoded in tooling to guide developers and AI coding agents alike
 
 ## What is the difference with FSD?
 

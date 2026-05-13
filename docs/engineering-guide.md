@@ -583,20 +583,22 @@ With this setup, even a single codebase can support a high degree of team autono
 As the system grows further, some teams may start to experience additional constraints:
 
 - Coordinating releases across teams becomes more involved
-- The cost of a single deployment (build time, risk) increases
+- The cost of a single deployment, including build time and risk, increases
 - Stronger isolation between teams becomes desirable
 
-Not every team will run into these challenges, and in many cases, they can be managed within a single codebase.
+Not every team will run into these challenges, and in many cases, they can still be managed within a single codebase.
 
-However, when they become significant, teams may introduce additional layers of isolation — such as microfrontends — on top of the existing architecture.
+Feature Garden does not try to replace higher-level isolation strategies such as monorepos or microfrontends. Instead, it provides a solid foundation for adopting them later if the system needs them.
+
+For example, teams may move to a monorepo with tools like [Nx](https://nx.dev/). In that case, Feature Garden makes package boundaries easier to discover: root-level features already represent natural candidates for extraction into separate packages. Each package can still follow Feature Garden internally and collocate its own shared features and libraries.
+
+If even stronger isolation is needed, teams can introduce microfrontends on top of the existing architecture without discarding the existing structure.
 
 ## How to use with microfrontends?
 
 Feature Garden works naturally with microfrontends.
 
 Microfrontends provide deployment and runtime isolation, while Feature Garden controls complexity within each microfrontend.
-
-Because Feature Garden establishes clear boundaries between root-level features, those features can serve as natural candidates when introducing microfrontends.
 
 In an existing microfrontend architecture, the simplest way to get started is to adopt Feature Garden within individual microfrontends.
 

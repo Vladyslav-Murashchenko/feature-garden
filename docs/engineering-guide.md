@@ -606,7 +606,7 @@ In Ports and Adapters, port interfaces should live inside the domain library. Th
 
 An alternative to Ports and Adapters is to use "Functional Core, Imperative Shell".
 
-In this approach, the domain library is implemented as a set of pure functions and immutable data structures. Domain logic is decoupled from IO, state mutation, and other side effects. These effects are handled by the outer features and API, while the domain remains deterministic, testable, and independent from infrastructure details.
+In this approach, the domain library is implemented as a set of pure functions. Domain logic is decoupled from IO, state mutation, and other side effects. These effects are handled by the outer features and API, while the domain remains deterministic, testable, and independent from infrastructure details.
 
 I personally prefer this approach because I enjoy the developer experience of working with pure functions.
 

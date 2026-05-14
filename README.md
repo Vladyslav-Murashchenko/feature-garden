@@ -6,6 +6,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for structuri
 - [What is Feature Garden?](#what-is-feature-garden)
 - [Why use Feature Garden?](#why-use-feature-garden)
 - [What is the difference with FSD?](#what-is-the-difference-with-fsd)
+- [Relationship with other architectural approaches](#relationship-with-other-architectural-approaches)
 - [Core principles](#core-principles)
 - [Why “Garden”?](#why-garden)
 - [Reference implementation](#reference-implementation)
@@ -43,6 +44,8 @@ The main benefits are:
 - **Encapsulation** — feature internals stay private behind explicit public APIs
 - **Executable architecture** — rules are encoded in tooling to guide developers and AI coding agents alike
 
+[Engineering Guide](./docs/engineering-guide.md)
+
 ## What is the difference with FSD?
 
 [Feature-Sliced Design (FSD)](https://fsd.how/) is a popular architectural methodology for structuring front-end applications.
@@ -50,6 +53,12 @@ The main benefits are:
 Feature Garden addresses a similar challenge, but emphasizes different trade-offs to prioritize managing structural complexity.
 
 The main distinction is that FSD breaks applications down into layers, slices, and segments. Feature Garden primarily relies on tree-based modular decomposition. This approach enables more localized and granular management of complexity.
+
+## Relationship with other architectural approaches
+
+Feature Garden follows the philosophy of doing one thing and doing it well. It focuses primarily on an application’s structural complexity, while leaving other types of complexity to complementary architectural approaches.
+
+Feature Garden does not replace Clean Architecture, Ports & Adapters, or DDD. Instead, it composes well with them. Read more about combining Feature Garden with these approaches in the [Engineering Guide](./docs/engineering-guide.md).
 
 ## Core principles
 

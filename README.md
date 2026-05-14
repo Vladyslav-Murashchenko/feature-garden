@@ -44,8 +44,6 @@ The main benefits are:
 - **Encapsulation** — feature internals stay private behind explicit public APIs
 - **Executable architecture** — rules are encoded in tooling to guide developers and AI coding agents alike
 
-[Engineering Guide](./docs/engineering-guide.md)
-
 ## What is the difference with FSD?
 
 [Feature-Sliced Design (FSD)](https://fsd.how/) is a popular architectural methodology for structuring front-end applications.

@@ -19,6 +19,7 @@ It helps you make decisions across the entire lifecycle of a project — from th
 - [When to create a shared feature?](#when-to-create-a-shared-feature)
 - [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
+- [How to combine Feature Garden with other architectural approaches?](#how-to-combine-feature-garden-with-other-architectural-approaches)
 
 **Long-term evolution:**
 - [How to scale development teams?](#how-to-scale-development-teams)
@@ -155,13 +156,13 @@ At the same time, legacy code is allowed to import from Feature Garden. You can 
 
 This constraint naturally forces reusable logic to move into Feature Garden libraries, enabling new features to be built on top of it.
 
-When a legacy feature requires a major update, consider migrating it to the new `features` folder instead of continuing to extend it in the legacy structure.
+When a legacy feature requires a major update, consider migrating it to the new `features` folder rather than continuing to extend it within the legacy structure.
 
 For a large feature, create a dedicated folder inside `features`, but migrate it incrementally. Start with one module. Identify its dependencies and move the required dependencies first. Then decide [where this module should live](#where-should-this-module-live) and move it to the appropriate place.
 
 During the initial migration, it is acceptable for the feature to expose a wider public API so migrated modules can still be used by legacy code.
 
-Over time, as more code is moved into Feature Garden, the feature can be reorganized into nested features and its public API should become smaller.
+Over time, as more code is moved into Feature Garden, the feature can be reorganized into nested features, and its public API should become smaller.
 
 ## How to split the UI into features?
 
@@ -232,7 +233,7 @@ Feature Garden provides two options for managing the number of modules inside a 
 
 The first option is to move a module into a library. This is useful when the module should be reusable or has a clear responsibility that already belongs to one of the libraries. For example, domain logic can be moved to the domain library to simplify the feature.
 
-The second option is to decompose the feature into nested features. Nested features are independent from each other. Everything inside a nested feature is private by default, and the parent feature can access only its public entry point.
+The second option is to decompose the feature into nested features. Nested features are independent of each other. Everything inside a nested feature is private by default, and the parent feature can access only its public entry point.
 
 Read more about when and how to create a nested feature [in the next section](#when-and-how-to-create-a-nested-feature).
 
@@ -307,7 +308,7 @@ Try to find a group of modules that can be hidden inside a folder and exposed th
 
 A nested feature should include at least 2 modules. Avoid extracting too many modules as well. Try to extract modules in a way that leaves the parent feature with 2–5 modules.
 
-However, clear intent is more important than the exact number of extracted modules. A good heuristic is naming: if the nested feature can have an obvious, concise, and clear name, it probably has a clear responsibility.
+However, clear intent is more important than the exact number of extracted modules. A good heuristic for naming is this: if the nested feature can have an obvious, concise, and clear name, it probably has a clear responsibility.
 
 Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
 ```
@@ -403,7 +404,7 @@ The app layer can also include things such as:
 - Application-level redirects
 - Framework-specific configuration files
 
-Note that if something is needed both in features and in the app layer, it should live in a dedicated library. For example, provider implementations should live in libraries, while the app layer should only compose them. If the app layer needs access to these libraries, explicitly allow this in your enforcement rules.
+Note that if something is needed in both features and the app layer, it should live in a dedicated library. For example, provider implementations should live in libraries, while the app layer should only compose them. If the app layer needs access to these libraries, explicitly allow this in your enforcement rules.
 
 The app layer should stay thin. It should compose features and configure the application, but it should not contain feature-specific details.
 
@@ -463,7 +464,7 @@ In this example, `edit-task-name` is the same modal that opens when the user cli
 
 Note that `active-task` and `task` use different `TaskName` components because the name behaves differently in each place. In `active-task`, the name is truncated. In `task`, the full name is always displayed. If the name takes several lines, the task card itself becomes taller.
 
-This means that you stay in control of where to apply DRY and where to keep duplication intentionally.
+This means you stay in control of where to apply DRY and where to intentionally keep duplication.
 
 In this particular case, the shared feature could also be avoided by moving `edit-task-name` higher in the component tree, above both components. However, this would force me to lift the state up or introduce a global state solution.
 
@@ -568,6 +569,47 @@ For features, use component testing (e.g., with [Testing Library](https://testin
 API interactions can be mocked either at the library level or via a mock server (e.g., with [MSW](https://mswjs.io/)).
 Mocking the API library is often simpler, but using a mock server provides more realistic coverage by testing the API library as well.
 
+## How to combine Feature Garden with other architectural approaches?
+
+Feature Garden does not try to solve every architectural problem. Instead, it is designed to work well alongside other architectural approaches.
+
+Note that the architectural approaches below are primarily useful for solving complex domain problems. For simpler cases, a composition of features, UI modules, and API modules may be enough. Use simple approaches for simple problems, and introduce the more advanced approaches below only when needed.
+
+### Domain-Driven Design (DDD)
+
+DDD is primarily focused on managing business complexity through explicit domain modeling.
+
+Feature Garden can include a [domain library](#domain-library) for complex domain logic and core models.
+
+Use ubiquitous language when naming modules, features, and library slices.
+
+A bounded context in Feature Garden spans one or more root-level features, domain library slices, and API library slices.
+
+### Clean Architecture
+
+The goal of Clean Architecture is to build systems in which domain logic remains independent of frameworks, UI, API, WEB platform, and other implementation details.
+
+The Feature Garden inherits a dependency rule of Clean Architecture — dependencies point inward to the domain. Feature Garden enforces this dependency rule only on the import level. The semantic level remains uncovered.
+
+There are two common ways to cover the dependency rule on the semantic level:
+
+- Object-oriented approach: Ports and Adapters
+- Functional approach: Functional Core, Imperative Shell
+
+### Ports and Adapters
+
+Ports and Adapters apply the Dependency Inversion Principle on the architectural level.
+
+In Ports and Adapters, port interfaces should live inside the domain library. This inverts dependencies and keeps the domain independent from infrastructure details.
+
+### Functional Core, Imperative Shell
+
+An alternative to Ports and Adapters is to use "Functional Core, Imperative Shell".
+
+In this approach, the domain library is implemented as a set of pure functions and immutable data structures. Domain logic is decoupled from IO, state mutation, and other side effects. These effects are handled by the outer features and API, while the domain remains deterministic, testable, and independent from infrastructure details.
+
+I personally prefer this approach because I enjoy the developer experience of working with pure functions.
+
 ## How to scale development teams?
 
 One of the key advantages of Feature Garden is that it scales well from a single developer to multiple teams.
@@ -592,7 +634,7 @@ Feature Garden does not try to replace higher-level isolation strategies such as
 
 For example, teams may move to a monorepo with tools like [Nx](https://nx.dev/). In that case, Feature Garden makes package boundaries easier to discover: root-level features already represent natural candidates for extraction into separate packages. Each package can still follow Feature Garden internally and collocate its own shared features and libraries.
 
-If even stronger isolation is needed, teams can introduce microfrontends on top of the existing architecture without discarding the existing structure.
+If even stronger isolation is needed, teams can introduce microfrontends on top of the existing architecture without discarding it.
 
 ## How to use with microfrontends?
 

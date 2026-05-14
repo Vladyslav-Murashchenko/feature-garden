@@ -587,7 +587,7 @@ A bounded context in Feature Garden spans one or more root-level features, domai
 
 ### Clean Architecture
 
-The goal of Clean Architecture is to build systems in which domain logic remains independent of frameworks, UI, API, WEB platform, and other implementation details.
+The goal of Clean Architecture is to build systems in which domain logic remains independent of frameworks, UI, API, Web platform, and other implementation details.
 
 The Feature Garden inherits a dependency rule of Clean Architecture — dependencies point inward to the domain. Feature Garden enforces this dependency rule only on the import level. The semantic level remains uncovered.
 

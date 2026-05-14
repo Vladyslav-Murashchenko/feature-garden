@@ -56,7 +56,7 @@ The main distinction is that FSD breaks applications down into layers, slices, a
 
 Feature Garden follows the philosophy of doing one thing and doing it well. It focuses primarily on an application’s structural complexity, while leaving other types of complexity to complementary architectural approaches.
 
-Feature Garden does not replace Clean Architecture, Ports & Adapters, or DDD. Instead, it complements them well. Read more about combining Feature Garden with these approaches in the [Engineering Guide](./docs/engineering-guide.md) soon (not ready yet).
+Feature Garden does not replace Clean Architecture, Ports & Adapters, or DDD. Instead, it complements them well. Read more about combining Feature Garden with these approaches in the [Engineering Guide](./docs/engineering-guide.md#how-to-combine-feature-garden-with-other-architectural-approaches).
 
 ## Core principles
 

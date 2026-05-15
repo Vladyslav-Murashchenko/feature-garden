@@ -557,7 +557,7 @@ All other states that are related to the user interface.
 
 Avoid feature-level global state abstractions. They introduce implicit dependencies between modules within a feature, making future decomposition into nested features harder. If a shared abstraction is needed, extract it into a dedicated `store` library instead.
 
-If state management logic becomes complex and encodes domain rules, it should be decoupled from infrastructure and implemented as pure functions in the domain library.
+If state management logic becomes complex and begins to encode domain rules, consider applying [complementary architectural approaches](#how-to-combine-feature-garden-with-other-architectural-approaches).
 
 ## How to test the codebase?
 

@@ -111,4 +111,4 @@ graph LR
 
 ## Read next
 
-- [Engineering Guide](./docs/engineering-guide.md) — learn how to apply Feature Garden in real projects.
+- [Engineering Guide](./engineering-guide.md) — learn how to apply Feature Garden in real projects.

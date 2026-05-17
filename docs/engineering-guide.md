@@ -47,7 +47,7 @@ npx skills add Vladyslav-Murashchenko/feature-garden --skill feature-garden
 ```
 Set up Feature Garden for this project
 ```
-Or alternatively, you can follow the [skill instructions](../skills/feature-garde/references/project-setup.md) manually.
+   Or alternatively, you can follow the [skill instructions](../skills/feature-garde/references/project-setup.md) manually.
 
 ## What libraries to start with?
 

@@ -1,8 +1,8 @@
 # Feature Garden Engineering Guide
 
-This guide focuses on the practical side of Feature Garden.
+This guide focuses on the practical side of Feature Garden. It helps you make decisions throughout the entire project lifecycle — from initial setup to long-term evolution.
 
-It helps you make decisions across the entire lifecycle of a project — from the initial setup to long-term evolution:
+I recommend reading [Feature Garden Core](https://github.com/Vladyslav-Murashchenko/feature-garden/blob/main/docs/core.md) before this guide. 
 
 **Initial setup:**
 - [How to start a new project?](#how-to-start-a-new-project)

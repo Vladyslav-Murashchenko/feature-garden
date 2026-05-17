@@ -1,15 +1,14 @@
 # Enforcement with ESLint
 
-## Basic rules
+> **Idempotency:** Skip any step whose outcome already exists in the project.
 
-- Do not add ESLint rules or configuration unless they are explicitly defined in this skill.
+## Step 1 — Path Alias
 
-## Path Alias
+**Goal:** Enable absolute imports via `@/` prefix.
 
-Set up a path alias (`@`) for the root folder so absolute imports work:
+Add to `tsconfig.json` (use conventions appropriate for the project's TypeScript version):
 
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
     "paths": {
@@ -19,146 +18,78 @@ Set up a path alias (`@`) for the root folder so absolute imports work:
 }
 ```
 
-When configuring path aliases, follow modern TypeScript conventions for the project’s current TypeScript version.
+**IF** the bundler does NOT read `tsconfig.json` paths automatically, **THEN** also configure the alias in the bundler.
 
-Only if the bundler does not read `tsconfig.json` automatically, configure the same alias in the bundler as well.
-
-## Restrict Cycles
-
-Use [`eslint-plugin-import`](https://www.npmjs.com/package/eslint-plugin-import):
-
+Vite example:
 ```js
-{
-  rules: {
-    "import/no-cycle": "error",
-  },
-}
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: { tsconfigPaths: true },
+});
 ```
 
-## Restrict Dependencies Between Layers
+## Step 2 — ESLint Config
 
-Use [`eslint-plugin-boundaries`](https://www.npmjs.com/package/eslint-plugin-boundaries).
+**Reference config:** [assets/eslint.config.js](../assets/eslint.config.js)
 
-Define elements matching your project's layers and libraries:
+### Determine Project Type
 
-```js
-import boundaries from "eslint-plugin-boundaries";
+- **New project:** No application code exists yet (greenfield or only scaffolding).
+- **Existing project:** Application code already exists that was written without Feature Garden.
 
-const eslintConfig = defineConfig([
-  {
-    plugins: { boundaries },
-    settings: {
-      "boundaries/elements": [
-        { type: "app", pattern: "src/app" }, // Replace with your framework's routing folder
-        { type: "feature", pattern: "src/features/*" },
-        { type: "shared-feature", pattern: "src/shared-features/*" },
-        // Add one entry per library, e.g.:
-        // { type: "lib-ui", pattern: "src/libs/ui" },
-        // { type: "lib-api", pattern: "src/libs/api" },
-        // { type: "lib-domain", pattern: "src/libs/domain" },
-      ],
-    },
-    rules: {
-      "boundaries/dependencies": [
-        "error",
-        {
-          default: "disallow",
-          checkAllOrigins: true,
-          rules: [
-            {
-              from: { type: "app" },
-              allow: { to: { type: ["feature"] } },
-              // Add libraries here if the app layer needs provider implementations
-            },
-            {
-              from: { type: ["feature", "shared-feature"] },
-              allow: {
-                to: {
-                  type: ["shared-feature", /* list all lib-* types here */],
-                },
-              },
-            },
-            // Add inter-library rules as needed, e.g.:
-            // { from: { type: "lib-api" }, allow: { to: { type: "lib-domain" } } },
-            {
-              disallow: {
-                to: {
-                  type: ["feature", "shared-feature"],
-                  internalPath: "!index.ts",
-                },
-              },
-            },
-            { allow: { to: { origin: "external" } } },
-          ],
-        },
-      ],
-    },
-  },
-]);
-```
+### Copy or Patch
 
-## Restrict Dependencies Between Features
+- **IF** no ESLint config exists → copy the reference config as-is.
+- **IF** ESLint config already exists → patch it minimally to achieve the same boundary rules. Do not rewrite unrelated settings.
 
-Uses built-in `no-restricted-imports` — no plugin needed:
+### Project-Specific Adjustments
 
-```js
-{
-  files: ["src/features/**", "src/shared-features/**"],
-  rules: {
-    "no-restricted-imports": [
-      "error",
-      {
-        patterns: [
-          {
-            group: ["../**"],
-            message:
-              "Features cannot import from parent directories. Use absolute imports to access libraries and shared features.",
-          },
-          {
-            group: ["./*/**"],
-            message:
-              "Nested features can only be imported through their public entry point (index.ts).",
-          },
-          {
-            group: ["@/features/**"],
-            message:
-              "Features cannot import from the root features folder. Use a relative import to access a child feature.",
-          },
-        ],
-      },
-    ],
-  },
-}
-```
+1. **`boundaries/elements`** — Set `app` patterns to match the framework's routing/composition folders (e.g., `src/app` for Next.js, `src/routes` for TanStack Start). IF the project is existing, add all pre-existing project structure folders to the `app` type.
+2. **`boundaries/dependencies`** — IF the project is new, remove library types from the `app` allow list. IF the project is existing, keep all libraries allowed from `app`.
+3. **Library types** — Remove any `lib-*` types from the config that are NOT listed in `feature-garden.config.yaml`.
+4. **`boundaries/ignore`** — Update ignored files to match project entry points (e.g., `src/main.ts`, `src/index.tsx`, `src/vite-env.d.ts`).
 
-## Optional: Hide Internal Modules Inside Libraries
+**Install dependencies:** Install all packages required by the config via the project's package manager.
 
-Create private scopes within a library using `_internal/` folders:
+**Validate:** Run [scripts/test-boundaries.mjs](../scripts/test-boundaries.mjs) — all checks must pass.
+
+## Step 3 — Hide Internal Modules (Optional)
+
+> **ASK the user:** "Do you want `_internal/` scopes in any libraries?"
+> Proceed ONLY if the user says yes.
+
+Add a disallow rule to `boundaries/dependencies` for each library that needs private internals:
 
 ```js
 {
   disallow: {
     to: {
-      type: ["lib-ui"], // Add libraries that need an _internal folder
+      type: ["lib-ui"], // list libraries that have _internal/ folders
       internalPath: "_internal/**",
     },
   },
 }
 ```
 
-## Optional: Hide External Dependencies Behind Libraries
+## Step 4 — Hide External Dependencies Behind Libraries (Optional)
 
-Restrict certain npm packages to specific libraries only:
+> **ASK the user:** "Do you want to restrict any external packages to specific libraries only?"
+> Proceed ONLY if the user says yes.
+
+Add two rules to `boundaries/dependencies` — one to disallow globally, one to allow from the owning library:
 
 ```js
-// Disallow app-wide usage of specific packages
+// 1. Disallow these packages globally
 {
   disallow: {
     to: { origin: "external" },
     dependency: { source: ["@heroui/react", "@heroui/styles"] },
   },
 },
-// Allow them only from a specific library
+// 2. Allow them only from the designated library
 {
   from: { type: "lib-ui" },
   allow: {
@@ -168,12 +99,14 @@ Restrict certain npm packages to specific libraries only:
 }
 ```
 
+Replace package names and library type with actual values for the project.
+
 ## Checklist: Adding a New Library
 
-When adding a library to `libs/`:
+When a new library is added to `libs/`, update the ESLint config:
 
-1. Add it to `boundaries/elements`
-2. Allow it for `feature` and `shared-feature`
-3. Allow other libraries to access it if needed
-4. Add `_internal` restriction if needed
-5. Hide external dependencies behind it if needed
+1. Add a `boundaries/elements` entry with pattern `src/libs/<name>`.
+2. In `boundaries/dependencies`, allow `feature` and `shared-feature` to import it.
+3. IF other libraries depend on it, add allow rules for those too.
+4. IF it has private internals, add a `_internal` disallow rule (Step 3).
+5. IF it wraps external packages, add disallow/allow rules (Step 4).

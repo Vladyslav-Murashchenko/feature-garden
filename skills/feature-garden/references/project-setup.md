@@ -1,14 +1,14 @@
 # Project Setup
 
+> **Idempotency:** Skip any step whose outcome already exists in the project.
+
 Apply Feature Garden to a new or existing project.
 
-## Steps
+## Step 1 — Create Top-Level Folders
 
-### 1. Create top-level folders
+The framework's routing/composition folder becomes the **app layer** — do NOT rename it.
 
-The framework's routing folder becomes the **app layer** — no need to rename it.
-
-Inside `src/` (or the framework's source root):
+Create the following folders inside `src/` (or the framework's source root):
 
 ```
 src/
@@ -17,59 +17,75 @@ src/
 └── libs/
 ```
 
-If any folder already exist, rename existing one to {current-name}-old.
+- **IF** any of these folders already exist with non-Feature-Garden content → rename the existing folder to `{name}-old`.
+- Add `.gitkeep` to each empty folder so Git tracks them.
 
-Add `.gitkeep` files so Git tracks empty folders.
+## Step 2 — Decide Initial Libraries
 
-### 2. Decide initial libraries
+> **ASK the user** which libraries they want, their responsibilities, and dependencies between them.
 
-Ask the user about initial libraries, their responsibilities, and dependencies between them.
+Recommend starting with: `domain`, `api`, `ui`.
 
-Most projects start with three libraries: `domain`, `api`, `ui`. List them as recommended.
+For each chosen library, create `src/libs/<name>/` with a `.gitkeep` file.
 
-For each chosen library, create a folder under `libs/`. Also `.gitkeep`.
+## Step 3 — Create feature-garden.config.yaml
 
-### 3. Create feature-garden.config.yaml
+Create `feature-garden.config.yaml` in the project root.
 
-Create `feature-garden.config.yaml` in the project root with the chosen libraries and settings.
+Required fields:
+- `nestedFeatureThreshold` — module count that triggers nested feature extraction (default: `5`).
+- `libraries` — map of library names, each with `intent` and `rules` (`can` / `cannot` lists).
 
-Example if recommended libraries are accepted:
+Example (if recommended libraries are accepted):
 
 ```yaml
 nestedFeatureThreshold: 5
 
 libraries:
   domain:
-    intent: Pure domain models and logic. Platform independent. No infrastructure dependencies.
-    depends-on: []
-    examples: [model types, validation functions, domain calculations, business rules]
+    intent: Platform-independent business models and logic.
+    rules:
+      can:
+        - Define domain types, entities, value objects, and pure business rules
+        - Implement validation and calculations that do not require IO
+        - Expose pure functions for domain behavior
+      cannot:
+        - Import UI, API, framework, routing, storage, or infrastructure code
+        - Perform IO: HTTP requests, localStorage, cookies, timers, random values, or logging
+        - Depend on React, browser APIs, server APIs, or external services
 
   api:
-    intent: Data access layer. Encapsulates fetching, caching, mutations, and server state management.
-    depends-on: [domain]
-    examples: [query options, mutation options, API client configuration]
+    intent: Data access and server-state boundary.
+    rules:
+      can:
+        - Fetch, cache, mutate, and synchronize remote data
+        - Map external API DTOs to application/domain-friendly models
+        - Encapsulate server state management libraries
+      cannot:
+        - Contain reusable UI components
+        - Contain core business rules that should live in domain
+        - Expose raw external API details if they leak into features unnecessarily
 
   ui:
-    intent: Reusable UI primitives. No domain knowledge.
-    depends-on: []
-    examples: [Button, Modal, Input, TextField, Card, Spinner, layout utilities]
+    intent: Reusable UI primitives without application-specific knowledge.
+    rules:
+      can:
+        - Define reusable visual components, layout primitives, and design-system helpers
+        - Handle presentation-only state such as open, selected, expanded, or focused
+        - Accept data and callbacks through props
+      cannot:
+        - Import domain, api, or feature modules
+        - Know business concepts, user flows, permissions, or server data shape
+        - Perform data fetching, mutations, routing decisions, or persistence
 ```
 
-### 4. Set up boundary enforcement
+## Step 4 — Set Up Boundary Enforcement
 
-Configure ESLint rules. See [Enforcement (ESLint)](./enforcement-eslint.md).
+Configure ESLint rules per [Enforcement (ESLint)](./enforcement-eslint.md).
 
-Enforcement covers:
-- No cycles in the dependency graph
-- Layer dependency directions
-- Inter-library dependencies
-- Import restrictions inside features
+## Step 5 — Reference Feature Garden in README
 
-Note that for recommended libraries, the only dependency is that api can use domain.
-
-### 5. Reference Feature Garden in README
-
-Add a link to the architecture in the project's `README.md`:
+Add to the project's `README.md`:
 
 ```
 This project follows the Feature Garden architecture:

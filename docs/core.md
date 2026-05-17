@@ -73,7 +73,7 @@ What if we could simplify the dependency DAG into a tree and express it explicit
 
 To make this work, Feature Garden enforces strict import rules inside a feature:
 
-- Modules inside a feature must not import from the parent feature. Restrict `../**`.
+- Modules inside a feature must not import from the parent feature. Restrict `..**`.
 - Modules inside a feature must not import private modules from nested features. Restrict `./*/**`.
 
 This enables symmetric isolation:
@@ -105,7 +105,7 @@ graph LR
     app --> features
 ```
 - Dependencies between libraries must be explicit
-- Modules inside a feature cannot import from the parent feature: `../**` is restricted.
+- Modules inside a feature cannot import from the parent feature: `..**` is restricted.
 - Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.
 - All rules must be enforced by tooling (ESLint or equivalent)
 

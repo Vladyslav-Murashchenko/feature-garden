@@ -155,7 +155,7 @@ const eslintConfig = defineConfig([
         {
           patterns: [
             {
-              group: ["../**"],
+              group: ["..**"],
               message:
                 "Features cannot import from parent directories. Use absolute imports to access libraries and shared features.",
             },

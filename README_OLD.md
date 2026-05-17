@@ -48,7 +48,7 @@ Module dependencies should form a directed acyclic graph (no circular dependenci
 
 The app has 3 layers:
 
-- **libs** — low-level building blocks of the application.  
+- **libs** — low-level building blocks of the application.
   Typically includes:
   - **UI library** (`Button`, `Input`, `ConfirmModal`)
   - **API library** (`useTasks`, `createTask`, `startTask`)
@@ -100,7 +100,7 @@ A domain library is not mandatory. Many front-end applications don't need one be
 
 However, some applications — especially offline-first ones — require significant client-side domain logic, and a dedicated domain library can help keep that logic organized and reusable.
 
-This architecture does not impose strict rules on the domain library's internal structure. 
+This architecture does not impose strict rules on the domain library's internal structure.
 The exact structure depends on the needs and complexity of your project.
 
 One possible way to organize it could look like this:
@@ -146,31 +146,31 @@ libs/api/
 ├── _internal/
 │   └── db.ts                     # Private implementation details
 ├── active-task/
-│   ├── completeActiveTask.ts    
+│   ├── completeActiveTask.ts
 │   ├── model.ts                  # ActiveTaskState type
-│   ├── pauseActiveTask.ts       
-│   ├── startTask.ts             
-│   └── useActiveTaskState.ts     
+│   ├── pauseActiveTask.ts
+│   ├── startTask.ts
+│   └── useActiveTaskState.ts
 ├── tasks/
-│   ├── createTask.ts             
-│   ├── deleteTask.ts             
+│   ├── createTask.ts
+│   ├── deleteTask.ts
 │   ├── model.ts                  # Task type
-│   ├── reopenTask.ts             
-│   ├── useTask.ts               
-│   ├── useTasks.ts               
-│   └── updateTaskName.ts        
+│   ├── reopenTask.ts
+│   ├── useTask.ts
+│   ├── useTasks.ts
+│   └── updateTaskName.ts
 └── time-intervals/
-    ├── createTimeInterval.ts    
-    ├── deleteTimeInterval.ts    
+    ├── createTimeInterval.ts
+    ├── deleteTimeInterval.ts
     ├── model.ts                  # TimeInterval type
-    ├── updateTimeInterval.ts   
-    ├── useTaskDuration.ts       
+    ├── updateTimeInterval.ts
+    ├── useTaskDuration.ts
     └── useTaskTimeIntervals.ts
 ```
 
 
 ## UI Library
-The goal of the UI library is to provide a reusable abstraction for the application's appearance. 
+The goal of the UI library is to provide a reusable abstraction for the application's appearance.
 The idea is that when a feature uses the `Button` component, it should not care about:
 
 - Whether it is built from scratch or uses an external UI library
@@ -196,22 +196,22 @@ libs/ui/
 ├── modal/
 │   ├── ConfirmModal.tsx         # Confirmation dialog with cancel/confirm actions
 │   ├── FormModal.tsx            # Modal with form submit functionality
-│   └── Modal.tsx                
+│   └── Modal.tsx
 ├── utils/
 │   ├── cn.ts                    # ClassName utility
 │   ├── formatDuration.ts        # Format milliseconds to "Xh Ym Zs" string
 │   ├── showToast.ts             # Display toast notifications
 │   └── withErrorToast.ts        # Generic error handling wrapper with toast
-├── Button.tsx                    
-├── ButtonGroup.tsx            
-├── Card.tsx                     
-├── DateTimePicker.tsx          
-├── FieldError.tsx             
-├── Input.tsx               
-├── Label.tsx                   
-├── Spinner.tsx                
-├── TextField.tsx               
-└── Toast.tsx                 
+├── Button.tsx
+├── ButtonGroup.tsx
+├── Card.tsx
+├── DateTimePicker.tsx
+├── FieldError.tsx
+├── Input.tsx
+├── Label.tsx
+├── Spinner.tsx
+├── TextField.tsx
+└── Toast.tsx
 ```
 
 ## Features
@@ -228,8 +228,8 @@ Features may contain nested features.
 
 Each feature is fully independent. Import rules enforce strict boundaries:
 
-- A feature must not import sibling features (restricted via `../**`)
-- A feature must not import from its parent feature (restricted via `../**`)
+- A feature must not import sibling features (restricted via `..**`)
+- A feature must not import from its parent feature (restricted via `..**`)
 - A feature must not import private modules from its child features (restricted via `./*/**`)
 
 **Enforce these rules with ESLint or an equivalent tool.**
@@ -295,12 +295,12 @@ features/
 
 ## Shared features
 
-Sometimes a block of functionality - combining both UI and API - needs to be reused across multiple features. 
+Sometimes a block of functionality - combining both UI and API - needs to be reused across multiple features.
 In such cases, it does not naturally belong to any single feature. It cannot belong to the `libs` layer because it already represents a composition of UI and API.
 
 This is a valid reason to introduce a shared feature.
 
-The `shared-features` folder is not a separate architectural layer. 
+The `shared-features` folder is not a separate architectural layer.
 It still contains features and follows the same rules.
 
 The only difference is that a feature can only be imported by its parent feature or by the `app` layer.
@@ -312,7 +312,7 @@ They represent a deliberate trade-off, used only when avoiding duplication (DRY)
 Example:
 ```
 features/
-└── tasks/           
+└── tasks/
     ├── ...
     ├── active-task/
     │   ├── ...
@@ -339,13 +339,13 @@ The `libs` folder may contain more than just `ui`, `api`, and `domain`.
 
 You may introduce additional internal libraries when:
 
-- You rely on an external dependency but do not want the entire application to depend on it directly.  
+- You rely on an external dependency but do not want the entire application to depend on it directly.
   In this case, create an internal library inside `libs` and encapsulate the external dependency there.
 - You have code that is neither UI, API, nor domain, but needs to be shared across multiple features. Typical examples are global atomic state management, configurations, and infrastructure.
 
 ## The Garden Metaphor
 
-Imagine a world with countless plants.  
+Imagine a world with countless plants.
 They are different, yet share the same chemical compounds.
 
 In the Feature Garden metaphor:
@@ -354,11 +354,11 @@ In the Feature Garden metaphor:
 - Plants are `features`
 - The garden is the `app`
 
-Chemical compounds are reusable across plants.  
-Each plant in the garden is unique and self-contained.  
+Chemical compounds are reusable across plants.
+Each plant in the garden is unique and self-contained.
 The garden determines which plants exist and how they are arranged.
 
-Most plants grow independently, like trees.  
+Most plants grow independently, like trees.
 But there are also vines (`shared-features`) — a special kind of plant that wraps around others.
 
 Vines are useful, but if the garden contains too many of them, it can turn into an impenetrable jungle.

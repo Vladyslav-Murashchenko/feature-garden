@@ -279,6 +279,22 @@ expectFail(
 writeFile(join(LIB_DIR, "lib.ts"), 'export const lib = "lib";\n');
 removeFile(join(LIB_DIR, "lib-b.ts"));
 
+// --- Test 12: feature imports unconfigured library (forbidden) ---
+
+const TEST_LIB_DIR = join(LIBS_DIR, "test-lib");
+console.log("Test 12: feature imports unconfigured library");
+writeFile(join(TEST_LIB_DIR, "test-lib.ts"), 'export const test = "test";\n');
+writeFile(
+  join(FEATURE_DIR, "feature.ts"),
+  'import { test } from "@/libs/test-lib/test-lib";\nexport const feature = test;\n',
+);
+expectFail("feature -> unconfigured lib", join(FEATURE_DIR, "feature.ts"));
+writeFile(
+  join(FEATURE_DIR, "feature.ts"),
+  'export const feature = "feature";\n',
+);
+removeDir(TEST_LIB_DIR);
+
 // --- Cleanup ---
 
 removeDir(FEATURE_DIR);

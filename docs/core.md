@@ -108,3 +108,7 @@ graph LR
 - Modules inside a feature cannot import from the parent feature: `../**` is restricted.
 - Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.
 - All rules must be enforced by tooling (ESLint or equivalent)
+
+## Read next
+
+- [Engineering Guide](./docs/engineering-guide.md) — learn how to apply Feature Garden in real projects.

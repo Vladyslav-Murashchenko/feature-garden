@@ -43,7 +43,7 @@ npx skills add Vladyslav-Murashchenko/feature-garden --skill feature-garden
 3. Decide which libraries you want to include from the start.
    See: [What libraries to start with?](#what-libraries-to-start-with)
 
-4. Prompt agent (tested with Claude Opus 4.6):
+4. Prompt agent (tested on GitHub Copilot with Claude Opus 4.6):
 ```
 Set up Feature Garden for this project
 ```

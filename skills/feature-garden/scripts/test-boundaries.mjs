@@ -4,6 +4,7 @@ import {
   mkdirSync,
   readdirSync,
   rmSync,
+  statSync,
   writeFileSync,
 } from "node:fs";
 import { dirname, join } from "node:path";
@@ -25,7 +26,7 @@ const SRC = "src";
 const LIBS_DIR = join(SRC, "libs");
 const libName = readdirSync(LIBS_DIR).find((entry) => {
   const full = join(LIBS_DIR, entry);
-  return existsSync(full) && !entry.startsWith(".");
+  return existsSync(full) && !entry.startsWith(".") && statSync(full).isDirectory();
 });
 if (!libName) {
   throw new Error(`No library found in ${LIBS_DIR}`);

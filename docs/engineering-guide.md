@@ -35,21 +35,20 @@ To start a new project, follow these steps:
 1. Scaffold the project using a framework of your choice.
    Most frameworks define how routing works and provide a dedicated folder for it — this becomes your **app layer**.
 
-2. Create the following top-level folders:
-   - `features`
-   - `shared-features`
-   - `libs`
-   Add `.gitkeep` files so Git tracks them.
+2. Download Feature Garden skills:
+```
+npx skills add Vladyslav-Murashchenko/feature-garden --skill feature-garden
+```
 
 3. Decide which libraries you want to include from the start.
    See: [What libraries to start with?](#what-libraries-to-start-with)
    Then create corresponding folders inside `libs`.
 
-4. Set up boundary enforcement early.
-   See: [Enforcement Guide](./enforcement-guide.md)
-
-5. *(Optional)* Add a link to Feature Garden in your project’s `README.md`:
-   https://github.com/Vladyslav-Murashchenko/feature-garden
+4. Prompt agent (tested with Claude Opus 4.6):
+```
+Set up Feature Garden for this project
+```
+Or alternatively, you can follow the [skill instructions](../skills/feature-garde/references/project-setup.md) manually.
 
 ## What libraries to start with?
 

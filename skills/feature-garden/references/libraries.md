@@ -35,11 +35,16 @@ See [Enforcement (ESLint)](./enforcement-eslint.md).
 ## Adding a New Library
 
 1. Create a folder under `libs/` with a clear, responsibility-based name
-2. Add it to your enforcement config (see [Enforcement checklist](./enforcement-eslint.md#checklist-adding-a-new-library))
-3. Document it in `feature-garden.config.yaml`
+2. Document it in `feature-garden.config.yaml`
+3. Update the ESLint config:
+   1. Add a `boundaries/elements` entry with pattern `src/libs/<name>`.
+   2. In `boundaries/dependencies`, allow `feature` and `shared-feature` to import it.
+   3. IF other libraries depend on it, add allow rules for those too.
+   4. IF it has private internals, add a `_internal` disallow rule (Step 3).
+   5. IF it wraps external packages, add disallow/allow rules (Step 4).
 
 ## Project-Specific Libraries
 
 See `feature-garden.config.yaml` in the project root for this project's concrete libraries.
-If the file doesn't exist yet, generate it during project setup (see [Project Setup](./project-setup.md)).
+
 

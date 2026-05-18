@@ -47,7 +47,7 @@ export default defineConfig({
 
 ### Project-Specific Adjustments
 
-1. **`boundaries/elements`** — Set `app` patterns to match the framework's routing/composition folders (e.g., `src/app` for Next.js, `src/routes` for TanStack Start). IF existing project, add all pre-existing project structure folders to the `app` type.
+1. **`boundaries/elements`** — Set `app` patterns to match the framework's routing/composition folders (e.g., `app` for Next.js, `src/routes` for TanStack Start). IF existing project, add all pre-existing project structure folders to the `app` type.
 2. **`boundaries/dependencies`** — IF new project, remove library types from the `app` allow list. IF existing project, keep all libraries allowed from `app`.
 3. **Library types** — Remove any `lib-*` types from the config that are NOT listed in `feature-garden.config.yaml`.
 4. **`boundaries/ignore`** — Update ignored files to match project entry points (e.g., `src/main.ts`, `src/index.tsx`, `src/vite-env.d.ts`).

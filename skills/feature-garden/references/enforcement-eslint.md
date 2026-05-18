@@ -44,6 +44,7 @@ export default defineConfig({
 
 - **IF** no ESLint config exists → copy the reference config as-is.
 - **IF** ESLint config already exists → patch it minimally to achieve the same boundary rules. Do not rewrite unrelated settings.
+- **IF** use eslint-plugin-import-x, use it explicitly as in reference config.
 
 ### Project-Specific Adjustments
 
@@ -52,7 +53,7 @@ export default defineConfig({
 3. **Library types** — Remove any `lib-*` types from the config that are NOT listed in `feature-garden.config.yaml`.
 4. **`boundaries/ignore`** — Update ignored files to match project entry points (e.g., `src/main.ts`, `src/index.tsx`, `src/vite-env.d.ts`).
 
-**Install dependencies:** Install all packages required by the config via the project's package manager.
+**Install dependencies:** Install all packages required by the config via the project's package manager. Don't miss eslint-import-resolver-typescript.
 
 ### Validate (mandatory — do not skip)
 

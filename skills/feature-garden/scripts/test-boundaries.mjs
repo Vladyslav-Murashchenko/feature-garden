@@ -22,7 +22,7 @@ function findProjectRoot(startDir) {
 const ROOT = findProjectRoot(dirname(fileURLToPath(import.meta.url)));
 process.chdir(ROOT);
 
-const SRC = "src";
+const SRC = process.argv[2] ?? "src";
 const LIBS_DIR = join(SRC, "libs");
 const libName = readdirSync(LIBS_DIR).find((entry) => {
   const full = join(LIBS_DIR, entry);

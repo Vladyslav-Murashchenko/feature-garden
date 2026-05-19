@@ -24,9 +24,9 @@ The goal of Feature Garden is to manage the application's structural complexity 
 ## Core Idea
 The application consists of three layers:
 
-- Libraries — provide reuse
-- Features — define structure
-- App — composes the application
+- **Libraries** — provide reuse
+- **Features** — define structure
+- **App** — composes the application
 
 ### Libraries
 Libraries provide low-level building blocks and serve as the primary mechanism for code reuse.
@@ -83,10 +83,10 @@ This enables symmetric isolation:
 
 This combination of symmetric isolation and explicit tree structure gives Feature Garden unique properties:
 
-- Local decomposition — a growing feature can be split inward into nested features without exposing internal complexity to the rest of the app.
-- Scoped names — nested feature names describe local responsibility instead of carrying their parent context as a prefix.
-- Simple promotion — moving a nested feature to shared-features, or somewhere else, requires changing imports in only one place: its immediate parent.
-- Nesting is cheap — depth does not make any import paths longer, so nested features avoid common deep nesting issues.
+- **Local decomposition** — a growing feature can be split inward into nested features without exposing internal complexity to the rest of the app.
+- **Scoped names** — nested feature names describe local responsibility instead of carrying their parent context as a prefix.
+- **Simple promotion** — moving a nested feature to shared-features, or somewhere else, requires changing imports in only one place: its immediate parent.
+- **Nesting is cheap** — depth does not make any import paths longer, so nested features avoid common deep nesting issues.
 
 Unlike layer-based approaches like FSD, where isolation applies primarily between slices of the same layer, these properties hold recursively at every nesting level.
 

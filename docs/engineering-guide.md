@@ -595,7 +595,7 @@ There are two common ways to cover the dependency rule on the semantic level:
 
 Ports and Adapters apply the Dependency Inversion Principle on the architectural level.
 
-In Ports and Adapters, port interfaces should live inside the domain library. This inverts dependencies and keeps the domain independent from infrastructure details.
+In Ports and Adapters, port interfaces usually live inside the inner layers — either the domain or use-cases libraries. This inverts dependencies and keeps the core independent from infrastructure details.
 
 ### Functional Core, Imperative Shell
 

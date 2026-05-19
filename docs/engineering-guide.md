@@ -149,7 +149,7 @@ If you want to adopt Feature Garden in an existing project, avoid rewriting feat
 Instead, start by building new features using Feature Garden and gradually pull existing code into it.
 To initialize Feature Garden, follow [these steps](#how-to-start-a-new-project) from step 2.
 
-Enforce an additional strict boundary: Feature Garden features and libraries must not import anything from the legacy codebase.
+Note that Feature Garden features and libraries must not import anything from the legacy codebase.
 At the same time, legacy code is allowed to import from Feature Garden. You can treat all legacy code as part of the app layer.
 
 This constraint naturally forces reusable logic to move into Feature Garden libraries, enabling new features to be built on top of it.

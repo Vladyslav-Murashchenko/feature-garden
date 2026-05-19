@@ -20,7 +20,11 @@ Feature Garden is an opinionated, tree-based, modular architecture for structuri
 
 One of the main problems in modern application development is controlling structural complexity as applications grow.
 
-Structural complexity is the number and direction of relationships between modules, and the predictability of those relationships from the project structure.
+Structural complexity is the number and direction of relationships between modules, and the difficulty of predicting those relationships from the project structure.
+
+Even without cycles, there are 29,281 possible acyclic dependency graphs among just 5 modules. So, to understand how modules are related, we often have to dive into the details. For 5 modules, this is manageable. But as the number of modules grows, it becomes much harder to keep the whole structure in mind. For developers, this slows down development because more mental effort is needed to understand the structure. For AI, more context has to be devoted to reconstructing that structure rather than solving the actual task.
+
+Structural complexity also makes it easier for other forms of complexity and coupling to creep into the codebase.
 
 Existing approaches often optimize either for early development speed or for scalability, but struggle to provide a clear growth path from zero to complexity.
 Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) in favor of strict rules and structure. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.

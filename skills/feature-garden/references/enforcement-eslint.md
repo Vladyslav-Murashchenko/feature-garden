@@ -45,6 +45,7 @@ export default defineConfig({
 - **IF** no ESLint config exists → copy the reference config as-is.
 - **IF** ESLint config already exists → patch it minimally to achieve the same boundary rules. Do not rewrite unrelated settings.
 - **IF** use eslint-plugin-import-x, use it explicitly as in reference config.
+- **IF** the framework requires additional ESLint parsers or framework-specific configuration (e.g. `vue-eslint-parser` for Vue), install and configure them.
 
 ### Project-Specific Adjustments
 

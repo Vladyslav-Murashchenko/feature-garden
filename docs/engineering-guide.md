@@ -33,7 +33,6 @@ I recommend reading [Feature Garden Core](https://github.com/Vladyslav-Murashche
 To start a new project, follow these steps:
 
 1. Scaffold the project using a framework of your choice.
-   Most frameworks define how routing works and provide a dedicated folder for it — this becomes your **app layer**.
 
 2. Download Feature Garden skills:
 ```

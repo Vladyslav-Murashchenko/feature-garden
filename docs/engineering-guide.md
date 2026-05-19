@@ -365,7 +365,7 @@ Use the decision tree below to decide where a module should live.
 **Figure 1. Module placement decision flow**
 ```mermaid
 graph TD
-    A{Should this module be reusable across features?}
+    A{Should this module be reusable across the application?}
 
     A -->|No| B[Keep within the feature]
     A -->|Yes| C{Does it represent a single, well-defined concern?}

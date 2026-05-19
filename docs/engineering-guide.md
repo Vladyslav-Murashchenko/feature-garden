@@ -61,11 +61,9 @@ The goal of the domain library is to extract shared domain models and domain log
 
 You can think of the domain as the part of the application that would survive a migration to another platform and framework.
 
-This does not mean that all domain logic must live in the domain library. It is perfectly fine to keep domain logic inside a feature when it is specific to that feature and is not reused elsewhere.
-
 The main property of the domain is that it is completely unaware of any infrastructure.
 The domain should not depend on APIs, databases, or external services.
-To achieve this, I prefer to model the domain as an anemic domain model, with all domain logic expressed as pure functions. This keeps the domain fully functional and easy to reason about.
+Read how to achieve this in "[How to combine Feature Garden with other architectural approaches?](#how-to-combine-feature-garden-with-other-architectural-approaches)" section.
 
 Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):
 ```
@@ -81,8 +79,6 @@ libs/domain/
         ├── validateInterval.ts
         └── validateInterval.test.ts
 ```
-
-However, you can also use a rich domain model if that better fits your preferences or constraints.
 
 ### API Library
 

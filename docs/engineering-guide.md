@@ -603,7 +603,7 @@ An alternative to Ports and Adapters is to use "Functional Core, Imperative Shel
 
 In this approach, the domain library is implemented as a set of pure functions. Domain logic is decoupled from IO, state mutation, and other side effects. These effects are handled by the outer features and API, while the domain remains deterministic, testable, and independent from infrastructure details.
 
-I personally prefer this approach because I enjoy the developer experience of working with pure functions.
+My preferred approach is to start with a domain library implemented as a Functional Core. If the application later requires more complex orchestration, a separate use-cases library can be introduced and structured using Ports and Adapters.
 
 ## How to scale development teams?
 

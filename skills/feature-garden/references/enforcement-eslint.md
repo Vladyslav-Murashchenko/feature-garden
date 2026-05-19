@@ -6,7 +6,7 @@
 
 **Goal:** Enable absolute imports via `@/` prefix.
 
-Add to `tsconfig.json` (use conventions appropriate for the project's TypeScript version):
+Add to `tsconfig.json` (no need deprecated "baseUrl": "." for TypeScript 6+):
 
 ```json
 {

@@ -53,7 +53,7 @@ The app has three layers:
 - **features** — modules represented as folders that contain other modules. Features form tree-like structures. Helps control complexity.
 - **app** — composes features into the final application and implements routing according to the chosen framework.
 
-Read more about Feature Garden core principles [here](./docs/core.md).
+Read more about [Feature Garden Core](./docs/core.md) principles.
 
 ## What is the difference with FSD?
 

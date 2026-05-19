@@ -59,7 +59,7 @@ However, in most cases, three libraries are a good starting point: `domain`, `ap
 
 The goal of the domain library is to extract shared domain models and domain logic from features, centralize them, and make them reusable across the application.
 
-You can think of the domain as the part of the application that would survive a migration to another platform, such as from web to native mobile.
+You can think of the domain as the part of the application that would survive a migration to another platform and framework.
 
 This does not mean that all domain logic must live in the domain library. It is perfectly fine to keep domain logic inside a feature when it is specific to that feature and is not reused elsewhere.
 

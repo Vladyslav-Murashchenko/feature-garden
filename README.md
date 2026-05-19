@@ -13,7 +13,6 @@ Feature Garden is an opinionated, tree-based, modular architecture for structuri
 - [Read next](#read-next)
   - [Feature Garden Core](./docs/core.md)
   - [Engineering Guide](./docs/engineering-guide.md)
-  - [Enforcement Guide](./docs/enforcement-guide.md)
   - [AI Assisted Coding Guide](./docs/ai-assisted-coding-guide.md)
 - [License](#license)
 
@@ -111,7 +110,6 @@ It is a small but complete application that can serve as a reference implementat
 
 - [Feature Garden Core](./docs/core.md) — understand the fundamental ideas behind the architecture.
 - [Engineering Guide](./docs/engineering-guide.md) — learn how to apply Feature Garden in real projects.
-- [Enforcement Guide](./docs/enforcement-guide.md) — keep your architecture consistent as the codebase grows.
 - [AI Assisted Coding Guide](./docs/ai-assisted-coding-guide.md) — use AI as a force multiplier without losing control over structure.
 
 ## License

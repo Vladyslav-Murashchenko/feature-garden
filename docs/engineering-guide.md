@@ -42,7 +42,7 @@ npx skills add Vladyslav-Murashchenko/feature-garden --skill feature-garden
 3. Decide which libraries you want to include from the start.
    See: [What libraries to start with?](#what-libraries-to-start-with)
 
-4. Prompt agent (or follow [skill instructions](../skills/feature-garde/references/project-setup.md) manually):
+4. Prompt agent (or follow [skill instructions](../skills/feature-garden/references/project-setup.md) manually):
 ```
 Set up Feature Garden for this project
 ```

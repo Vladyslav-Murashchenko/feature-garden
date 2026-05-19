@@ -290,7 +290,7 @@ I do not recommend mixing new functionality with nested feature extraction. Comm
 
 Then look at the number of modules inside the feature folder. If it becomes hard to predict module dependencies, consider creating a nested feature.
 
-This usually happens when a feature has more than 5 modules. Choose the number that works best for your team.
+This usually happens when a feature has more than 5 modules. Choose the number that works best for your team and configure `nestedFeatureThreshold` inside `feature-garden.config.yaml`.
 
 When counting modules, treat all technical files that belong to the same module as one module. For example, treat all the files below as one module:
 ```

@@ -43,11 +43,12 @@ npx skills add Vladyslav-Murashchenko/feature-garden --skill feature-garden
 3. Decide which libraries you want to include from the start.
    See: [What libraries to start with?](#what-libraries-to-start-with)
 
-4. Prompt agent (tested on GitHub Copilot with Claude Opus 4.6):
+4. Prompt agent (or follow [skill instructions](../skills/feature-garde/references/project-setup.md) manually):
 ```
 Set up Feature Garden for this project
 ```
-   Or alternatively, you can follow the [skill instructions](../skills/feature-garde/references/project-setup.md) manually.
+5. Review the generated code.
+   Customize `feature-garden.config.yaml` if needed, and fix anything the agent missed or generated incorrectly.
 
 ## What libraries to start with?
 

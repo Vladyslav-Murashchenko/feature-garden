@@ -59,10 +59,11 @@ However, in most cases, three libraries are a good starting point: `domain`, `ap
 
 The goal of the domain library is to extract shared domain models and domain logic from features, centralize them, and make them reusable across the application.
 
-You can think of the domain as the part of the application that would survive a migration to another platform and framework.
-
 The main property of the domain is that it is completely unaware of any infrastructure.
 The domain should not depend on APIs, databases, or external services.
+
+You can think of the domain as the part of the application that would survive a migration to another platform and framework.
+
 Read how to achieve this in "[How to combine Feature Garden with other architectural approaches?](#how-to-combine-feature-garden-with-other-architectural-approaches)" section.
 
 Example from [productivity-up](https://github.com/Vladyslav-Murashchenko/productivity-up):

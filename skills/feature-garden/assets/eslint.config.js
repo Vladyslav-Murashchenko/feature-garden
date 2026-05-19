@@ -7,6 +7,8 @@ import { configs as tsconfigs } from "typescript-eslint";
 export default defineConfig([
   {
     ignores: ["**", "!src/**"],
+  },
+  {
     languageOptions: {
       parserOptions: {
         projectService: true,

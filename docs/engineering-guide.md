@@ -51,7 +51,7 @@ Set up Feature Garden for this project
 
 ## What libraries to start with?
 
-There is no universal answer to this question — it depends on your application, the framework you use, and the surrounding ecosystem.
+There is no universal answer to this question — it depends on your application.
 
 However, in most cases, three libraries are a good starting point: `domain`, `api`, and `ui`.
 

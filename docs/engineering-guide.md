@@ -301,7 +301,7 @@ Tasks.module.css
 
 Try to find a group of modules that can be hidden inside a folder and exposed through a small public API. Ideally, a nested feature should expose only one module.
 
-A nested feature should include at least 2 modules. Avoid extracting too many modules as well. Try to extract modules in a way that leaves the parent feature with 2–5 modules.
+A nested feature should include at least 2 modules. Avoid extracting too many modules as well. Try to extract modules so that the parent feature has 2–`{nestedFeatureThreshold}` modules.
 
 However, clear intent is more important than the exact number of extracted modules. A good heuristic for naming is this: if the nested feature can have an obvious, concise, and clear name, it probably has a clear responsibility.
 

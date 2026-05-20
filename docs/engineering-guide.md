@@ -493,7 +493,7 @@ If `time-intervals` were extracted into a shared feature, it would definitely vi
 
 This way, the card component can be changed in one place, while the risk of violating SRP is much smaller than with reusing the whole `time-intervals` feature. If at some point `TimeIntervalCard` becomes too different across views, the shared feature can be replaced with a unique implementation inside each feature.
 
-It is important to note that you do not need to create a shared feature when reuse happens only within the scope of a single feature.
+It is important to note that you do not need to create a shared feature when reuse occurs only within a single feature.
 Look at the example:
 ```
 features/
@@ -520,7 +520,7 @@ In the example, both `CreateInterval` and `EditInterval` use the `interval-form`
 
 If these two components were extracted into separate nested features, this reuse would require a shared feature. However, this separation is unlikely to be useful, because both components are just variants of `IntervalForm`.
 
-This is another reason why I recommend postponing nested feature extraction until there are more than 5 modules inside a feature.
+This is another reason why I recommend postponing nested feature extraction until there are more than `{nestedFeatureThreshold}` modules inside a feature.
 
 ## How to hide library internals?
 

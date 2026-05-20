@@ -524,9 +524,9 @@ This is another reason why I recommend postponing nested feature extraction unti
 
 ## How to hide library internals?
 
-By default, Feature Garden treats all modules inside a library as public. Since libraries typically contain many modules, requiring a barrel file for every library would create unnecessary bureaucracy.
+By default, Feature Garden treats all modules inside a library as public. Since libraries typically contain many unrelated modules, requiring barrel files for libraries would create unnecessary bureaucracy.
 
-However, sometimes you need to hide certain modules behind a library's boundary to achieve the desired encapsulation. For example, a database client or an internal utility that should only be used within the library itself.
+However, sometimes you need to hide certain modules behind a library's boundary to achieve the desired encapsulation. For example, a database client or an internal utility should only be used within the library itself.
 
 The Feature Garden [ESLint config](../skills/feature-garden/assets/eslint.config.js) contains a rule that makes modules private to the library. Add a `_` prefix to the module name, and it becomes inaccessible from outside the library:
 

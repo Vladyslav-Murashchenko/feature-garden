@@ -1,6 +1,6 @@
 # Feature Garden Front-End Architecture
 
-Feature Garden is an opinionated, tree-based, modular architecture for structuring front-end applications.
+Feature Garden is an opinionated, tree-based, modular architecture for structuring front-end applications around local reasoning.
 
 - [What problem does this solve?](#what-problem-does-this-solve)
 - [What is Feature Garden?](#what-is-feature-garden)
@@ -33,7 +33,7 @@ Large-scale solutions such as monorepos or microfrontends can address the proble
 
 Feature Garden is an opinionated, modular architecture inspired by feature-based design, components, and nature.
 
-Its main goal is to enable local reasoning for both humans and AI agents. Feature Garden achieves this by recursively decomposing features inward and strictly isolating parent features from their child features. As a result, the folder structure clearly reflects high-level dependency relationships between modules.
+Its main goal is to enable local reasoning, allowing both humans and AI agents to make safe changes with limited context. Feature Garden achieves this by recursively decomposing features inward and strictly isolating parent features from their child features. As a result, the folder structure clearly reflects high-level dependency relationships between modules.
 
 ## Why use Feature Garden?
 
@@ -44,7 +44,7 @@ It does not require a large codebase to be useful. It starts paying off as soon 
 The main benefits are:
 
 - **Modularity** — isolated features, low coupling, and local reasoning
-- **Predictability** — module relationships follow the project structure
+- **Predictability** — you can infer allowed dependencies from the folder structure without reading imports
 - **Natural scalability** — features can grow without becoming large flat folders
 - **Encapsulation** — feature internals stay private behind explicit public APIs
 - **Executable architecture** — rules are encoded in tooling to guide developers and AI coding agents alike
@@ -108,7 +108,7 @@ The project demonstrates:
 - Layer separation (**libs**, **features**, **app**)
 - Strict import boundaries enforced with ESLint
 - Nested feature composition
-- Practical usage of shared feature
+- Practical usage of shared features
 
 It is a small but complete application that can serve as a reference implementation.
 

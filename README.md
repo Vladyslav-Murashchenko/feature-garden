@@ -33,7 +33,7 @@ Large-scale solutions such as monorepos or microfrontends can address the proble
 
 Feature Garden is an opinionated, modular architecture inspired by feature-based design, components, and nature.
 
-Its main goal is to enable local reasoning for both humans and AI agents. Feature Garden achieves this by recursively decomposing features inward and strictly isolating parent features from their child features. As a result, the folder structure clearly reflects the dependency relationships between modules.
+Its main goal is to enable local reasoning for both humans and AI agents. Feature Garden achieves this by recursively decomposing features inward and strictly isolating parent features from their child features. As a result, the folder structure clearly reflects high-level dependency relationships between modules.
 
 ## Why use Feature Garden?
 

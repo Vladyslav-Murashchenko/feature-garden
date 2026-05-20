@@ -78,6 +78,14 @@ export default defineConfig([
                 },
               },
             },
+            {
+              disallow: {
+                to: {
+                  type: ["lib-*"],
+                  internalPath: "_*",
+                },
+              },
+            },
             { allow: { to: { origin: "external" } } },
           ],
         },

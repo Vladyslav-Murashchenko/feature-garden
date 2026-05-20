@@ -2,7 +2,7 @@
 
 This guide focuses on the practical side of Feature Garden. It helps you make decisions throughout the entire project lifecycle — from initial setup to long-term evolution.
 
-I recommend reading [Feature Garden Core](https://github.com/Vladyslav-Murashchenko/feature-garden/blob/main/docs/core.md) before this guide. 
+I recommend reading [Feature Garden Core](./core.md) before this guide.
 
 **Initial setup:**
 - [How to start a new project?](#how-to-start-a-new-project)
@@ -17,6 +17,7 @@ I recommend reading [Feature Garden Core](https://github.com/Vladyslav-Murashche
 - [What belongs in the app layer?](#what-belongs-in-the-app-layer)
 - [How to reuse code?](#how-to-reuse-code)
 - [When to create a shared feature?](#when-to-create-a-shared-feature)
+- [How to hide library internals?](#how-to-hide-library-internals)
 - [How to manage state?](#how-to-manage-state)
 - [How to test the codebase?](#how-to-test-the-codebase)
 - [How to combine Feature Garden with other architectural approaches?](#how-to-combine-feature-garden-with-other-architectural-approaches)
@@ -520,6 +521,23 @@ In the example, both `CreateInterval` and `EditInterval` use the `interval-form`
 If these two components were extracted into separate nested features, this reuse would require a shared feature. However, this separation is unlikely to be useful, because both components are just variants of `IntervalForm`.
 
 This is another reason why I recommend postponing nested feature extraction until there are more than 5 modules inside a feature.
+
+## How to hide library internals?
+
+By default, Feature Garden treats all modules inside a library as public. Since libraries typically contain many modules, requiring a barrel file for every library would create unnecessary bureaucracy.
+
+However, sometimes you need to hide certain modules behind a library's boundary to achieve the desired encapsulation. For example, a database client or an internal utility that should only be used within the library itself.
+
+The Feature Garden [ESLint config](../skills/feature-garden/assets/eslint.config.js) contains a rule that makes modules private to the library. Add a `_` prefix to the module name, and it becomes inaccessible from outside the library:
+
+```
+libs/api/
+├── tasks.ts          # public — can be imported by features
+├── projects.ts       # public — can be imported by features
+└── _db.ts            # private — only accessible within libs/api
+```
+
+Any import of a `_`-prefixed module from outside the library will trigger an ESLint error.
 
 ## How to manage state?
 

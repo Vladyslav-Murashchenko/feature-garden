@@ -56,6 +56,8 @@ When a new version is merged into this repository, update your skills by running
 npx skills update feature-garden
 ```
 
+You can also run [set up the project](#set-up-the-project) in order to apply new ESLint config updates.
+
 ## Set up the project
 
 The prompt for new and existing projects is the same:

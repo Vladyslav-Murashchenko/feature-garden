@@ -27,7 +27,7 @@ Even without cycles, there are 29,281 possible dependency graphs among just 5 mo
 Structural complexity also makes it easier for other forms of complexity and coupling to creep into the codebase.
 
 Existing approaches often optimize either for early development speed or for scalability, but struggle to provide a clear growth path from zero to complexity.
-Large-scale solutions often sacrifice simplicity (KISS) and pragmatism (YAGNI) in favor of strict rules and structure. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.
+Large-scale solutions such as monorepos or microfrontends can address the problem at the system level, but it often remains within individual repositories or microfrontends. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.
 
 ## What is Feature Garden?
 Feature Garden is an opinionated, modular architecture inspired by the feature-based approach, components, and nature.

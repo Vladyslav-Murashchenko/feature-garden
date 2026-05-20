@@ -39,11 +39,13 @@ export default defineConfig({
 
 - **New project:** No application code exists yet (greenfield or only scaffolding).
 - **Existing project:** Application code already exists that was written without Feature Garden.
+- **Existing Feature Garden project:** Application code already follows Feature Garden structure but ESLint enforcement needs to be updated or verified.
 
 ### Copy or Patch
 
 - **IF** no ESLint config exists → copy the reference config as-is.
 - **IF** ESLint config already exists → patch it minimally to achieve the same boundary rules. Do not rewrite unrelated settings.
+- **IF** Existing Feature Garden project → go through every rule in `boundaries/dependencies` in the reference config and ensure each one is present in the project's config. Add any missing rules.
 - **IF** use eslint-plugin-import-x, use it explicitly as in reference config.
 - **IF** the framework requires additional ESLint parsers or framework-specific configuration (e.g. `vue-eslint-parser` for Vue), install and configure them.
 

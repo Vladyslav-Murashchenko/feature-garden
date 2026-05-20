@@ -30,8 +30,10 @@ Existing approaches often optimize either for early development speed or for sca
 Large-scale solutions such as monorepos or microfrontends can address the problem at the system level, but it often remains within individual repositories or microfrontends. A feature-based approach is a good starting point, but it does not enforce architectural boundaries and leaves many important questions unanswered.
 
 ## What is Feature Garden?
-Feature Garden is an opinionated, modular architecture inspired by the feature-based approach, components, and nature.
-It is designed to scale naturally from a single feature to a complex system, just like a garden grows from a small tree. Feature Garden is conducive to SoC, low coupling, high cohesion, KISS, DRY, YAGNI, and local reasoning.
+
+Feature Garden is an opinionated, modular architecture inspired by feature-based design, components, and nature.
+
+Its main goal is to enable local reasoning for both humans and AI agents. Feature Garden achieves this by recursively decomposing features inward and strictly isolating parent features from their child features. As a result, the folder structure clearly reflects the dependency relationships between modules.
 
 ## Why use Feature Garden?
 

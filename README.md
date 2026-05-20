@@ -22,7 +22,7 @@ One of the main problems in modern application development is controlling struct
 
 Structural complexity is the number and direction of relationships between modules, and the difficulty of predicting those relationships from the project structure.
 
-Even without cycles, there are 29,281 possible dependency graphs among just 5 modules. So, to understand how modules are related, we often have to dive into the details. For 5 modules, this is manageable. But as the number of modules grows, it becomes much harder to keep the whole structure in mind. For developers, this slows down development because more mental effort is needed to understand the structure. For AI, more context has to be devoted to reconstructing that structure rather than solving the actual task.
+Even without cycles, there are 29,281 possible dependency graphs among just 5 modules. So, to understand how modules are related, we often have to dive into the details. For 5 modules, this is manageable. But as the number of modules grows, it becomes much harder to keep the whole structure in mind. For developers, this slows down development because more mental effort is needed to understand the structure. For AI, more context has to be devoted to recognizing that structure rather than solving the actual task.
 
 Structural complexity also makes it easier for other forms of complexity and coupling to creep into the codebase.
 

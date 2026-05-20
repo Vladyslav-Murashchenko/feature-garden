@@ -528,7 +528,7 @@ By default, Feature Garden treats all modules inside a library as public. Since 
 
 However, sometimes you need to hide certain modules behind a library's boundary to achieve the desired encapsulation. For example, a database client or an internal utility should only be used within the library itself.
 
-The Feature Garden ESLint config includes a rule [a rule](../skills/feature-garden/assets/eslint.config.js#L82) that makes modules private to the library. Add a `_` prefix to the module name, and it becomes inaccessible from outside the library:
+The Feature Garden ESLint config includes [a rule](../skills/feature-garden/assets/eslint.config.js#L82) that makes modules private to the library. Add a `_` prefix to the module name, and it becomes inaccessible from outside the library:
 
 ```
 libs/api/

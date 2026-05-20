@@ -44,7 +44,7 @@ It does not require a large codebase to be useful. It starts paying off as soon 
 The main benefits are:
 
 - **Modularity** — isolated features, low coupling, and local reasoning
-- **Predictability** — you can infer allowed dependencies from the folder structure without reading imports
+- **Predictability** — infer allowed dependencies from the folder structure without reading imports
 - **Natural scalability** — features can grow without becoming large flat folders
 - **Encapsulation** — internals remain private and are exposed only through explicit public APIs
 - **Executable architecture** — rules are encoded in tooling to guide developers and AI coding agents alike

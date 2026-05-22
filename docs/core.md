@@ -33,7 +33,7 @@ Libraries provide reusable building blocks and are the primary mechanism for sha
 
 Each library represents a clear application concern, such as UI, API, or domain.
 
-They also encapsulate implementation details, such as external libraries, infrastructure-specific logic, or domain knowledge, hiding them from the rest of the application by acting as facades or adapters.
+They encapsulate implementation details, such as external libraries, infrastructure-specific logic, or domain knowledge, hiding them from the rest of the application by acting as facades or adapters.
 
 Libraries are typically independent and unaware of each other.
 However, dependencies between libraries are allowed.

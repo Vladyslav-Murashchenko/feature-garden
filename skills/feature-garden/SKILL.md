@@ -4,8 +4,8 @@ description: >
   Feature Garden architecture for frontend projects. Use when: organizing folder structure,
   deciding where a module should live, creating or nesting features, extracting shared features,
   creating or structuring libraries, setting up ESLint boundary enforcement (no-cycle, boundaries plugin,
-  no-restricted-imports), initializing a new project with Feature Garden, or migrating legacy modules.
-  Covers: layers (libs/features/app), import rules, code reuse strategy.
+  no-restricted-imports), initializing a new project with Feature Garden, migrating legacy modules, helping AI agents work with limited context using Feature Garden boundaries.
+  Covers: layers (libs/features/app), import rules, code reuse strategy, AI context selection.
 ---
 
 # Feature Garden Architecture Skill
@@ -39,6 +39,18 @@ These two rules create symmetric isolation and enable the tree structure.
     ├── features/           # Root features (used only by app layer)
     ├── shared-features/    # Cross-feature reuse (used by any feature)
     └── libs/               # Project-specific libraries
+
+## Boundary-aware Context Selection
+
+Use Feature Garden boundaries to choose the smallest useful context.
+
+Start with the direct feature folder of the target file. Read the files directly relevant to the task.
+
+Do not expand context mechanically through imports. Treat nested features and libraries as external boundaries unless the task explicitly targets them.
+
+Read child internals only when modifying that child feature. Read parent code only when composition context is needed. Read libraries only when their public API or rules are involved.
+
+Prefer changes that stay within one feature folder. Expand context incrementally, only when the current boundary is not enough to complete the task.
 
 ## References
 

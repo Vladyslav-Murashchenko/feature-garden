@@ -29,8 +29,9 @@ The application consists of three layers:
 - **App** — composes the application
 
 ### Libraries
-Libraries provide low-level building blocks and serve as the primary mechanism for code reuse.
-They can also encapsulate implementation details, such as external libraries, and hide them from the rest of the application.
+Libraries provide reusable building blocks and are the primary mechanism for sharing code across features.
+
+They can also encapsulate implementation details, such as external libraries or infrastructure-specific logic, hiding them from the rest of the application by acting as facades or adapters.
 
 Libraries are typically independent and unaware of each other.
 However, dependencies between libraries are allowed.

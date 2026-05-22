@@ -31,6 +31,8 @@ The application consists of three layers:
 ### Libraries
 Libraries provide reusable building blocks and are the primary mechanism for sharing code across features.
 
+Each library represents a clear application concern, such as UI, API, or domain.
+
 They can also encapsulate implementation details, such as external libraries or infrastructure-specific logic, hiding them from the rest of the application by acting as facades or adapters.
 
 Libraries are typically independent and unaware of each other.

@@ -55,7 +55,7 @@ Module dependencies must form a directed acyclic graph (no circular dependencies
 
 The app has three layers:
 
-- **libs** — collections of modules grouped by a single responsibility. Provide reusability.
+- **libs** — collections of modules organized around clear concerns. Provide reusability.
 - **features** — modules represented as folders that contain other modules. Features form tree-like structures. Helps control complexity.
 - **app** — composes features into the final application and implements routing according to the chosen framework.
 

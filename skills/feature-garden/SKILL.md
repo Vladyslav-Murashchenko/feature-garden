@@ -14,7 +14,7 @@ description: >
 
 ## Layers
 
-- `libs` — low-level reusable building blocks.
+- `libs` — collections of reusable building blocks.
 - `features` — cohesive modules that form tree-like structures. Private by default, public via `index.ts`.
 - `app` — composes features into the final application. Not a strict folder name — use whatever routing/composition folder the framework provides.
 
@@ -44,13 +44,19 @@ These two rules create symmetric isolation and enable the tree structure.
 
 Use Feature Garden boundaries to choose the smallest useful context.
 
-Start with the direct feature folder of the target file. Read the files directly relevant to the task.
+First classify the target file's current boundary: app/legacy code, root feature, nested feature, shared feature, or library.
 
-Do not expand context mechanically through imports. Treat nested features and libraries as external boundaries unless the task explicitly targets them.
+If the target is inside a feature, start with that feature folder and read the files directly relevant to the task. Treat nested features and libraries as external boundaries unless the task explicitly targets them.
 
-Read child internals only when modifying that child feature. Read parent code only when composition context is needed. Read libraries only when their public API or rules are involved.
+If the target is app/legacy code, start with the local route/composition area and the public APIs it consumes. For migration work, inspect both the current legacy module and the intended Feature Garden destination before deciding what context to expand.
 
-Prefer changes that stay within one feature folder. Expand context incrementally, only when the current boundary is not enough to complete the task.
+If the target is a library, start with that library's public API, implementation files relevant to the task, and its rules in `feature-garden.config.yaml`. Read consuming features only when usage context is needed to preserve behavior.
+
+If the target is a shared feature, treat it like a feature that may have multiple consumers. Start with the shared feature's public API and relevant internals, then inspect consumers only when changing its contract.
+
+Do not expand context mechanically through imports. Read child internals only when modifying that child feature. Read parent code only when composition context is needed. Read libraries only when their public API, implementation, or rules are involved.
+
+Prefer changes that stay within one boundary. Expand context incrementally, only when the current boundary is not enough to complete the task.
 
 ## References
 

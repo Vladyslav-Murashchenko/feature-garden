@@ -34,16 +34,14 @@ Allowed dependencies:
 
 - `app -> regular features`
 - `regular features -> shared features`
-- `regular features -> libs`
-- `shared features -> libs`
+- `features -> libs`
 
 Disallowed dependencies:
 
 - `libs -> features`
 - `libs -> app`
 - `shared features -> regular features`
-- `shared features -> app`
-- `regular features -> app`
+- `features -> app`
 
 Additional rules:
 
@@ -56,11 +54,13 @@ Additional rules:
 
 ## Folder Structure
 
+```
 src/
 ├── features/ # regular features
 ├── shared-features/ # shared features
 ├── libs/ # libs layer
 └── ... # app layer
+```
 
 ## Requested Change Boundary Classification
 

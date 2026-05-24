@@ -32,11 +32,11 @@ Overusing shared features leads to complex and fragile dependency structures.
 
 ## Reuse Within a Single Feature
 
-If reuse happens only within a single parent feature, do not create a shared feature.
+If reuse happens only inside one parent feature, do not create a shared feature.
 
-Keep the reusable code inside that parent feature:
-- As a shared module, if it is just implementation code
-- As a nested feature, if it represents a cohesive feature-level capability
+Keep the code inside that parent feature:
+- as a plain module, for implementation reuse
+- as a nested feature, for a cohesive feature-level capability
 
 ## Key Heuristics For Reuse
 

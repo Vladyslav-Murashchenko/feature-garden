@@ -40,7 +40,7 @@ However, dependencies between libraries are allowed.
 
 ### Features
 
-All folders at any depth inside the features layer are features. Technical folders are not allowed.
+All folders at any depth inside the features layer are features. Technical folders like `ui`, `api`, or `model` are not allowed.
 
 Features are the main mechanism for managing structural complexity.
 They compose library modules into cohesive architectural modules.

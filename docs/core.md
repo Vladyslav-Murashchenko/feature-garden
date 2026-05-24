@@ -46,7 +46,7 @@ Features are the main mechanism for managing structural complexity.
 They compose library modules into cohesive architectural modules.
 Root-level features typically represent user-facing capabilities.
 Modules inside a feature are private by default and become public only through the feature’s public entry point (`index.ts`).
-Features can be nested, forming a tree structure that helps manage complexity.
+Features can be nested, forming a [Feature Tree](#feature-tree) that helps manage complexity.
 
 The features layer consists of two folders: `features` and `shared-features`.
 The difference lies in how root-level features are used:

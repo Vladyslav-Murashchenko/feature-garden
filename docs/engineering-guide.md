@@ -376,7 +376,7 @@ graph TD
     C -->|No| D[Keep it within the current feature]
     C -->|Yes| E{Does it represent a single, well-defined concern?}
 
-    E -->|Yes| F[Suggest creating a new library]
+    E -->|Yes| F[Consider creating a new library]
     E -->|No| G{Are you sure this reuse does not violate SRP?}
 
     G -->|No| H[Do not reuse — keep it in the feature and accept duplication]

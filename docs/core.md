@@ -111,6 +111,7 @@ graph LR
     features --> libs
     app --> features
 ```
+- Dependencies between libraries must be explicit
 - The features layer contains both features and shared features, and follows the dependency rule below
 ```mermaid
 graph LR
@@ -119,7 +120,6 @@ graph LR
 
     features --> sharedFeatures
 ```
-- Dependencies between libraries must be explicit
 - Folders at any depth inside the features layer are features. Technical folders are not allowed.
 - Modules inside a feature cannot import from the parent feature: `..**` is restricted.
 - Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.

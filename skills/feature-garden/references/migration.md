@@ -19,25 +19,30 @@ Create the smallest migration plan that makes the affected modules fit Feature G
 2. Identify the minimal set of modules that must move together to satisfy Feature Garden dependency rules.
 3. Strictly apply [Module Placement](./module-placement.md) to choose the destination for each module.
 4. Check whether any destination requires a new library. If so, include the suggested library in the plan.
-5. Verify the proposed structure and imports against [SKILL.md](../SKILL.md), including layer dependency direction, feature privacy, and library rules from `feature-garden.config.yaml`.
+5. Run the Mandatory Plan Gate below. If any check fails, revise the plan and run the gate again.
 6. Present the plan to the user and wait for explicit permission before migrating.
 
-The plan must include:
+### Mandatory Plan Gate
 
-- Suggested new libraries, if any.
+Do not present a migration plan until all checks pass:
+
+- The plan fits [Feature Garden rules](../SKILL.md#rules-of-feature-garden).
+- The plan strictly follows [Module Placement](./module-placement.md).
+- Every proposed moved module has a placement reason.
+- Every required import update is accounted for.
+- Any required new library is explicitly listed, or the plan says no new libraries are needed.
+
+### The plan must include:
+
 - Current module path for each moved module.
 - Future module path for each moved module.
-- Module Placement reason for each moved module.
-- Import updates required after the move.
-- Any Feature Garden rule that affects the placement decision.
+- A short `Mandatory Plan Gate` result confirming the checks passed, or explaining what was revised before presentation.
 
 Prefer a table for module moves:
 
 | Current path | Future path        | Reason                |
 | ------------ | ------------------ | --------------------- |
 | `src/...`    | `src/features/...` | Fits feature boundary |
-
-If the plan does not fit Feature Garden rules or [Module Placement](./module-placement.md), revise it before presenting it.
 
 ## Actual Migration Phase
 

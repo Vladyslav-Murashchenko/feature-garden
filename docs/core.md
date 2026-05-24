@@ -60,8 +60,9 @@ Shared features are not the primary mechanism for structuring an application.
 They represent a deliberate trade-off, used only when avoiding duplication (DRY) is more important than preserving strict architectural isolation.
 
 ### App
-The App layer is responsible for composing features into the final application.
-Composition should follow the framework’s conventions and mechanisms.
+The App layer is responsible for composing features into the final application. Composition should follow the framework’s conventions and mechanisms.
+
+This layer is also responsible for injecting application-wide dependencies, such as providers, configuration, adapters, stores, clients, and other global setups.
 
 ## Feature Tree
 

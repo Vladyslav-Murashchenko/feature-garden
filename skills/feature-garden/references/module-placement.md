@@ -26,13 +26,17 @@ Before deciding, read `feature-garden.config.yaml` and [Libraries](./libraries.m
 
 Libraries are the primary reuse mechanism. They encapsulate a single concern (e.g., domain logic, data access, UI primitives).
 
-Shared features are for code that already depends on multiple libraries (e.g., a composition of UI + API). They are a deliberate trade-off — use only when you are confident the module has a single reason to change.
+Shared features are for code that already depends on multiple libraries (e.g., a UI + API composition). They are a deliberate trade-off — use only when you are confident the module has a single reason to change.
 
 Overusing shared features leads to complex and fragile dependency structures.
 
 ## Reuse Within a Single Feature
 
-If reuse happens only within the scope of one feature (e.g., two sibling modules importing the same helper), a shared feature is not needed. Just keep the shared module in the common parent feature.
+If reuse happens only within a single parent feature, do not create a shared feature.
+
+Keep the reusable code inside that parent feature:
+- As a shared module, if it is just implementation code
+- As a nested feature, if it represents a cohesive feature-level capability
 
 ## Key Heuristics For Reuse
 

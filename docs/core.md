@@ -39,6 +39,9 @@ Libraries are typically independent and unaware of each other.
 However, dependencies between libraries are allowed.
 
 ### Features
+
+All folders at any depth inside the features layer are features. Technical folders are not allowed.
+
 Features are the main mechanism for managing structural complexity.
 They compose library modules into cohesive architectural modules.
 Root-level features typically represent user-facing capabilities.
@@ -108,6 +111,7 @@ graph LR
     app --> features
 ```
 - Dependencies between libraries must be explicit
+- Folders at any depth inside the features layer are features. Technical folders are not allowed.
 - Modules inside a feature cannot import from the parent feature: `..**` is restricted.
 - Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.
 - All rules must be enforced by tooling (ESLint or equivalent)

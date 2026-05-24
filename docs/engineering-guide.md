@@ -361,21 +361,26 @@ In the example above, both `interval-forms` and `interval-form` contain only 2 m
 
 ## Where should this module live?
 
-Use the decision tree below to decide where a module should live.
+A module can often reasonably live in several different places. The choice is acceptable as long as the architectural boundaries are preserved.
+
+If you are unsure, use the decision tree below to decide where the module should live.
 
 **Figure 1. Module placement decision flow**
 ```mermaid
 graph TD
-    A{Should this module be reusable across the application?}
+    A{Does it represent a well-defined concern that already has a matching library?}
 
-    A -->|No| B[Keep within the feature]
-    A -->|Yes| C{Does it represent a single, well-defined concern?}
+    A -->|Yes| B[Put it into that library]
+    A -->|No| C{Should this module be reusable across features?}
 
-    C -->|No| E{Are you sure this reuse does not violate SRP?}
-    C -->|Yes| D[Put into a dedicated library]
+    C -->|No| D[Keep it within the current feature]
+    C -->|Yes| E{Does it represent a single, well-defined concern?}
 
-    E -->|No| F[Do not reuse — keep it in the feature]
-    E -->|Yes| G[Reuse via a shared feature]
+    E -->|Yes| F[Suggest creating a new library]
+    E -->|No| G{Are you sure this reuse does not violate SRP?}
+
+    G -->|No| H[Do not reuse — keep it in the feature and accept duplication]
+    G -->|Yes| I[Reuse via a shared feature]
 ```
 
 ## What belongs in the app layer?

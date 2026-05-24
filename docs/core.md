@@ -114,7 +114,7 @@ graph LR
 - The features layer contains both features and shared features and follows this dependency rule:
 ```mermaid
 graph LR
-    features["regular features"]
+    features["features"]
     sharedFeatures["shared features"]
 
     features --> sharedFeatures

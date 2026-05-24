@@ -2,20 +2,13 @@
 
 ## Purpose
 
-Libraries provide low-level building blocks and serve as the primary mechanism for code reuse across features.
-They can also encapsulate implementation details (such as external dependencies) and hide them from the rest of the application.
+Libraries provide reusable building blocks and are the primary mechanism for sharing code across features.
 
-## When to Create a Library
+Each library represents a clear application concern, such as UI, API, or domain.
 
-Before creating a new library, check whether the module fits into an existing one.
-Libraries should have a clear, single responsibility — if the module aligns with an existing library's concern, place it there.
+They encapsulate implementation details, such as external libraries, infrastructure-specific logic, or domain knowledge, hiding them from the rest of the application by acting as facades or adapters.
 
-Create a new library only when:
-- The module needs to be reused across features
-- It represents a well-defined concern that doesn't belong to any existing library
-- It would violate an existing library's single responsibility to include it
-
-Avoid generic libraries like `utils`, `helpers`, `components`, or `hooks` — they accumulate unrelated responsibilities over time.
+Libraries are typically independent and unaware of each other. However, dependencies between libraries are allowed. Use the project's ESLint config as the source of truth for allowed library dependencies.
 
 ## Structuring a Library
 
@@ -24,27 +17,32 @@ Each slice should have a clear responsibility — typically aligned with domain 
 
 Slices do not need to be consistent across libraries — each library uses a strategy that fits its purpose.
 
-## Dependencies Between Libraries
+Libraries do not have `index.ts` files. All modules in a library are public by default, unless they are explicitly marked private.
 
-Libraries are typically independent and unaware of each other.
-However, explicit dependencies between libraries are allowed when necessary (e.g., api → domain).
+## Hiding Details
 
-Define inter-library dependency directions explicitly and enforce them via ESLint.
-See [Enforcement (ESLint)](./enforcement-eslint.md).
+To make a module private inside a library, prefix the file name with `_`, for example `_db.ts`.
+
+To make an external library private inside a library, use [Hide External Dependency](./hide-external-dependency.md).
 
 ## Adding a New Library
 
-1. Create a folder under `libs/` with a clear, responsibility-based name
+Before creating a new library, ask the user:
+
+- What is the library name?
+- What is the intent of the library?
+- What can the library do?
+- What cannot the library do?
+- Do you want to hide external dependencies behind this library?
+
+1. Create a folder under `libs/` with a library name
 2. Document it in `feature-garden.config.yaml`
 3. Update the ESLint config:
    1. Add a `boundaries/elements` entry with pattern `src/libs/<name>`.
    2. In `boundaries/dependencies`, allow `feature` and `shared-feature` to import it.
    3. IF other libraries depend on it, add allow rules for those too.
-   4. IF it has private internals, add a `_internal` disallow rule (Step 3).
-   5. IF it wraps external packages, add disallow/allow rules (Step 4).
+   4. IF it wraps external packages, add disallow/allow rules. See [Hide External Dependency](./hide-external-dependency.md).
 
 ## Project-Specific Libraries
 
 See `feature-garden.config.yaml` in the project root for this project's concrete libraries.
-
-

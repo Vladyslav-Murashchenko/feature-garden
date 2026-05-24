@@ -111,7 +111,7 @@ graph LR
     features --> libs
     app --> features
 ```
-- The features layer contains both features and shared features and follows this dependency rule:
+- The features layer contains both features and shared features, and follows the dependency rule below
 ```mermaid
 graph LR
     features["features"]

@@ -105,21 +105,19 @@ These advantages are powerful, but trees are not universal enough to represent t
 ```mermaid
 graph LR
     libs["libs"]
-    features["features"]
     app["app"]
 
-    features --> libs
-    app --> features
+    subgraph featuresLayer["features layer"]
+        regularFeatures["regular features"]
+        sharedFeatures["shared features"]
+    end
+
+    sharedFeatures --> libs
+    regularFeatures --> sharedFeatures
+    regularFeatures --> libs
+    app --> regularFeatures
 ```
 - Dependencies between libraries must be explicit
-- The features layer contains both features and shared features, and follows the dependency rule below
-```mermaid
-graph LR
-    features["features"]
-    sharedFeatures["shared features"]
-
-    features --> sharedFeatures
-```
 - Folders at any depth inside the features layer are features. Technical folders are not allowed.
 - Modules inside a feature cannot import from the parent feature: `..**` is restricted.
 - Modules inside a feature cannot import private modules from nested features: `./*/**` is restricted.

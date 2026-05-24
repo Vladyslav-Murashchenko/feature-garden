@@ -235,7 +235,8 @@ Read more about when and how to create a nested feature [in the next section](#w
 
 ### The number of modules within libraries
 To prevent libraries from becoming messy and hard to navigate, split them into vertical slices.
-Each slice should have a clear responsibility. A common heuristic is to align slices with domain entities or use cases.
+
+Each slice should represent a clear concern. A common heuristic is to align slices with domain entities, use cases, product areas, or stable business ownership boundaries.
 
 Note that slices do not need to be consistent across different libraries — each library should use a slicing strategy that best fits its purpose.
 

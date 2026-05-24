@@ -30,10 +30,6 @@ Shared features are for code that already depends on multiple libraries (e.g., a
 
 Overusing shared features leads to complex and fragile dependency structures.
 
-## Within a Feature
-
-Keep all modules directly in the feature folder — no additional segmentation by type (no `hooks/`, `components/`, `utils/` subfolders).
-
 ## Reuse Within a Single Feature
 
 If reuse happens only within the scope of one feature (e.g., two sibling modules importing the same helper), a shared feature is not needed. Just keep the shared module in the common parent feature.

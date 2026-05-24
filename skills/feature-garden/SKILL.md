@@ -105,11 +105,12 @@ If the user chooses to implement the functionality inside Feature Garden, inspec
 
 ## References
 
-Read the relevant reference when the task matches:
+Read only the reference files that match the current task:
 
-- [Module Placement](./references/module-placement.md) — deciding where a new module should live: 3-step decision flow (reusable? single concern? SRP-safe?), libraries vs shared features, no segmentation by type inside a feature, key heuristics for quick decisions.
-- [Nested Features](./references/nested-features.md) — when to extract (>`nestedFeatureThreshold` modules), how to extract, how to count modules (nested features don't count), naming heuristic, avoiding premature extraction, full example.
-- [Libraries](./references/libraries.md) — purpose of libraries, how to create a new one, vertical slicing, hiding detail behind libraries (external libraries, private modules), link to project-specific library list.
-- [Enforcement (ESLint)](./references/enforcement-eslint.md) — `@` path alias, `import/no-cycle`, `eslint-plugin-boundaries` config for layers, `no-restricted-imports` for feature isolation, optional `_internal/` scopes, hiding external dependencies behind libraries, checklist for adding a new library.
-- [Project Setup](./references/project-setup.md) — 5-step setup: create folders, choose initial libraries, create `feature-garden.config.yaml`, set up enforcement, link Feature Garden in README.
-- [Migration](./references/migration.md) — per-module migration strategy for legacy codebases: one-way boundary rule, migration flow, and incremental large-feature migration.
+- [Module Placement](./references/module-placement.md) — deciding where new or moved code belongs; library vs local feature vs shared feature.
+- [Nested Features](./references/nested-features.md) — extracting child features; `nestedFeatureThreshold`; module counting; naming; avoiding premature extraction.
+- [Libraries](./references/libraries.md) — creating or changing libraries; vertical slices; public/private library modules; `feature-garden.config.yaml`; library ESLint rules.
+- [Hide External Dependency](./references/hide-external-dependency.md) — restricting an external package so only one owning library can import it.
+- [Enforcement (ESLint)](./references/enforcement-eslint.md) — setting up, auditing, or patching `@/`, `boundaries`, no-cycle, import restrictions, and boundary tests.
+- [Project Setup](./references/project-setup.md) — applying Feature Garden to a project for the first time.
+- [Migration](./references/migration.md) — moving legacy or misplaced modules into Feature Garden; planning gate; migration steps and avoid rules.

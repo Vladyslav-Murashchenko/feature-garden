@@ -82,7 +82,7 @@ If the target is inside a feature, start with that feature folder and read the f
 
 If the target is app/legacy code, start with the local route/composition area and the public APIs it consumes. For migration work, inspect both the current legacy module and the intended Feature Garden destination before deciding what context to expand.
 
-If the target is a library, start with that library's public API, implementation files relevant to the task, and its rules in `feature-garden.config.yaml`. Read consuming features only when usage context is needed to preserve behavior.
+If the target is a library, start with that library's implementation files relevant to the task, and its rules in `feature-garden.config.yaml`. Read consuming features only when usage context is needed to preserve behavior.
 
 If the target is a shared feature, treat it like a feature that may have multiple consumers. Start with the shared feature's public API and relevant internals, then inspect consumers only when changing its contract.
 
@@ -101,7 +101,7 @@ Treat this as a mandatory gate before editing legacy code:
    - implement the functionality inside Feature Garden.
    - make the legacy edit anyway.
 
-If the user chooses to implement the functionality inside Feature Garden, inspect the smallest relevant legacy surface and present a detailed per-module migration plan for the requested feature. Do not implement or migrate anything until the user explicitly approves that plan.
+If the user chooses Feature Garden implementation, do not start the new functionality yet. First migrate only the smallest legacy surface required for the request by following [Migration](./references/migration.md): plan the migration, wait for approval, perform only the approved migration, then stop. After migration is complete, ask the user to confirm starting the new implementation as a separate task.
 
 ## References
 

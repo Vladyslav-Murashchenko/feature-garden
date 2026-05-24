@@ -13,7 +13,7 @@ Feature Garden is an opinionated, tree-based, modular architectural methodology 
 - **Architectural module** — an independent structural unit of the system that encapsulates functionality behind a public interface
 - **Module** — an architectural module implemented as a single file
 - **Feature** — an architectural module implemented as a folder that organizes modules and nested features
-- **Library** — a collection of modules grouped around a single responsibility
+- **Library** — a collection of modules grouped around a single concern
 - **External library** — package installed via a package manager like npm
 - **Directed acyclic graph (DAG)** — a graph where modules are connected by directional dependencies, and following those dependencies can never lead back to the same module
 

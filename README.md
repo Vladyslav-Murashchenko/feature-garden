@@ -10,7 +10,7 @@ Feature Garden is an opinionated, tree-based, modular architecture for structuri
 - [Core principles](#core-principles)
 - [Reference implementation](#reference-implementation)
 - [Why “Garden”?](#why-garden)
-- [Read next](#read-next)
+- [Documentation](#documentation)
   - [Feature Garden Core](./docs/core.md)
   - [Engineering Guide](./docs/engineering-guide.md)
   - [AI Assisted Coding Guide](./docs/ai-assisted-coding-guide.md)
@@ -112,7 +112,7 @@ An interesting property of plants is that a branch can be cut off and grown as a
 Feature Garden follows the same principle: nested features are independent of their parents and can be extracted to reuse elsewhere.
 This is only possible when dependency rules are strictly enforced.
 
-## Read next
+## Documentation
 
 - [Feature Garden Core](./docs/core.md) — understand the fundamental ideas behind the architecture.
 - [Engineering Guide](./docs/engineering-guide.md) — learn how to apply Feature Garden in real projects.

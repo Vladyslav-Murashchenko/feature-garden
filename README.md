@@ -5,11 +5,11 @@ Feature Garden is an opinionated, tree-based, modular architecture for structuri
 - [What problem does this solve?](#what-problem-does-this-solve)
 - [What is Feature Garden?](#what-is-feature-garden)
 - [Why use Feature Garden?](#why-use-feature-garden)
-- [Core principles](#core-principles)
 - [What is the difference with FSD?](#what-is-the-difference-with-fsd)
 - [Relationship with other architectural approaches](#relationship-with-other-architectural-approaches)
-- [Why “Garden”?](#why-garden)
+- [Core principles](#core-principles)
 - [Reference implementation](#reference-implementation)
+- [Why “Garden”?](#why-garden)
 - [Read next](#read-next)
   - [Feature Garden Core](./docs/core.md)
   - [Engineering Guide](./docs/engineering-guide.md)
@@ -49,18 +49,6 @@ The main benefits are:
 - **Encapsulation** — internals remain private and are exposed only through explicit public APIs
 - **Executable architecture** — rules are encoded in tooling to guide developers and AI coding agents alike
 
-## Core principles
-
-Module dependencies must form a directed acyclic graph (no circular dependencies).
-
-The app has three layers:
-
-- **libs** — collections of modules organized around clear concerns. Provide reusability.
-- **features** — modules represented as folders that contain other modules. Features form tree-like structures. Helps control complexity.
-- **app** — composes features into the final application and implements routing according to the chosen framework.
-
-Read more about [Feature Garden Core](./docs/core.md) principles.
-
 ## What is the difference with FSD?
 
 [Feature-Sliced Design (FSD)](https://fsd.how/) is a popular architectural methodology for structuring front-end applications.
@@ -74,6 +62,32 @@ The main distinction is that FSD breaks applications down into layers, slices, a
 Feature Garden follows the philosophy of doing one thing and doing it well. It focuses primarily on an application’s structural complexity, while leaving other types of complexity to complementary architectural approaches.
 
 Feature Garden does not replace Clean Architecture, Ports & Adapters, or DDD. Instead, it complements them well. Read more about combining Feature Garden with these approaches in the [Engineering Guide](./docs/engineering-guide.md#how-to-combine-feature-garden-with-other-architectural-approaches).
+
+## Core principles
+
+Module dependencies must form a directed acyclic graph (no circular dependencies).
+
+The app has three layers:
+
+- **libs** — collections of modules organized around clear concerns. Provide reusability.
+- **features** — modules represented as folders that contain other modules. Features form tree-like structures. Helps control complexity.
+- **app** — composes features into the final application and implements routing according to the chosen framework.
+
+Read more about [Feature Garden Core](./docs/core.md) principles.
+
+## Reference implementation
+
+A full working example built using Feature Garden is available here:
+
+https://github.com/Vladyslav-Murashchenko/productivity-up
+
+The project demonstrates:
+- Layer separation (**libs**, **features**, **app**)
+- Strict import boundaries enforced with ESLint
+- Nested feature composition
+- Practical usage of shared features
+
+It is a small but complete application that can serve as a reference implementation.
 
 ## Why “Garden”?
 
@@ -97,20 +111,6 @@ Vines are useful, but if the garden contains too many of them, it can turn into 
 An interesting property of plants is that a branch can be cut off and grown as a separate plant, or grafted onto another one.
 Feature Garden follows the same principle: nested features are independent of their parents and can be extracted to reuse elsewhere.
 This is only possible when dependency rules are strictly enforced.
-
-## Reference implementation
-
-A full working example built using Feature Garden is available here:
-
-https://github.com/Vladyslav-Murashchenko/productivity-up
-
-The project demonstrates:
-- Layer separation (**libs**, **features**, **app**)
-- Strict import boundaries enforced with ESLint
-- Nested feature composition
-- Practical usage of shared features
-
-It is a small but complete application that can serve as a reference implementation.
 
 ## Read next
 

@@ -29,11 +29,14 @@ The application consists of three layers:
 - **App** — composes the application
 
 ### Libraries
-Libraries provide reusable building blocks and are the primary mechanism for sharing code across features.
+
+Libraries serve two purposes:
+
+- **Reuse** — provide building blocks shared across features
+- **Encapsulation** — act as facades over external libraries, infrastructure,
+  or domain knowledge, hiding them from the rest of the application
 
 Each library represents a clear application concern, such as UI, API, or domain.
-
-They encapsulate implementation details, such as external libraries, infrastructure-specific logic, or domain knowledge, hiding them from the rest of the application by acting as facades or adapters.
 
 Libraries are typically independent and unaware of each other.
 However, dependencies between libraries are allowed.
